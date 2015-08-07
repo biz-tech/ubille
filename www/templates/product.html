@@ -1,0 +1,13 @@
+<ion-view title="About">
+	<ion-content>         
+		<div class="container" ng-controller="productCtrl">	
+			<div class="title">
+				<td>Product</td>
+			</div>	
+			<div ng-repeat="x in data">	
+			<!--<img class="productImage" id="{{x.product_no}}" src="http://crm.biztechus.com/{{x.path+x.attachmentsid+'_'+x.imagename}}"/>-->
+				<img class="productImage" id="{{x.product_no}}" src="http://172.20.10.205/vtigercrm/{{x.path+x.attachmentsid+'_'+x.imagename}}"/>
+			</div> 
+		</div>		
+    </ion-content>
+</ion-view>

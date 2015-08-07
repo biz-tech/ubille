@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+	<!--<script src="js/custom.js"</script>-->
+  </head>
+
+
+  <body ng-app="ionicApp">
+    
+    
+    <ion-side-menus>
+        
+        <ion-side-menu-content ng-controller="NavCtrl">
+          <ion-nav-bar class="bar-positive">
+            <ion-nav-back-button class="button-icon ion-arrow-left-c">
+            </ion-nav-back-button>
+          </ion-nav-bar>
+          <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
+            </button>
+          </ion-nav-buttons>
+          
+          <ion-nav-buttons side="right">
+            <button class="button button-icon button-clear ion-ios7-gear" ng-click="showRightMenu()">
+            </button>
+          </ion-nav-buttons>
+          <ion-nav-view animation="slide-left-right"></ion-nav-view>
+        </ion-side-menu-content> 
+        
+        <ion-side-menu side="left">
+          <ion-header-bar class="bar bar-header bar-assertive">
+            <h1 class="title">Left Menu</h1>
+          </ion-header-bar>
+          <ion-content has-header="true">
+            <ul class="list">
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/home">Home</a>
+              </li>
+              <li>
+                <a class="item" menu-close href="#/tab/facts">Facts</a>
+              </li>
+              <li>
+                <a class="item" menu-close href="#/tab/facts2">More Facts</a>
+              </li>
+            </ul>
+          </ion-content>
+        </ion-side-menu>
+      
+        <ion-side-menu side="right">
+          <ion-header-bar class="bar bar-header bar-dark">
+            <h1 class="title">Right Menu</h1>
+          </ion-header-bar>
+          <ion-content>
+            <ul class="list">
+              <li>
+                <a class="item" menu-close nav-clear href="#/search">Search</a>
+              </li>
+              <li>
+                <a class="item" menu-close nav-clear href="#/settings">Settings</a>
+              </li>
+            </ul>
+          </ion-content>
+        </ion-side-menu>
+        
+      </ion-side-menus>
+<script>
+ $(function(){ 
+ var path = "http://crm.biztechus.com";
+var test = "http://localhost/vtigercrm";
+var params = location.search.split('&')[1]; // list 화면에서 클릭한 값을 담아서 detail 조회할때 사용.
+
+//현재 url 담기.
+var url =  window.location.href;			
+var gourl = url.split('&');				
+$('input[name="currentUrl"]').val(gourl[0]+"&"+gourl[1]);
+
+        $("#edit").click(function(){
+            var $this = $(this);
+            var value = $this.attr('value');		
+			
+            if(value=="Edit"){
+                $this.attr("value","Cancel");
+				document.getElementById("save").style.display = "block";
+				document.getElementById("delete").style.display = "none";
+            }else{
+                $this.attr("value","Edit");
+				document.getElementById("save").style.display = "none";
+				document.getElementById("delete").style.display = "block";
+            }
+            $(".editable").toggle();
+			//original 정보 input에 담기.
+			originId();
+			if(params.split("=")[0]=="orgno"){
+				accEdit();
+			}else if(params.split("=")[0]=="orderno"){
+				orderEdit();
+			}
+        });				
+        $("input.editable").change(function(){
+            $(this).prev().value($(this).value());
+        });				
+		$("#save").click(function(){
+			$('input[name="stage"]').val("save");	
+			document.forms["Edit"].submit();			
+		});
+
+		$("#delete").click(function(){		
+			$(".editable").toggle();
+			//original 정보 input에 담기.
+			originId();
+			if(params.split("=")[0]=="orderno"){orderEdit();}
+			$('input[name="stage"]').val("delete");	
+			document.forms["Edit"].submit();			
+		});		
+    });
+	
+$(document).on("click", ".orgContent", function() {
+var clickId = $(this).index();
+var orgno = document.getElementById("orgNo_"+clickId).innerHTML;
+});
+$(document).on("click", ".orderContent", function() {
+var clickId = $(this).index();
+var orderno = document.getElementById("orderNo_"+clickId).innerHTML;
+location.href=  "orderDetail.html?oper=orderDetail&orderno="+orderno;	
+});
+$(document).on("click", ".productImage", function() {
+var clickId = $(this).attr('id');
+location.href=  "productDetail.html?oper=productDetail&productno="+clickId;	
+});
+
+function originId(){
+var accid = $('#originAccid').text();			
+$('input[name="accId"]').val(accid);
+var accountname = $('#originAccName').text();			
+$('input[name="accountname"]').val(accountname);
+var salesorder_no = $('#originSoNo').text();			
+$('input[name="salesorder_no"]').val(salesorder_no);
+var sostatus = $('#originSoStatus').text();			
+$('input[name="sostatus"]').val(sostatus);
+}
+
+function accEdit(){
+var name = $('#originAccName').text();
+$('input[name="accountname"]').val(name);	
+var email = $('#originAccEmail').text();	
+$('input[name="email"]').val(email);	
+var phone = $('#originAccPhone').text();	
+$('input[name="phone"]').val(phone);	
+var street = $('#originAccStreet').text();	
+$('input[name="street"]').val(street);	
+var city = $('#originAccCity').text();	
+$('input[name="city"]').val(city);	
+var state = $('#originAccState').text();	
+$('input[name="state"]').val(state);	
+}
+
+function orderEdit(){
+var bill_street = $('#originBillStreet').text();
+$('input[name="bill_street"]').val(bill_street);	
+var bill_city = $('#originBillCity').text();	
+$('input[name="bill_city"]').val(bill_city);	
+var bill_code = $('#originBillCode').text();	
+$('input[name="bill_code"]').val(bill_code);	
+var ship_street = $('#originShipStreet').text();	
+$('input[name="ship_street"]').val(ship_street);	
+var ship_city = $('#originShipCity').text();	
+$('input[name="ship_city"]').val(ship_city);	
+var ship_code = $('#originShipCode').text();	
+$('input[name="ship_code"]').val(ship_code);
+var productname = $('#originSoPd').text();
+$('input[name="productname"]').val(productname);	
+var quantity = $('#originSoQnt').text();
+$('input[name="quantity"]').val(quantity);	
+var listprice = $('#originSoPrc').text();	
+$('input[name="listprice"]').val(listprice);	
+var selectCtrl = document.getElementById("discountType");
+var selectedItem =  selectCtrl.options[selectCtrl.selectedIndex];
+if(selectedItem.value == "percent"){	
+	var discount = $('#originDcPer').text();	
+	$('input[name="discount"]').val(discount);
+}else{
+	var discount = $('#originDcAmt').text();	
+	$('input[name="discount"]').val(discount);
+}	
+var subtotal = $('#originSoSubtotal').text();	
+$('input[name="subtotal"]').val(subtotal);
+var comment = $('#originSoCom').text();	
+$('input[name="comment"]').val(comment);	
+var total = $('#originSoTotal').text();	
+$('input[name="total"]').val(total);	
+	
+}
+function selectChange(){
+var selectCtrl = document.getElementById("discountType");
+var selectedItem =  selectCtrl.options[selectCtrl.selectedIndex];
+	if(selectedItem.value == "amount"){	
+		document.getElementById("originDcAmt").style.display = "block";
+		document.getElementById("originDcPer").style.display = "none";
+	}else{
+		document.getElementById("originDcAmt").style.display = "none";
+		document.getElementById("originDcPer").style.display = "block";
+	}
+}
+</script>
+  </body>
+
+</html>
