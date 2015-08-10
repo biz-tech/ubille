@@ -1,29 +1,27 @@
 var path = "http://crm.biztechus.com";
 angular.module('ubille.services', [])
 
-.factory('Customers', function($http,$scope) {
+.factory('Customers', function($http) {
   // Might use a resource here that returns a JSON array
-    var customers = [];
+    var data = [];
   	var site= path+"/testdata.php?oper=acoount";	
 	console.log("customer list");
 	$http.get(site).success(function(response){	
-		customers = response;	
-			console.log(customers);
+		data = response;	
 	});	
-
 
   return {
     all: function() {
-	console.log(customers);
-      return customers;
+	// console.log("service all");
+      return data;
     },
     remove: function(customer) {
-      customers.splice(customers.indexOf(customer), 1);
+      data.splice(data.indexOf(customer), 1);
     },
     get: function(customerId) {
-      for (var i = 0; i < customers.length; i++) {
-        if (customers[i].accountid === parseInt(customerId)) {
-          return customers[i];
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].accountid === parseInt(customerId)) {
+          return data[i];
         }
       }
       return null;

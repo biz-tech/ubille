@@ -10,9 +10,9 @@ angular.module('ubille.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-  console.log("customer ctrl");
-  customers = Customers.all();
-  console.log(customers);
+  // console.log("customer ctrl");
+  $scope.customers = Customers.all();
+  // console.log($scope.customers);
   
   $scope.remove = function(customer) {
     Customers.remove(customer);
