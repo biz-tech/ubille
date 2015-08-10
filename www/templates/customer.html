@@ -1,25 +1,18 @@
 <ion-view title="Contact">
     <ion-content>
-		<div class="container" ng-app="" ng-controller="accountCtrl">		
-			<div class="title">
-				<ul>
-					<li>Company ID</li>
-					<li>Company Name</li>
-					<li>Email</li>
-					<li>Phone</li>				
-				</ul>
-			</div>			
-			<form action="accDetail.html" method="post">
-				<div class="orgContent" ng-repeat="x in data">			
-					<ul>					
-						<li id="orgNo_{{$index}}" class="orgNo" type="submit">{{x.accountid || '-' }}</li>
-						<li>{{x.accountname || '-' }}</li>
-						<li>{{x.email1 || '-' }}</li>
-						<li>{{x.phone || '-' }}</li>	
-					</ul>			
-				</div>
-			</form>
-		</div>		
+<div class="list" ng-controller="accountCtrl">
+
+        <a ng-repeat="item in data" 
+           href="#/{{item.accountid}}"
+           class="item item-thumbnail-left">
+
+          <img ng-src="/img/apparel_icon.png">
+          <h2>{{ item.accountname }}</h2>
+          <h4>{{ item.email1 }}</h4>
+		  <h4>{{ item.phone }}</h4>
+        </a>
+
+      </div>
     </ion-content>
 </ion-view>
 	  

@@ -118,7 +118,7 @@ var site= test+"/testdata.php?oper=order";
 })
 .controller('accountCtrl', function($scope, $http) {
 	//var site= path+"/testdata.php?oper=acoount";
-	var site= test+"/testdata.php?oper=acoount";	
+	var site= path+"/testdata.php?oper=acoount";	
 	$http.get(site).success(function(response){	
 		$scope.data = response;			
 	});	
