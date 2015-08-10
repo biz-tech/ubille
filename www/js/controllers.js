@@ -12,12 +12,18 @@ angular.module('ubille.controllers', [])
   //});
   // console.log("customer ctrl");
   $scope.customers = Customers.all();
-  // console.log($scope.customers);
+  console.log($scope.customers);
   
   $scope.remove = function(customer) {
     Customers.remove(customer);
   };
 })
+
+.controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {
+	console.log("CustomerDetailCtrl:"+$stateParams.customerId );
+  $scope.customer = Customers.get($stateParams.customerId);
+})
+
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 })

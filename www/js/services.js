@@ -20,7 +20,9 @@ angular.module('ubille.services', [])
     },
     get: function(customerId) {
       for (var i = 0; i < data.length; i++) {
-        if (data[i].accountid === parseInt(customerId)) {
+	  console.log("count: " + i + " customerId: " + customerId);
+        if (data[i].accountid == parseInt(customerId)) {
+		console.log("count: " + i + " customerId: " + customerId);
           return data[i];
         }
       }
