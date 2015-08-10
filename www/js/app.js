@@ -86,7 +86,8 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
       url: "/customers",
       views: {
         'customers-tab': {
-          templateUrl: "templates/customers.html"		  	  
+          templateUrl: "templates/customers.html",	
+		  controller: 'CustomersCtrl'	  	  
         }
       }
     })
@@ -99,10 +100,11 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
       }
     })
 	.state('tabs.customer-detail', {
-      url: "/customer/:customerId",
+      url: "/customers/:customerId",
       views: {
-        'customer-tab': {
-          templateUrl: "templates/customer-detail.html"
+        'customers-tab': {
+          templateUrl: "templates/customer-detail.html",
+		  controller: 'CustomerDetailCtrl'
         }
       }
     })
