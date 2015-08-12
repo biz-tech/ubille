@@ -7,18 +7,18 @@
      {{item.productname|| '-' }}
     </h2>
     <p>
-     {{item.unit_price|| '-' }}
+     ${{item.unit_price|| '-' }}
     </p>	
 	<button class="button button-small button-assertive"></button>
 	<button class="button button-small button-positive"></button>
 	<button class="button button-small button-energized"></button>
   </div>
   <div class="item item-divider">
-    1 Pack (Small:2EA / Medium:2EA / Large:2EA)
+    <h4>1 Pack (Small:2EA / Medium:2EA / Large:2EA)</h4>
   </div>
   <label class="item item-input item-select">
     <div class="input-label">
-      Quantity
+      <h4>Quantity (pack)</h4>
     </div>
     <select>
       <option selected>1</option>
@@ -31,6 +31,7 @@
 	  <option>8</option>
 	  <option>9</option>
     </select>
+	
   </label>
 	<button class="button button-block button-positive">
 		Add to cart
