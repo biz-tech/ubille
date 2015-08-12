@@ -2,7 +2,8 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, Customers) {  
+.controller('CustomersCtrl', function($scope, Customers) {
+  $scope.listCanSwipe = true;  
   $scope.customers = Customers.all();
   $scope.remove = function(customer) {
     Customers.remove(customer);

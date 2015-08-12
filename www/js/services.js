@@ -1,5 +1,5 @@
-//var path = "http://crm.biztechus.com";
-var path = "http://localhost/vtigercrm";
+var path = "http://crm.biztechus.com";
+//var path = "http://localhost/vtigercrm";
 angular.module('ubille.services', [])
 
 .factory('Customers', function($http) {
