@@ -1,26 +1,25 @@
-<ion-view view-title="salesOrder">
-	<ion-content>
-		<div class="container" ng-controller="orderCtrl">		
-			<div class="title">
-				<ul>
-					<li>subject</li>
-					<li>order_no</li>
-					<li>total</li>					
-					<li>sostatus</li>
-					
-				</ul>
-			</div>			
-			<form action="orderDetail.html" method="post">
-				<div class="orderContent" ng-repeat="x in data"">
-					<ul>							
-						<li>{{x.subject || '-' }}</li>
-						<li id="orderNo_{{$index}}" class="orderNo" type="submit">{{x.salesorder_no || '-' }}</li>
-						<li>{{x.total || '-' }}</li>					
-						<li>{{x.sostatus || '-' }}</li>
-						
-					</ul>			
-				</div>
-			</form>
-		</div>
+<ion-view title="SalesOrder">
+	<ion-content>		
+	<ion-list>		
+	<ul class="orderTitle">
+		<li>Subject</li>
+		<li>SalesOrder No</li>
+		<li>Total</li>
+		<li>Status</li>
+	</ul>
+	 <ion-item class="orderList item-remove-animate item-icon-right"
+	ng-repeat="item in data" href="#/tab/salesOrder/{{item.salesorder_no}}">	
+			<ul>							
+				<li>{{item.subject || '-' }}</li>
+				<li id="orderNo_{{$index}}" class="orderNo" type="submit">{{item.salesorder_no || '-' }}</li>
+				<li>{{item.total || '-' }}</li>					
+				<li>{{item.sostatus || '-' }}</li>
+				<i class="icon ion-chevron-right icon-accessory"></i>				
+			</ul>	
+			<ion-option-button class="button-assertive" ng-click="remove(customer)">
+          Delete
+        </ion-option-button>
+	</ion-item>
+ </ion-list>			
 	</ion-content>
 </ion-view>

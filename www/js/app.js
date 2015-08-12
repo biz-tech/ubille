@@ -70,11 +70,12 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
       url: "/product",
       views: {
         'product-tab': {
-          templateUrl: "templates/product.html"
+          templateUrl: "templates/product.html",
+		  controller: "productCtrl"
         }
       }
-    })
-    .state('tabs.navstack', {
+    })	
+     .state('tabs.navstack', {
       url: "/navstack",
       views: {
         'about-tab': {
@@ -95,7 +96,26 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
       url: "/salesOrder",
       views: {
         'salesOrder-tab': {
-          templateUrl: "templates/salesOrder.html"
+          templateUrl: "templates/salesOrder.html",
+		  controller: 'salesOrderCtrl'		  
+        }
+      }
+    })
+	.state('tabs.product-detail', {
+      url: "/product/:productNo",	
+      views: {
+        'product-tab': {
+          templateUrl: "templates/productDetail.html",
+		  controller: 'productDetailCtrl'
+        }
+      }
+    })
+	.state('tabs.salesOrder-detail', {
+      url: "/salesOrder/:salesorderNo",
+      views: {
+        'salesOrder-tab': {
+          templateUrl: "templates/salesOrderDetail.html",
+		  controller: 'salesDetailCtrl'		  
         }
       }
     })
@@ -108,8 +128,15 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
         }
       }
     })
-	;
-
+	.state('tabs.customer-add', {
+      url: "/addCustomer",
+      views: {
+        'customers-tab': {
+          templateUrl: "templates/addCustomer.html",
+		  controller: 'addCustomerCtrl'
+        }
+      }
+    });
    $urlRouterProvider.otherwise("/tab/home");
 
 });

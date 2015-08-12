@@ -1,13 +1,12 @@
-<ion-view title="About">
-	<ion-content>         
-		<div class="container" ng-controller="productCtrl">	
-			<div class="title">
-				<td>Product</td>
-			</div>	
-			<div ng-repeat="x in data">	
-			<!--<img class="productImage" id="{{x.product_no}}" src="http://crm.biztechus.com/{{x.path+x.attachmentsid+'_'+x.imagename}}"/>-->
-				<img class="productImage" id="{{x.product_no}}" src="http://172.20.10.205/vtigercrm/{{x.path+x.attachmentsid+'_'+x.imagename}}"/>
-			</div> 
-		</div>		
+<ion-view title="Product">
+	<ion-content>         	
+		<div class="wrap" >	
+		<a ng-repeat="item in data" href="#/tab/product/{{item.product_no}}">		
+		<img class="productImage" id="{{x.product_no}}" src="http://localhost/vtigercrm/{{item.path+item.attachmentsid+'_'+item.imagename}}"/>
+		<!--<img class="productImage" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.imagename}}"/>-->
+		<p>{{item.productname}}<br/></p>
+		<p>{{item.unit_price}}</p>
+		</a>
+		</div> 
     </ion-content>
 </ion-view>

@@ -2,35 +2,52 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, Customers) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-  // console.log("customer ctrl");
+.controller('CustomersCtrl', function($scope, Customers) {  
   $scope.customers = Customers.all();
-  console.log($scope.customers);
-  
   $scope.remove = function(customer) {
     Customers.remove(customer);
-  };
+  };  
 })
-
-.controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {
-	console.log("CustomerDetailCtrl:"+$stateParams.customerId );
+.controller('addCustomerCtrl', function($scope, $http, $location) {	
+  $('.submit').click(function(){
+	console.log("submit");
+  });
+})
+.controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {	
   $scope.customer = Customers.get($stateParams.customerId);
 })
-
+/*
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+})*/
+
+
+.controller('productCtrl', function($scope, Product) {
+  $scope.data = Product.all();    
+  $scope.remove = function(data) {  
+    Product.remove(data);
+  };
 })
+.controller('productDetailCtrl', function($scope, $stateParams, Product) {	
+  $scope.item = Product.get($stateParams.productNo);
+
+})
+
+.controller('salesOrderCtrl', function($scope, SalesOrder) {	
+  $scope.data = SalesOrder.all();        
+  $scope.remove = function(data) {  
+    SalesOrder.remove(data);
+  };
+})
+.controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) {  
+  $scope.item = SalesOrder.get($stateParams.salesorderNo);      
+})
+
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
+  /*
   $scope.showMenu = function () {
     $ionicSideMenuDelegate.toggleLeft();
-  };
+  };*/
   $scope.showRightMenu = function () {
     $ionicSideMenuDelegate.toggleRight();
   };

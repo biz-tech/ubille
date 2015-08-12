@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+	<meta http-equiv="Content-Security-Policy">
 
+    <title></title>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -28,28 +29,25 @@
 
 
   <body ng-app="ubille">
-    
-    
-    <ion-side-menus>
-        
+    <ion-side-menus>        
         <ion-side-menu-content ng-controller="NavCtrl">
-          <ion-nav-bar class="bar-positive">
+          <ion-nav-bar id="ionic-header" class="bar-positive">
             <ion-nav-back-button class="button-icon ion-arrow-left-c">
             </ion-nav-back-button>
           </ion-nav-bar>
-          <ion-nav-buttons side="left">
+          <!--<ion-nav-buttons side="left">
             <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
             </button>
-          </ion-nav-buttons>
+          </ion-nav-buttons>-->
           
           <ion-nav-buttons side="right">
-            <button class="button button-icon button-clear ion-ios7-gear" ng-click="showRightMenu()">
+            <button class="button button-icon button-clear ion-navicon" ng-click="showRightMenu()">
             </button>
           </ion-nav-buttons>
           <ion-nav-view animation="slide-left-right"></ion-nav-view>
         </ion-side-menu-content> 
         
-        <ion-side-menu side="left">
+        <!--<ion-side-menu side="left">
           <ion-header-bar class="bar bar-header bar-assertive">
             <h1 class="title">Left Menu</h1>
           </ion-header-bar>
@@ -66,7 +64,7 @@
               </li>
             </ul>
           </ion-content>
-        </ion-side-menu>
+        </ion-side-menu>-->
       
         <ion-side-menu side="right">
           <ion-header-bar class="bar bar-header bar-dark">
@@ -82,8 +80,7 @@
               </li>
             </ul>
           </ion-content>
-        </ion-side-menu>
-        
+        </ion-side-menu>        
       </ion-side-menus>
   </body>
 
