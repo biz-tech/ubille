@@ -1,39 +1,58 @@
 <ion-view title="{{item.product_no}}">
-	<ion-content>     
-<div class="detailContainer">	
-		<div class="productContent">						
-			<table>
-			
-				<tr>
-					<td>product_no :</td>
-					<td>{{item.product_no|| '-' }}</td>
-				</tr>
-				<tr>
-					<td>productname : </td>
-					<td>{{item.productname|| '-' }}</td>
-				</tr>
-				<tr>
-					<td>unit_price :</td>
-					<td>{{item.unit_price|| '-' }}</td>
-				</tr>
-				<tr>
-					<td>weight : </td>
-					<td>{{item.weight|| '-' }}</td>
-				</tr>
-				<tr>
-					<td>packsize : </td>
-					<td>{{item.pack_size|| '-' }}</td>
-				</tr>		
-				<tr>
-					<td>sales_start_date : </td>
-					<td>{{item.sales_start_date|| '-' }}</td>
-				</tr>
-				<tr>
-					<td>sales_end_date : </td>
-					<td>{{item.sales_end_date|| '-' }}</td>
-				</tr>						
-			</table>					
-		</div>
+	<ion-content>
+<div class="list card">
+  <div class="item item-body">
+    <img class="full-image" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.imagename}}">
+    <h2>
+     {{item.productname|| '-' }}
+    </h2>
+    <p>
+     {{item.unit_price|| '-' }}
+    </p>	
+	<button class="button button-small button-assertive"></button>
+	<button class="button button-small button-positive"></button>
+	<button class="button button-small button-energized"></button>
+  </div>
+  <div class="item item-divider">
+    1 Pack (Small:2EA / Medium:2EA / Large:2EA)
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Quantity
+    </div>
+    <select>
+      <option selected>1</option>
+      <option>2</option>
+      <option>3</option>
+	  <option>4</option>
+	  <option>5</option>
+	  <option>6</option>
+      <option>7</option>
+	  <option>8</option>
+	  <option>9</option>
+    </select>
+  </label>
+	<button class="button button-block button-positive">
+		Add to cart
+	</button>
+    <div>
+        <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+			<i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>            
+				PRODUCT DETAILS
+        </ion-item>
+        <ion-item class="item-accordion" ng-show="isGroupShown(group)">
+			Style #676143<br/>
+			<button class="button button-clear button-assertive">
+				Fabric & Care 
+			</button><br/>
+			<button class="button button-clear button-assertive">
+				Overview
+			</button><br/>
+			<button class="button button-clear button-assertive">
+				Fit & Sizing
+			</button><br/>
+        </ion-item>
+    </div>     
 </div>
    </ion-content>
 </ion-view>

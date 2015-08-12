@@ -2,8 +2,7 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, Customers) {
-  $scope.listCanSwipe = true;  
+.controller('CustomersCtrl', function($scope, Customers) {  
   $scope.customers = Customers.all();
   $scope.remove = function(customer) {
     Customers.remove(customer);
@@ -29,9 +28,18 @@ angular.module('ubille.controllers', [])
     Product.remove(data);
   };
 })
-.controller('productDetailCtrl', function($scope, $stateParams, Product) {	
+.controller('productDetailCtrl', function($scope, $stateParams, Product, $state) {	
   $scope.item = Product.get($stateParams.productNo);
-
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = group;
+    } else {
+      $scope.shownGroup = null;
+    }
+  };  
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === null;
+  };  
 })
 
 .controller('salesOrderCtrl', function($scope, SalesOrder) {	

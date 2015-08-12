@@ -1,15 +1,12 @@
 <ion-view title="Customers">
 	<ion-content>  
-		<ion-list can-swipe="listCanSwipe">
+		<ion-list>
 			<ion-item ng-repeat="customer in customers" class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/customers/{{customer.accountid}}">
 				<img ng-src="/img/apparel_icon.png">
 				<h2>{{customer.accountname}}</h2>
 				<p>{{customer.email1}}</p>
 				<p>{{customer.phone}}</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
-				<ion-option-button class="button-energized" ng-click="edit(customer)">
-					Edit
-				</ion-option-button>		
 				<ion-option-button class="button-assertive" ng-click="remove(customer)">
 					Delete
 				</ion-option-button>		

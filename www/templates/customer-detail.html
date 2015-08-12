@@ -1,20 +1,27 @@
 <ion-view title="{{customer.accountname}}">
   <ion-content class="padding">
-    <img ng-src="/img/apparel_icon.png" style="width: 64px; height: 64px">
-    <p>
-      {{customer.email1}}
-    </p>
-    <p>
-      {{customer.phone}}
-    </p>
-	<p>
-      {{customer.bill_street}}
-    </p>
-    <p>
-      {{customer.bill_city}}
-    </p>
-	<p>
-      {{customer.bill_state}}
-    </p>
+<div class="list">
+<img ng-src="/img/apparel_icon.png" style="width: 64px; height: 64px">
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Email</span>
+    <span>{{customer.email1}}</span>
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Phone</span>
+    <span>{{customer.phone}}</span>
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Street</span>
+    <span>{{customer.bill_street}}</span>
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">City</span>
+    <span>{{customer.bill_city}}</span>
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">State</span>
+    <span>{{customer.bill_state}}</span>
+  </label>
+</div>
   </ion-content>
 </ion-view>
