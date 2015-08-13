@@ -1,109 +1,62 @@
 <ion-view title="SalesOrder">
 <ion-content>	
-<div class="detailContainer">	
-		<div class="orderContent">		
-			<table>
-				<tr>
-					<td>Salesorder No : </td>
-					<td class="editable" id="originSoNo">{{item.salesorder_no|| '-' }}</td>
-					<td><input class="editable" type="text" name="salesorder_no" style="display:none;" readonly></input></td>
-				</tr>
-				<tr>
-					<td>Organization Name :</td>
-					<td class="editable" id="originAccName">{{item.accountname|| '-' }}</td>
-					<td><input class="editable" type="text" name="accountname" style="display:none;" readonly></input></td>
-				</tr>
-				<tr>
-					<td>Status : </td>
-					<td class="editable" id="originSoStatus">{{item.sostatus|| '-' }}</td>
-					<td><input class="editable" type="text" name="sostatus" style="display:none;" readonly></input></td>
-				</tr>
-				<tr>
-					<td>bill_street :</td>
-					<td class="editable" id="originBillStreet">{{item.bill_street|| '-' }}</td>
-					<td><input class="editable" type="text" name="bill_street" style="display:none;"></input></td>
-				</tr>
-				<tr>
-					<td>bill_city : </td>
-					<td class="editable" id="originBillCity">{{item.bill_city|| '-' }}</td>
-					<td><input class="editable" type="text" name="bill_city" style="display:none;"></input></td>
-				</tr>
-				<tr>
-					<td>bill_code :</td>
-					<td class="editable" id="originBillCode">{{item.bill_code|| '-' }}</td>
-					<td><input class="editable" type="text" name="bill_code" style="display:none;"></input></td>
-				</tr>
-				<tr>
-					<td>ship_street : </td>
-					<td class="editable" id="originShipStreet">{{item.ship_street|| '-' }}</td>
-					<td><input class="editable" type="text" name="ship_street" style="display:none;"></input></td>
-				</tr>
-				<tr>
-					<td>ship_city : </td>
-					<td class="editable" id="originShipCity">{{item.ship_city|| '-' }}</td>
-					<td><input class="editable" type="text" name="ship_city" style="display:none;"></input></td>
-				</tr>
-				<tr>
-					<td>ship_code :</td>
-					<td class="editable" id="originShipCode">{{item.ship_code|| '-' }}</td>
-					<td><input class="editable" type="text" name="ship_code" style="display:none;"></input></td>
-				</tr>
-				<tr>
-					<td>product name : </td>
-					<td class="editable" id="originSoPd">{{item.productname|| '-' }}</td>
-					<td><input class="editable" type="text" name="productname" style="display:none;" readonly></input></td>
-				</tr>				
-				<tr>
-					<td>quantity : </td>
-					<td class="editable" id="originSoQnt">{{item.quantity|| '-' }}</td>
-					<td><input class="editable" type="text" name="quantity" style="display:none;"></input></td>
-					<td>Current Stock : {{item.qtyinstock}}</td>
-				</tr>
-				<tr>
-					<td>listprice :</td>
-					<td class="editable" id="originSoPrc">{{item.listprice|| '-' }}</td>
-					<td><input class="editable" type="text" name="listprice" style="display:none;" readonly></input></td>
-				</tr>
-				<tr>
-					<td>discount :</td>
-					<td class="editable">
-						<div id="originDcPer">{{item.discount_percent|| '-' }}</div>
-					    <div id="originDcAmt" style="display:none">{{item.discount_amount|| '-' }}</div>
-					</td>						
-					<td>
-						<input class="editable" type="text" name="discount" style="display:none;"></input>												
-					</td>
-					<td>
-					<select id="discountType" name="discountType" onChange="selectChange()">
-						<option value="percent">Percent(%)</option>
-						<option value="amount">Amount($)</option>					
-					</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Sub Total :</td>
-					<td class="editable" id="originSoSubtotal">{{item.subtotal|| '-' }}</td>
-					<td><input class="editable" type="text" name="subtotal" style="display:none;" readonly></input></td>
-				</tr>				
-				
-				<tr>
-					<td>tax1 VAT(%) : </td>
-					<td class="editable" id="originSoTax1">{{item.tax1|| '-' }}</td>
-					<td><input class="editable" type="text" name="tax1" style="display:none;" readonly></input></td>
-				</tr>							
-				<tr>
-					<td>Total :</td>
-					<td class="editable" id="originSoTotal">{{item.total|| '-' }}</td>
-					<td><input class="editable" type="text" name="total" style="display:none;" readonly></input></td>
-				</tr>
-				<tr>
-					<td>comment : </td>
-					<td class="editable" id="originSoCom">{{item.comment|| '-' }}</td>
-					<td><input class="editable" type="text" name="comment" style="display:none;"></input></td>
-				</tr>				
-			</table>	
-		<hr/>			
-	</div>		
+<div class="orderDetailList">
+    <div class="item item-thumbnail-left">
+		<div class="productImg">
+			<img id="orderDetailImage" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.imagename}}"/>
+		</div>
+		<div class="description">
+			<div>{{item.productname|| '-' }}</div>
+			<div>Price : {{item.listprice|| '-' }}</div>
+			<div>Quantity : {{item.quantity|| '-' }} / Current Stock : {{item.qtyinstock}}</div>							
+		</div>
+    </div>
+	
+<div class="orderShipCard">
+  <div class="item item-divider">
+    Subtotal : {{item.subtotal|| '-' }}
+  </div>
+  <div class="item item-divider">
+	<p>Shipping </p>
+   <label class="item item-radio">
+			<input type="radio" name="Shipping">
+				<div class="item-content">
+					7-9 business days - FREE Every Day($50 min)
+				</div>			
+			<i class="radio-icon ion-checkmark"></i>
+			</input>
+		</label>
+		<label class="item item-radio">
+			<input type="radio" name="Shipping">
+				<div class="item-content">
+					3-5 business days - $7.00
+				</div>	
+			<i class="radio-icon ion-checkmark"></i>
+			</input>
+		</label>
+		<label class="item item-radio">
+			<input type="radio" name="Shipping">
+				<div class="item-content">
+					2 business days - $17.00
+				</div>	
+			<i class="radio-icon ion-checkmark"></i>
+			</input>
+		</label>
+		<label class="item item-radio">
+			<input type="radio" name="Shipping">
+				<div class="item-content">
+					1 business days - $22.00
+				</div>
+			<i class="radio-icon ion-checkmark"></i>
+			</input>
+		</label>
+  </div>
+  <div class="item item-divider">
+    Total : {{item.total}}
+  </div>
+</div>
 </div>
 </ion-content>
-</ion-view>
+</ion-view>	
+				
+				

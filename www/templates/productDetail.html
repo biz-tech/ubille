@@ -1,9 +1,11 @@
-<ion-view title="{{item.product_no}}" >
-	<ion-content class="padding">
+<ion-view title="{{item.product_no}}">
+	<ion-content>
 <div class="list card">
   <div class="item item-body">
     <img class="full-image" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.imagename}}">
-    <h2>{{item.productname|| '-' }}</h2>
+    <h2>
+     {{item.productname|| '-' }}
+    </h2>
     <p>
      ${{item.unit_price|| '-' }}
     </p>	
@@ -42,13 +44,13 @@
         <ion-item class="item-accordion" ng-show="isGroupShown(group)">
 			Style #676143<br/>
 			<button class="button button-clear button-assertive">
-				Fabric & Care 
+				Fabric & Care<br/>				
 			</button><br/>
 			<button class="button button-clear button-assertive">
-				Overview
+				Overview<br/>				
 			</button><br/>
 			<button class="button button-clear button-assertive">
-				Fit & Sizing
+				Fit & Sizing<br/>				
 			</button><br/>
         </ion-item>
     </div>     
