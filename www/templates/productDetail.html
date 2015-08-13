@@ -1,11 +1,9 @@
-<ion-view title="{{item.product_no}}">
-	<ion-content>
+<ion-view title="{{item.product_no}}" >
+	<ion-content class="padding">
 <div class="list card">
   <div class="item item-body">
     <img class="full-image" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.imagename}}">
-    <h2>
-     {{item.productname|| '-' }}
-    </h2>
+    <h2>{{item.productname|| '-' }}</h2>
     <p>
      ${{item.unit_price|| '-' }}
     </p>	

@@ -7,6 +7,7 @@ angular.module('ubille.controllers', [])
   $scope.remove = function(customer) {
     Customers.remove(customer);
   };  
+
 })
 .controller('addCustomerCtrl', function($scope, $http, $location) {	
   $('.submit').click(function(){
@@ -14,13 +15,12 @@ angular.module('ubille.controllers', [])
   });
 })
 .controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {	
-  $scope.customer = Customers.get($stateParams.customerId);
+	$scope.customer = Customers.get($stateParams.customerId);
 })
 /*
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 })*/
-
 
 .controller('productCtrl', function($scope, Product) {
   $scope.data = Product.all();    
@@ -67,5 +67,18 @@ angular.module('ubille.controllers', [])
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
+  };
+})
+.directive('hideTabs', function($rootScope) {
+  return {
+    restrict: 'A',
+    link: function($scope, $el) {
+      $scope.$on("$ionicView.beforeEnter", function () {
+        $rootScope.hideTabs = true;
+      });
+      $scope.$on("$ionicView.beforeLeave", function () {
+        $rootScope.hideTabs = false;
+      });
+    }
   };
 });

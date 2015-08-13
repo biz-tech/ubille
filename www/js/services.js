@@ -5,7 +5,7 @@ angular.module('ubille.services', [])
 .factory('Customers', function($http) {
   // Might use a resource here that returns a JSON array
     var data = [];
-  	var site= path+"/testdata.php?oper=acoount";		
+  	var site= path+"/ubilledata.php?oper=acoount";		
 	$http.get(site).success(function(response){	
 		data = response;		
 	});	
@@ -30,7 +30,7 @@ angular.module('ubille.services', [])
 .factory('Product', function($http) {
   // Might use a resource here that returns a JSON array
     var data = [];	
-  	var site= path+"/testdata.php?oper=product";
+  	var site= path+"/ubilledata.php?oper=product";
 	$http.get(site).success(function(response){			
 		data = response;
 	});	
@@ -52,7 +52,7 @@ angular.module('ubille.services', [])
 .factory('SalesOrder', function($http) {
   // Might use a resource here that returns a JSON array
     var data = [];
-  	var site= path+"/testdata.php?oper=order";		
+  	var site= path+"/ubilledata.php?oper=order";		
 	$http.get(site).success(function(response){	
 		data = response;			
 	});	
