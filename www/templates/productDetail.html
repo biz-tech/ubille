@@ -2,7 +2,7 @@
 	<ion-content>
 <div class="list card">
   <div class="item item-body">
-    <img class="full-image" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.imagename}}">
+    <img class="full-image" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}">
     <h2>
      {{item.productname|| '-' }}
     </h2>
@@ -14,11 +14,11 @@
 	<button class="button button-small button-energized"></button>
   </div>
   <div class="item item-divider">
-    <h4>1 Pack (Small:2EA / Medium:2EA / Large:2EA)</h4>
+    <h2>1 Pack (Small:2EA / Medium:2EA / Large:2EA)</h2>
   </div>
   <label class="item item-input item-select">
     <div class="input-label">
-      <h4>Quantity (pack)</h4>
+      <h2>Quantity (pack)</h2>
     </div>
     <select>
       <option selected>1</option>
@@ -41,17 +41,27 @@
 			<i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>            
 				PRODUCT DETAILS
         </ion-item>
-        <ion-item class="item-accordion" ng-show="isGroupShown(group)">
-			Style #676143<br/>
-			<button class="button button-clear button-assertive">
-				Fabric & Care<br/>				
-			</button><br/>
-			<button class="button button-clear button-assertive">
-				Overview<br/>				
-			</button><br/>
-			<button class="button button-clear button-assertive">
-				Fit & Sizing<br/>				
-			</button><br/>
+        <ion-item class="item-accordion" ng-show="isGroupShown(group)">			
+			<div class="list">
+				<div class="item item-divider">
+					Fabric & Care
+				</div>
+				<div class="item" href="#">
+					{{item.fabric}}
+				</div>
+				<div class="item item-divider">
+					Overview
+				</div>
+				<div class="item" href="#" >
+					{{item.overview}}
+				</div>
+				<div class="item item-divider">
+					Fit & Sizing
+				</div>
+				<div class="item" href="#" >
+					{{item.fit}}
+				</div>
+			</div>									
         </ion-item>
     </div>     
 </div>

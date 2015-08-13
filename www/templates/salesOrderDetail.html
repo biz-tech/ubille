@@ -1,61 +1,31 @@
 <ion-view title="SalesOrder">
 <ion-content>	
 <div class="orderDetailList">
-    <div class="item item-thumbnail-left">
+	<div class="item item-body">
 		<div class="productImg">
-			<img id="orderDetailImage" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.imagename}}"/>
+			<img id="orderDetailImage" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}"/>
 		</div>
 		<div class="description">
 			<div>{{item.productname|| '-' }}</div>
-			<div>Price : {{item.listprice|| '-' }}</div>
-			<div>Quantity : {{item.quantity|| '-' }} / Current Stock : {{item.qtyinstock}}</div>							
-		</div>
-    </div>
+			<div>#45i93894573894758</div>
+			<div>Color : Gray</div>
+			<div>Price : ${{item.listprice|| '-' }}</div>
+			<div>Quantity : {{item.quantity|| '-' }}</div>							
+		</div>  
+</div>
 	
 <div class="orderShipCard">
   <div class="item item-divider">
-    Subtotal : {{item.subtotal|| '-' }}
-  </div>
+    Subtotal : ${{item.subtotal|| '-' }}
+  </div>  
+  <div class="item">
+    Estimated tax
+  </div>  
   <div class="item item-divider">
-	<p>Shipping </p>
-   <label class="item item-radio">
-			<input type="radio" name="Shipping">
-				<div class="item-content">
-					7-9 business days - FREE Every Day($50 min)
-				</div>			
-			<i class="radio-icon ion-checkmark"></i>
-			</input>
-		</label>
-		<label class="item item-radio">
-			<input type="radio" name="Shipping">
-				<div class="item-content">
-					3-5 business days - $7.00
-				</div>	
-			<i class="radio-icon ion-checkmark"></i>
-			</input>
-		</label>
-		<label class="item item-radio">
-			<input type="radio" name="Shipping">
-				<div class="item-content">
-					2 business days - $17.00
-				</div>	
-			<i class="radio-icon ion-checkmark"></i>
-			</input>
-		</label>
-		<label class="item item-radio">
-			<input type="radio" name="Shipping">
-				<div class="item-content">
-					1 business days - $22.00
-				</div>
-			<i class="radio-icon ion-checkmark"></i>
-			</input>
-		</label>
-  </div>
-  <div class="item item-divider">
-    Total : {{item.total}}
+    Order Total : ${{item.total}}
   </div>
 </div>
-</div>
+	</div>
 </ion-content>
 </ion-view>	
 				

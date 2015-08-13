@@ -1,20 +1,16 @@
 <ion-view title="SalesOrder">
-	<ion-content>		
-		<ion-list>			
-			<ion-item class="orderList item-remove-animate item-icon-right" ng-repeat="item in data" href="#/tab/salesOrder/{{item.salesorder_no}}">
-			<div class="orderWrap">
-				<div class="soNo">{{item.salesorder_no || '-' }}</div>
-				<div>{{item.accountname}}</div>
-				<div>{{item.sostatus || '-' }}</div>
-				<div>{{item.total || '-' }}</div>
-			</div>
+	<ion-content>  
+		<ion-list>
+			<ion-item ng-repeat="item in data" class="item-thumbnail-left item-remove-animate item-avatar item-icon-right" type="item-text-wrap"  href="#/tab/salesOrder/{{item.salesorder_no}}">
+				<img src="img/Ubille_Status_Icon_{{item.sostatus}}.png"></img>
+				<div class="soNo">{{item.salesorder_no || '-' }}</div>		
+				<div>{{item.accountname}}</div>				
+				<div>{{item.listprice || '-' }}</div>	
 				<i class="icon ion-chevron-right icon-accessory"></i>
 				<ion-option-button class="button-assertive" ng-click="remove(customer)">
 					Delete
 				</ion-option-button>		
 			</ion-item>
 		</ion-list>
-				
- 
- 	</ion-content>
+	</ion-content>    
 </ion-view>
