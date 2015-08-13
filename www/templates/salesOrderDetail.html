@@ -2,11 +2,13 @@
 <ion-content>	
 <div class="orderDetailList">
 	<div class="item item-body">
+		<div class="item-title"> 
+			{{item.productname|| '-' }}
+		</div>
 		<div class="productImg">
 			<img id="orderDetailImage" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}"/>
 		</div>
-		<div class="description">
-			<div>{{item.productname|| '-' }}</div>
+		<div class="description">			
 			<div>#45i93894573894758</div>
 			<div>Color : Gray</div>
 			<div>Price : ${{item.listprice|| '-' }}</div>
