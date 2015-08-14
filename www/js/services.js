@@ -2,21 +2,26 @@ var path = "http://crm.biztechus.com";
 //var path = "http://localhost/vtigercrm";
 angular.module('ubille.services', [])
 
-.factory('Customers', function($http) {
+.factory('Customers', function($http,$q) {
   // Might use a resource here that returns a JSON array
     var data = [];
-  	var site= path+"/ubilledata.php?oper=acoount";		
-	$http.get(site).success(function(response){	
-		data = response;		
-	});	
-	
+	var site= path+"/ubilledata.php?oper=acoount";
+
   return {
-    all: function() {	
-      return data;
+    all: function() {
+		var deffered = $q.defer();
+		$http.get(site).success(function(response){			
+			deffered.resolve(response);
+			data = response;
+			//console.log('service2: ' + data);			
+	});
+	return deffered.promise;
     },
+	
     remove: function(customer) {
       data.splice(data.indexOf(customer), 1);	  
     },
+	
     get: function(customerId) {
       for (var i = 0; i < data.length; i++) {
         if (data[i].accountid == parseInt(customerId)) {	

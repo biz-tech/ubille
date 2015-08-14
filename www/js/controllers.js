@@ -2,11 +2,16 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, Customers) {  
-  $scope.customers = Customers.all();
-  $scope.remove = function(customer) {
-    Customers.remove(customer);
-  };  
+.controller('CustomersCtrl', function($scope, Customers) { 
+	
+	Customers.all().then(function(data){
+		$scope.customers = data;
+		//console.log('CustomersCtrl2: ' + data);	 
+	});
+	 	
+	$scope.remove = function(customer) {
+		Customers.remove(customer);
+	};  
 
 })
 .controller('addCustomerCtrl', function($scope, $http, $location) {	
@@ -17,10 +22,6 @@ angular.module('ubille.controllers', [])
 .controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {	
 	$scope.customer = Customers.get($stateParams.customerId);
 })
-/*
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})*/
 
 .controller('productCtrl', function($scope, Product) {
   $scope.data = Product.all();    
