@@ -61,3 +61,9 @@ display:scroll;}
 .orderShipCard{width:100%; margin:0 auto;float:left;margin:10px;}
 .orderShipCard div:last-child{color:#6c1943;}
 /*sales order detail end*/
+
+/* hide tabs start*/
+.tabs-hide .tabs {
+    display: none;
+}
+/* hide tabs end*/

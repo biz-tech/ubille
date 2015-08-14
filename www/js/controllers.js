@@ -3,7 +3,7 @@ angular.module('ubille.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('CustomersCtrl', function($scope, Customers) { 
-	
+	$scope.$root.tabsHidden = "";
 	Customers.all().then(function(data){
 		$scope.customers = data;
 		//console.log('CustomersCtrl2: ' + data);	 
@@ -20,16 +20,19 @@ angular.module('ubille.controllers', [])
   });
 })
 .controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {	
+	$scope.$root.tabsHidden = "tabs-hide";
 	$scope.customer = Customers.get($stateParams.customerId);
 })
 
 .controller('productCtrl', function($scope, Product) {
+  $scope.$root.tabsHidden = "";
   $scope.data = Product.all();    
   $scope.remove = function(data) {  
     Product.remove(data);
   };
 })
 .controller('productDetailCtrl', function($scope, $stateParams, Product, $state) {	
+  $scope.$root.tabsHidden = "tabs-hide";
   $scope.item = Product.get($stateParams.productNo);
   $scope.toggleGroup = function(group) {
     if ($scope.isGroupShown(group)) {
@@ -44,12 +47,14 @@ angular.module('ubille.controllers', [])
 })
 
 .controller('salesOrderCtrl', function($scope, SalesOrder) {	
+  $scope.$root.tabsHidden = "";
   $scope.data = SalesOrder.all();        
   $scope.remove = function(data) {  
     SalesOrder.remove(data);
   };
 })
-.controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) {  
+.controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
+  $scope.$root.tabsHidden = "tabs-hide"; 
   $scope.item = SalesOrder.get($stateParams.salesorderNo);      
 })
 
