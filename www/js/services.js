@@ -32,18 +32,20 @@ angular.module('ubille.services', [])
     }
   };
 })
-.factory('Product', function($http) {
+.factory('Product', function($http, $q) {
   // Might use a resource here that returns a JSON array
     var data = [];	
-  	var site= path+"/ubilledata.php?oper=product";
-	$http.get(site).success(function(response){			
-		data = response;
-	});	
+  	var site= path+"/ubilledata.php?oper=product";	
 
-  return {
+  return {  
     all: function() {	
-      return data;
-    },   
+		var deffered = $q.defer();
+		$http.get(site).success(function(response){			
+			deffered.resolve(response);
+			data = response;
+    });
+	return deffered.promise;
+	},   
     get: function(productNo) {
       for (var i = 0; i < data.length; i++) {
         if (data[i].product_no == productNo) {					
@@ -54,7 +56,7 @@ angular.module('ubille.services', [])
     }
   };
 })
-.factory('SalesOrder', function($http) {
+.factory('SalesOrder', function($http, $q) {
   // Might use a resource here that returns a JSON array
     var data = [];
   	var site= path+"/ubilledata.php?oper=order";		
@@ -64,8 +66,13 @@ angular.module('ubille.services', [])
 
   return {
     all: function() {	
-      return data;
-    },
+	var deffered = $q.defer();
+		$http.get(site).success(function(response){			
+			deffered.resolve(response);
+			data = response;
+    });
+	return deffered.promise;
+	},   
     remove: function(salesorder) {
       data.splice(data.indexOf(salesorder), 1);
     },

@@ -45,6 +45,9 @@ display:scroll;}
 .list .item.item-accordion.ng-hide-remove {
   display: block !important;
 }
+.popup{width:400px;max-height:60%;overflow-y:scroll;}
+.ion-close-round{position:absolute;top:10px;right:10px;cursor:pointer;}
+.popup span{display:none;}
 /*product detail end*/
 
 /*sales order list start*/

@@ -20,8 +20,9 @@
     <div class="input-label">
       <h2>Quantity (pack)</h2>
     </div>
-    <select>
-      <option selected>1</option>
+    <select class="itemQnt" ng-model="itemQnt" ng-change="selectedVal(itemQnt)">
+      <option ng-selected="true">select</option>
+	  <option>1</option>
       <option>2</option>
       <option>3</option>
 	  <option>4</option>
@@ -33,7 +34,7 @@
     </select>
 	
   </label>
-	<button class="button button-block button-positive">
+	<button class="button button-block button-positive" ng-click="cart()">
 		Add to cart
 	</button>
     <div>
