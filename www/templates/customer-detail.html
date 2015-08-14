@@ -1,7 +1,12 @@
-<ion-view title="{{customer.accountname}}" hide-tabs>
+<ion-view title="{{customer.accountname}}">
   <ion-content class="padding">
 <div class="list">
-<img ng-src="http://crm.biztechus.com/ubille_mobile_img/icon-fashion.png" style="width: 64px; height: 64px">
+	<img ng-if="customer.account_type == 'Customer'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Icon_Womenwear.png">									
+	<img ng-if="customer.account_type == 'Partner'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Icon_Menswear.png">									
+	<img ng-if="customer.account_type == 'Reseller'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Icon_sports.png">					
+	<img ng-if="customer.account_type == 'Competitor'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Icon_children.png">					
+	<img ng-if="customer.account_type == 'Other'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Icon_plussize.png">
+
   <label class="item item-input item-stacked-label">
     <span class="input-label">Email</span>
     <span>{{customer.email1}}</span>

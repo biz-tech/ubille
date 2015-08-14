@@ -34,7 +34,7 @@ angular.module('ubille.controllers', [])
   };
 })
 .controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup) {	
-  $scope.$root.tabsHidden = "tabs-hide";
+  $scope.$root.tabsHidden = "tabs-hide"; 
   $scope.item = Product.get($stateParams.productNo);
   $scope.toggleGroup = function(group) {
     if ($scope.isGroupShown(group)) {
@@ -128,17 +128,5 @@ $scope.selectedVal = function(itemQnt){
   $scope.settings = {
     enableFriends: true
   };
-})
-.directive('hideTabs', function($rootScope) {
-  return {
-    restrict: 'A',
-    link: function($scope, $el) {
-      $scope.$on("$ionicView.beforeEnter", function () {
-        $rootScope.hideTabs = true;
-      });
-      $scope.$on("$ionicView.beforeLeave", function () {
-        $rootScope.hideTabs = false;
-      });
-    }
-  };
 });
+

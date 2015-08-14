@@ -5,7 +5,7 @@ angular.module('ubille.services', [])
 .factory('Customers', function($http,$q) {
   // Might use a resource here that returns a JSON array
     var data = [];
-	var site= path+"/ubilledata.php?oper=acoount";
+	var site= path+"/ubilledata.php?oper=account";
 
   return {
     all: function() {
