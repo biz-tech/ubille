@@ -2,99 +2,47 @@
   <ion-content>  
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
-<form name="addCustomer" action="http://localhost/vtigercrm/testdata.php?oper=addAccount" method="post" accept-charset="utf-8" enctype="multipart/form-data">   
+<!--<form name="addCustomer" action="http://localhost/vtigercrm/testdata.php?oper=addAccount" method="post" accept-charset="utf-8" enctype="multipart/form-data">   -->
 	<div>
-		<label class="item item-input">
+		<label class="item item-input item-stacked-label">
 			<span class="input-label">Organization Name*</span>
-			<input type="text" name="accountname" value="" required="">
-		</label>
-	</div>
-	<div>
-		<label class="item item-input">
-			<span class="input-label">Primary Phone*</span>
-			<input type="tel" name="phone" value="" required="">
-		</label>
-	</div>
-	<div>
-		<label class="item item-input">
-			<span class="input-label">Primary Email*</span>
-			<input type="email" name="email1" value="" required="">
-		</label>
-	</div>
-	<div>
-		<label class="item item-input">
-		<span class="input-label">Industry</span>		
-			<select name="industry">
-				<option value="">Select Value</option>
-				<option value="Apparel" selected="">Apparel</option>
-				<option value="Accounting">Accounting</option>
-				<option value="Banking">Banking</option>
-				<option value="Biotechnology">Biotechnology</option>
-				<option value="Chemicals">Chemicals</option>
-				<option value="Communications">Communications</option>
-				<option value="Construction">Construction</option>
-				<option value="Consulting">Consulting</option>
-				<option value="Education">Education</option>
-				<option value="Electronics">Electronics</option>
-				<option value="Energy">Energy</option>
-				<option value="Engineering">Engineering</option>
-				<option value="Entertainment">Entertainment</option>
-				<option value="Environmental">Environmental</option>
-				<option value="Finance">Finance</option>
-				<option value="Food &amp; Beverage">Food &amp; Beverage</option>
-				<option value="Government">Government</option>
-				<option value="Healthcare">Healthcare</option>
-				<option value="Hospitality">Hospitality</option>
-				<option value="Insurance">Insurance</option>
-				<option value="Machinery">Machinery</option>
-				<option value="Manufacturing">Manufacturing</option>
-				<option value="Media">Media</option>
-				<option value="Not For Profit">Not For Profit</option>
-				<option value="Recreation">Recreation</option>
-				<option value="Retail">Retail</option>
-				<option value="Shipping">Shipping</option>
-				<option value="Technology">Technology</option>
-				<option value="Telecommunications">Telecommunications</option>
-				<option value="Transportation">Transportation</option>
-				<option value="Utilities">Utilities</option>
-				<option value="Other">Other</option>
-			</select>			
+			<input type="text" name="accountname" placeholder="Name" value="" required="">			
 		</label>
 	</div>
 	<div>
 		<label class="item item-input item-stacked-label">
-			<span class="input-label">Billing Address</span>
-			<textarea name="bill_street"></textarea>
+			<span class="input-label">Primary Phone*</span>
+			<input type="tel" name="phone" placeholder="Phone"value="" required="">
 		</label>
 	</div>
 	<div>
-		<label class="item item-input">
-			<span class="input-label">Billing City</span>
-			<input type="text" name="bill_city" value="">
-		</label>
-	</div>
-	<div>
-		<label class="item item-input">
-			<span class="input-label">Billing State</span>
-			<input type="text" name="bill_state" value="">
-		</label>
-	</div>
-	<div>
-		<label class="item item-input">
-			<span class="input-label">Billing Postal Code</span>
-			<input type="text" name="bill_code" value="">
-		</label>
-	</div>
-	<div>
-		<label class="item item-input">
-			<span class="input-label">Billing Country</span>
-			<input type="text" name="bill_country" value="">
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">Primary Email*</span>
+			<input type="email" name="email1" placeholder="Email"value="" required="">
 		</label>
 	</div>	
-<input class="submit" type="submit" value="Submit">
-</form>
+	<div>
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">Billing Address</span>
+			<textarea name="bill_street" placeholder="Street"></textarea>
+		</label>
+	</div>
+	<div>
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">Billing City</span>
+			<input type="text" name="bill_city" placeholder="City"value="">
+		</label>
+	</div>
+	<div>
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">Billing State</span>
+			<input type="text" name="bill_state" placeholder="State"value="">
+		</label>
+	</div>
+	<button class="button button-block button-positive addCustomer" ng-click="addCustomerSubmit()">submit</button>
+<!--</form>
 <script type="text/javascript">
 window.onload = function() { var N=navigator.appName, ua=navigator.userAgent, tem;var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];M=M? [M[1], M[2]]: [N, navigator.appVersion, "-?"];var browserName = M[0];var form = document.forms[0], inputs = form.elements; form.onsubmit = function() { var required = [], att, val; for (var i = 0; i < inputs.length; i++) { att = inputs[i].getAttribute("required"); val = inputs[i].value; type = inputs[i].type; if(type == "email") {if(val != "") {var elemLabel = inputs[i].getAttribute("label");var emailFilter = /^[_/a-zA-Z0-9]+([!"#$%&()*+,./:;<=>?\^_`{|}~-]?[a-zA-Z0-9/_/-])*@[a-zA-Z0-9]+([\_\-\.]?[a-zA-Z0-9]+)*\.([\-\_]?[a-zA-Z0-9])+(\.?[a-zA-Z0-9]+)?$/;var illegalChars= /[\(\)\<\>\,\;\:\"\[\]]/ ;if (!emailFilter.test(val)) {alert("For "+ elemLabel +" field please enter valid email address"); return false;} else if (val.match(illegalChars)) {alert(elemLabel +" field contains illegal characters");return false;}}}if (att != null) { if (val.replace(/^\s+|\s+$/g, "") == "") { required.push(inputs[i].getAttribute("label")); } } } if (required.length > 0) { alert("The following fields are required: " + required.join()); return false; } var numberTypeInputs = document.querySelectorAll("input[type=number]");for (var i = 0; i < numberTypeInputs.length; i++) { val = numberTypeInputs[i].value;var elemLabel = numberTypeInputs[i].getAttribute("label");if(val != "") {var intRegex = /^[+-]?\d+$/;if (!intRegex.test(val)) {alert("For "+ elemLabel +" field please enter valid number"); return false;}}}};}
-</script>
+</script>-->
   </ion-content>  
 </ion-view>

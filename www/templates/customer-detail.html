@@ -9,30 +9,31 @@
 
   <label class="item item-input item-stacked-label">
     <span class="input-label">Email</span><br/>   
-	<span>{{customer.email1|| 'Empty' }}</span>   	
-	<input class="customerDetailEdit" type="text" placeholder="Email" style="display:none"></input>
+	<span class="customerDetailShow">{{customer.email1|| 'Empty' }}</span>   	
+	<input class="customerDetailEdit" type="text" placeholder="{{customer.email1}}" name="Email" style="display:none"></input>
   </label>
   <label class="item item-input item-stacked-label">
     <span class="input-label">Phone</span><br/>    
-	<span>{{customer.phone|| 'Empty' }}</span>   
-	<input class="customerDetailEdit" type="text" placeholder="Phone" style="display:none"></input>
+	<span class="customerDetailShow">{{customer.phone|| 'Empty' }}</span>   
+	<input class="customerDetailEdit" type="text" placeholder="{{customer.phone}}" name="Phone" style="display:none"></input>
   </label>
   <label class="item item-input item-stacked-label">
     <span class="input-label">Street</span><br/>    
-	<span>{{customer.bill_street|| 'Empty' }}</span>   
-	<input class="customerDetailEdit" type="text" placeholder="Street" style="display:none"></input>
+	<span class="customerDetailShow">{{customer.bill_street|| 'Empty' }}</span>   
+	<input class="customerDetailEdit" type="text" placeholder="{{customer.bill_street}}" name="Street" style="display:none"></input>
   </label>
   <label class="item item-input item-stacked-label">
     <span class="input-label">City</span><br/>    
-	<span>{{customer.bill_city|| 'Empty' }}</span>   
-	<input class="customerDetailEdit" type="text" placeholder="City" style="display:none"></input>
+	<span class="customerDetailShow">{{customer.bill_city|| 'Empty' }}</span>   
+	<input class="customerDetailEdit" type="text" placeholder="{{customer.bill_city}}" name="City" style="display:none"></input>
   </label>
   <label class="item item-input item-stacked-label">
     <span class="input-label">State</span><br/>    
-	<span>{{customer.bill_state|| 'Empty' }}</span>   
-	<input class="customerDetailEdit" type="text" placeholder="State" style="display:none"></input>
+	<span class="customerDetailShow">{{customer.bill_state|| 'Empty' }}</span>   
+	<input class="customerDetailEdit" type="text" placeholder="{{customer.bill_state}}" name="State" style="display:none"></input>
   </label>
-  <input class="customerDetailEditSubmit"type="submit" value="submit"></input>
+  <button class="button button-block button-positive customerDetailEdit" ng-click="submit()" style="display:none">submit</button>
+  
 </div>
   </ion-content>
 </ion-view>

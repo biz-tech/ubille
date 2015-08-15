@@ -7,9 +7,10 @@
 				<img ng-if="item.sostatus == 'Approved'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_approved.png">
 				<img ng-if="item.sostatus == 'Cancelled'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_cancelled.png">
 				<img ng-if="item.sostatus == 'Delivered'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_delivered.png">				
-				<div class="soNo">{{item.salesorder_no || '-' }}</div>		
-				<div>{{item.accountname}}</div>				
-				<div>{{item.listprice || '-' }}</div>	
+				<div class="soNo">Order No : {{item.salesorder_no || '-' }}</div>		
+				<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Company : {{item.accountname}}</div>				
+				<div>Price : ${{item.listprice || '-' }}</div>
+				<div>Qty : {{item.quantity || '-' }}</div>				
 				<i class="icon ion-chevron-right icon-accessory"></i>
 				<ion-option-button class="button-assertive" ng-click="remove(customer)">
 					Delete

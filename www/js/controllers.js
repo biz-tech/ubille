@@ -2,7 +2,8 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, $log, Customers) { 
+.controller('CustomersCtrl', function($scope, $log, Customers, $state) { 
+	console.log($scope);
 	$scope.$root.tabsHidden = "";
 	Customers.all().then(function(data){
 		$scope.customers = data;
@@ -13,28 +14,45 @@ angular.module('ubille.controllers', [])
 		Customers.remove(customer);
 	};  
 
-	$scope.$root.addButton = function($state){
-		alert("Customer ADD");		
-	}
+	$scope.$root.addButton = function(){
+		$state.go('tabs.customer-add');
+	};
 	$scope.$on('$stateChangeStart', function() {
 		console.log('Customer stateChangeStart left ');
 		$scope.$root.addButton = null;
 	})
 })
-.controller('addCustomerCtrl', function($scope, $http, $location) {	
-  $('.submit').click(function(){
-	console.log("submit");
-  });
+.controller('addCustomerCtrl', function($scope, $http, $location, Customers, $state) {	  	
+	$scope.customer = {};
+	$scope.addCustomerSubmit = function(){
+		$scope.customer.accountname = $("input[name='Name']").val();
+		$scope.customer.phone = $("input[name='phone']").val();
+		$scope.customer.email1 = $("input[name='email1']").val();
+		$scope.customer.Street = $("input[name='Street']").val();
+		$scope.customer.City = $("input[name='City']").val();				
+		$scope.customer.State = $('input[name="State"]').val();		
+		$state.go('tabs.customers');
+	};	
 })
 .controller('CustomerDetailCtrl', function($scope, $stateParams, $log, Customers) {	
 	$scope.$root.tabsHidden = "tabs-item-hide";
 	$scope.customer = Customers.get($stateParams.customerId);
 	
-	$scope.$root.addDetailButton = function($state){
-		//alert("CustomerDetailCtrl ADD");
-		//$scope.customer.edit = "true";		
-		$(".customerDetailEdit").css("display","block");
+	$scope.$root.addDetailButton = function($state){		
+		$(".customerDetailShow").css("display","none");		
+		$(".customerDetailEdit").css("display","block");		
 	}
+	
+	$scope.submit = function($state){
+		$scope.customer.email1 = $('input[name="Email"]').val();
+		$scope.customer.phone = $('input[name="Phone"]').val();
+		$scope.customer.bill_street = $('input[name="Street"]').val();
+		$scope.customer.bill_city = $('input[name="City"]').val();
+		$scope.customer.bill_state = $('input[name="State"]').val();
+		$(".customerDetailShow").css("display","block");		
+		$(".customerDetailEdit").css("display","none");
+	}
+	
 	$scope.$on('$stateChangeStart', function() {
 	console.log('CustomerDetailCtrl stateChangeStart left ');
 	$scope.$root.addDetailButton = null;

@@ -61,7 +61,7 @@ display:scroll;}
 #orderDetailImage{max-height:200px;max-width:200px;}
 .description{position:relative;line-height:40px;}
 .item-title{font-size:25px; font-weight:bold;margin-bottom:10px;}
-.orderShipCard{width:100%; margin:0 auto;float:left;margin:10px;}
+.orderShipCard{width:100%;margin:0 auto;float:left;margin-top:10px;}
 .orderShipCard div:last-child{color:#6c1943;}
 /*sales order detail end*/
 
