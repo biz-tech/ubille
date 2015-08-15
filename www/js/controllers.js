@@ -16,21 +16,27 @@ angular.module('ubille.controllers', [])
 	$scope.$root.addButton = function($state){
 		alert("Customer ADD");		
 	}
-
 	$scope.$on('$stateChangeStart', function() {
 		console.log('Customer stateChangeStart left ');
 		$scope.$root.addButton = null;
 	})
-
 })
 .controller('addCustomerCtrl', function($scope, $http, $location) {	
   $('.submit').click(function(){
 	console.log("submit");
   });
 })
-.controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {	
+.controller('CustomerDetailCtrl', function($scope, $stateParams, $log, Customers) {	
 	$scope.$root.tabsHidden = "tabs-item-hide";
 	$scope.customer = Customers.get($stateParams.customerId);
+	
+	$scope.$root.addDetailButton = function($state){
+		alert("CustomerDetailCtrl ADD");		
+	}
+	$scope.$on('$stateChangeStart', function() {
+	console.log('CustomerDetailCtrl stateChangeStart left ');
+	$scope.$root.addDetailButton = null;
+	})
 })
 
 .controller('productCtrl', function($scope, Product) {
@@ -114,6 +120,7 @@ $scope.selectedVal = function(itemQnt){
 		});
 	}
   };
+
 })
 
 .controller('salesOrderCtrl', function($scope, SalesOrder) {	
@@ -134,8 +141,9 @@ $scope.selectedVal = function(itemQnt){
 	})
 })
 .controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
-  $scope.$root.tabsHidden = "tabs-item-hide"; 
-  $scope.item = SalesOrder.get($stateParams.salesorderNo);      
+	$scope.$root.tabsHidden = "tabs-item-hide"; 
+	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
+
 })
 
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
@@ -154,16 +162,6 @@ $scope.selectedVal = function(itemQnt){
   $scope.settings = {
     enableFriends: true
   };
-})
-.controller("State3Ctrl", function($scope, $log) {
-      $scope.$root.addButton = function(){
-        alert("ADD");
-      }
-      
-      $scope.$on('$stateChangeStart', function() {
-        $log.debug('$stateChangeStart received. Removing button');
-        //$scope.$parent.addButton = null;
-      })
 });
 
 
