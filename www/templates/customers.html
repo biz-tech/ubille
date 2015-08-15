@@ -1,5 +1,6 @@
 <ion-view title="Customers">
 	<ion-content>  
+
 		<ion-list>
 			<ion-item ng-repeat="customer in customers" class="item-thumbnail-left item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/customers/{{customer.accountid}}">
 				<img ng-if="customer.account_type == 'Customer'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Icon_Womenwear.png">									

@@ -65,11 +65,7 @@ display:scroll;}
 .orderShipCard div:last-child{color:#6c1943;}
 /*sales order detail end*/
 
-/* hide tabs start*/
- .tabs-hide .tabs {
-    display: none;
-}
-/* hide tabs end*/
+
 .tab-item.tab-item-active{
 	color: #6c1943;
 	border-color: #FFFFFF;

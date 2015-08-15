@@ -12,6 +12,7 @@ angular.module('ubille.controllers', [])
 	$scope.remove = function(customer) {
 		Customers.remove(customer);
 	};  
+	
 
 })
 .controller('addCustomerCtrl', function($scope, $http, $location) {	
@@ -20,7 +21,7 @@ angular.module('ubille.controllers', [])
   });
 })
 .controller('CustomerDetailCtrl', function($scope, $stateParams, Customers) {	
-	$scope.$root.tabsHidden = "tabs-hide";
+	$scope.$root.tabsHidden = "tabs-item-hide";
 	$scope.customer = Customers.get($stateParams.customerId);
 })
 
@@ -34,7 +35,7 @@ angular.module('ubille.controllers', [])
   };
 })
 .controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup) {	
-  $scope.$root.tabsHidden = "tabs-hide"; 
+  $scope.$root.tabsHidden = "tabs-item-hide"; 
   $scope.item = Product.get($stateParams.productNo);
   $scope.toggleGroup = function(group) {
     if ($scope.isGroupShown(group)) {
@@ -108,7 +109,7 @@ $scope.selectedVal = function(itemQnt){
   };
 })
 .controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
-  $scope.$root.tabsHidden = "tabs-hide"; 
+  $scope.$root.tabsHidden = "tabs-item-hide"; 
   $scope.item = SalesOrder.get($stateParams.salesorderNo);      
 })
 
