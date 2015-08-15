@@ -68,14 +68,14 @@ angular.module('ubille.controllers', [])
 		Product.remove(data);
 	};
   
-  	$scope.$root.addButton = function($state){
+/*   	$scope.$root.addButton = function($state){
 		alert("Product ADD");		
 	}
 
 	$scope.$on('$stateChangeStart', function() {
 		console.log('Product stateChangeStart left ');
 		$scope.$root.addButton = null;
-	})
+	}) */
 })
 .controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup) {	
   $scope.$root.tabsHidden = "tabs-item-hide"; 
@@ -151,14 +151,14 @@ $scope.selectedVal = function(itemQnt){
 	$scope.remove = function(data) {  
 		SalesOrder.remove(data);
 	};
-	$scope.$root.addButton = function($state){
+/* 	$scope.$root.addButton = function($state){
 		alert("SalesOrder ADD");		
 	}
 
 	$scope.$on('$stateChangeStart', function() {
 	console.log('SalesOrder stateChangeStart left ');
 	$scope.$root.addButton = null;
-	})
+	}) */
 })
 .controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
 	$scope.$root.tabsHidden = "tabs-item-hide"; 

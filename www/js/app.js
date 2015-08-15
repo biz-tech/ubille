@@ -155,7 +155,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 })
 
 .controller("DoughnutCtrl", function ($scope) {
-  $scope.labels = ["Man", "Woman", "Children", "Sports", "Plus"];
+  $scope.labels = ["Men", "Women", "Children", "Sports", "Plus"];
   $scope.data = [300, 500, 70, 100, 30];
   $scope.colours = [
     '#97BBCD', // blue    

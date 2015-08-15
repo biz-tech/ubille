@@ -63,7 +63,7 @@ angular.module('ubille.services', [])
   	var site= path+"/ubilledata.php?oper=order";		
 	$http.get(site).success(function(response){	
 		data = response;
-	console.log('salesOrder: ' + JSON.stringify(data));		
+	/* console.log('salesOrder: ' + JSON.stringify(data));		 */
 	});	
 
   return {
