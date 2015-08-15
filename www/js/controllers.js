@@ -31,7 +31,9 @@ angular.module('ubille.controllers', [])
 	$scope.customer = Customers.get($stateParams.customerId);
 	
 	$scope.$root.addDetailButton = function($state){
-		alert("CustomerDetailCtrl ADD");		
+		//alert("CustomerDetailCtrl ADD");
+		//$scope.customer.edit = "true";		
+		$(".customerDetailEdit").css("display","block");
 	}
 	$scope.$on('$stateChangeStart', function() {
 	console.log('CustomerDetailCtrl stateChangeStart left ');
@@ -96,7 +98,7 @@ $scope.selectedVal = function(itemQnt){
 				"Quantity : "+$scope.itemQnt+"<br>"+
 				"SubTotal : $"+$scope.item.unit_price*$scope.itemQnt+"<br>"+
 				"<i class='ion-close-round' ng-click='close()'></i>"+
-				"</ion-item>"+window.localStorage["keep"]+"</ion-list>",
+				"</ion-item></ion-list>"+window.localStorage["keep"],
 				
 			buttons : [
 				{text : 'Keep Shoping',
@@ -113,7 +115,7 @@ $scope.selectedVal = function(itemQnt){
 				{text : 'Check Out',
 				 type : 'button-assertive',
 				 onTap : function(e){
-					delete window.localStorage["keep"]
+					delete window.localStorage["keep"];
 					$state.go('tabs.product');
 				 }}				
 			]	

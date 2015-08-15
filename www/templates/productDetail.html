@@ -4,10 +4,10 @@
   <div class="item item-body">
     <img class="full-image" src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}">
     <h2>
-     {{item.productname|| '-' }}
+     {{item.productname|| 'Empty' }}
     </h2>
     <p>
-     ${{item.unit_price|| '-' }}
+     ${{item.unit_price|| 'Empty' }}
     </p>	
 	<button class="button button-small button-assertive"></button>
 	<button class="button button-small button-positive"></button>
@@ -48,19 +48,19 @@
 					Fabric & Care
 				</div>
 				<div class="item" href="#">
-					{{item.fabric}}
+					{{item.fabric || 'Empty'}}
 				</div>
 				<div class="item item-divider">
 					Overview
 				</div>
 				<div class="item" href="#" >
-					{{item.overview}}
+					{{item.overview || 'Empty'}}
 				</div>
 				<div class="item item-divider">
 					Fit & Sizing
 				</div>
 				<div class="item" href="#" >
-					{{item.fit}}
+					{{item.fit || 'Empty'}}
 				</div>
 			</div>									
         </ion-item>

@@ -1,11 +1,16 @@
       <ion-view title="Home">
         <ion-content>
-          <p>Example of Ionic tabs. Navigate to each tab, and
-          navigate to child views of each tab and notice how
-          each tab has its own navigation history.</p>
-          <p>
-            <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
-          </p>
-		  
+        <div class="graphWrap">
+		
+		<div ng-controller="BarCtrl">			
+			<h2>Monthly Sales Order</h2>
+			<canvas id="bar" class="chart chart-bar" data="data" labels="labels"></canvas>			
+		</div>
+		
+		<div ng-controller="DoughnutCtrl">
+			<h2>Type of Company</h2>
+			<canvas id="doughnut" class="chart chart-doughnut" data="data" labels="labels"></canvas> 			
+		</div>
+	</div>
         </ion-content>
       </ion-view>

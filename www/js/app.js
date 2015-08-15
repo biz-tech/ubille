@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
+angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'chart.js'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,7 +23,6 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {
-; 
   $stateProvider
     .state('search', {
       url: '/search',
@@ -139,6 +138,14 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services'])
     });
    $urlRouterProvider.otherwise("/tab/home");
 
+})
+.controller("BarCtrl", function ($scope) {
+  $scope.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec'];  
+  $scope.data = [[65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56]];
+})  
+.controller("DoughnutCtrl", function ($scope) {
+  $scope.labels = ["Man", "Woman", "Children"];
+  $scope.data = [300, 500, 100];
 });
 /* .directive('hideTabBar', function($timeout) {
   var style = angular.element('<style>').html(
