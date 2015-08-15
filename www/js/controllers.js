@@ -2,7 +2,7 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, Customers) { 
+.controller('CustomersCtrl', function($scope, $log, Customers) { 
 	$scope.$root.tabsHidden = "";
 	Customers.all().then(function(data){
 		$scope.customers = data;
@@ -12,7 +12,15 @@ angular.module('ubille.controllers', [])
 	$scope.remove = function(customer) {
 		Customers.remove(customer);
 	};  
-	
+
+	$scope.$root.addButton = function($state){
+		alert("Customer ADD");		
+	}
+
+	$scope.$on('$stateChangeStart', function() {
+		console.log('Customer stateChangeStart left ');
+		$scope.$root.addButton = null;
+	})
 
 })
 .controller('addCustomerCtrl', function($scope, $http, $location) {	
@@ -26,13 +34,22 @@ angular.module('ubille.controllers', [])
 })
 
 .controller('productCtrl', function($scope, Product) {
-  $scope.$root.tabsHidden = "";
-	Product.all().then(function(data){
-		$scope.data = data;		
-	});     
-  $scope.remove = function(data) {  
-    Product.remove(data);
-  };
+	$scope.$root.tabsHidden = "";
+		Product.all().then(function(data){
+			$scope.data = data;		
+		});     
+	$scope.remove = function(data) {  
+		Product.remove(data);
+	};
+  
+  	$scope.$root.addButton = function($state){
+		alert("Product ADD");		
+	}
+
+	$scope.$on('$stateChangeStart', function() {
+		console.log('Product stateChangeStart left ');
+		$scope.$root.addButton = null;
+	})
 })
 .controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup) {	
   $scope.$root.tabsHidden = "tabs-item-hide"; 
@@ -100,13 +117,21 @@ $scope.selectedVal = function(itemQnt){
 })
 
 .controller('salesOrderCtrl', function($scope, SalesOrder) {	
-  $scope.$root.tabsHidden = "";
-  SalesOrder.all().then(function(data){
-		$scope.data = data;		
-	});        
-  $scope.remove = function(data) {  
-    SalesOrder.remove(data);
-  };
+	$scope.$root.tabsHidden = "";
+		SalesOrder.all().then(function(data){
+			$scope.data = data;		
+		});        
+	$scope.remove = function(data) {  
+		SalesOrder.remove(data);
+	};
+	$scope.$root.addButton = function($state){
+		alert("SalesOrder ADD");		
+	}
+
+	$scope.$on('$stateChangeStart', function() {
+	console.log('SalesOrder stateChangeStart left ');
+	$scope.$root.addButton = null;
+	})
 })
 .controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
   $scope.$root.tabsHidden = "tabs-item-hide"; 
@@ -129,5 +154,16 @@ $scope.selectedVal = function(itemQnt){
   $scope.settings = {
     enableFriends: true
   };
+})
+.controller("State3Ctrl", function($scope, $log) {
+      $scope.$root.addButton = function(){
+        alert("ADD");
+      }
+      
+      $scope.$on('$stateChangeStart', function() {
+        $log.debug('$stateChangeStart received. Removing button');
+        //$scope.$parent.addButton = null;
+      })
 });
+
 

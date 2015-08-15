@@ -13,7 +13,7 @@ angular.module('ubille.services', [])
 		$http.get(site).success(function(response){			
 			deffered.resolve(response);
 			data = response;
-			//console.log('service2: ' + data);			
+			/* console.log('customers: ' + JSON.stringify(data));			 */
 	});
 	return deffered.promise;
     },
@@ -43,6 +43,7 @@ angular.module('ubille.services', [])
 		$http.get(site).success(function(response){			
 			deffered.resolve(response);
 			data = response;
+			/* console.log('product: ' + JSON.stringify(data)); */
     });
 	return deffered.promise;
 	},   
@@ -61,7 +62,8 @@ angular.module('ubille.services', [])
     var data = [];
   	var site= path+"/ubilledata.php?oper=order";		
 	$http.get(site).success(function(response){	
-		data = response;			
+		data = response;
+	console.log('salesOrder: ' + JSON.stringify(data));		
 	});	
 
   return {

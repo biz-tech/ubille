@@ -1,8 +1,12 @@
 <ion-view title="SalesOrder">
-	<ion-content>  
+	<ion-content class="has-header">  
 		<ion-list>
 			<ion-item ng-repeat="item in data" class="item-thumbnail-left item-remove-animate item-avatar item-icon-right" type="item-text-wrap"  href="#/tab/salesOrder/{{item.salesorder_no}}">
-				<img src="img/Ubille_Status_Icon_{{item.sostatus}}.png"></img>
+				<!-- <img src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_{{item.sostatus}}.png"></img> -->
+				<img ng-if="item.sostatus == 'Created'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_Created.png">
+				<img ng-if="item.sostatus == 'Approved'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_approved.png">
+				<img ng-if="item.sostatus == 'Cancelled'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_cancelled.png">
+				<img ng-if="item.sostatus == 'Delivered'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_delivered.png">				
 				<div class="soNo">{{item.salesorder_no || '-' }}</div>		
 				<div>{{item.accountname}}</div>				
 				<div>{{item.listprice || '-' }}</div>	
