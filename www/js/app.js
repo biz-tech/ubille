@@ -139,35 +139,31 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
    $urlRouterProvider.otherwise("/tab/home");
 
 })
-.controller("BarCtrl", function ($scope) {
+ .controller("BarCtrl", function ($scope) {
   $scope.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec'];  
-  $scope.data = [[65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56]];
-})  
-.controller("DoughnutCtrl", function ($scope) {
-  $scope.labels = ["Man", "Woman", "Children"];
-  $scope.data = [300, 500, 100];
-});
-/* .directive('hideTabBar', function($timeout) {
-  var style = angular.element('<style>').html(
-    '.has-tabs.no-tabs:not(.has-tabs-top) { bottom: 0; }\n' +
-    '.no-tabs.has-tabs-top { top: 44px; }');
-  document.body.appendChild(style[0]);
-  return {
-    restrict: 'A',
-    compile: function(element, attr) {
-      var tabBar = document.querySelector('.tab-nav');
-      return function($scope, $element, $attr) {
-        var scroll = $element[0].querySelector('.scroll-content');
-        $scope.$on('$ionicView.beforeEnter', function() {
-          tabBar.classList.add('slide-away');
-          scroll.classList.add('no-tabs');
-        })
-        $scope.$on('$ionicView.beforeLeave', function() {
-          tabBar.classList.remove('slide-away');
-          scroll.classList.remove('no-tabs')
-        });
-      }
-    }
+  $scope.series =['2014','2015'];
+  $scope.data = [[65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56],
+				[75, 39, 79, 85, 47, 59, 44, 66, 0, 0, 0, 0]];
+	$scope.colours = [
+    '#97BBCD', // blue
+    '#46BFBD', // green
+    '#FDB45C' // yellow
+  ];
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
   };
-}); */
+})
+
+.controller("DoughnutCtrl", function ($scope) {
+  $scope.labels = ["Man", "Woman", "Children", "Sports", "Plus"];
+  $scope.data = [300, 500, 70, 100, 30];
+  $scope.colours = [
+    '#97BBCD', // blue    
+    '#F7464A', // red
+    '#46BFBD', // green
+    '#FDB45C', // yellow
+    '#4D5360'  // dark grey
+  ];  
+});
+
 

@@ -106,7 +106,7 @@ $scope.selectedVal = function(itemQnt){
 		return false;
 	}else{		
 		var popup = $ionicPopup.alert({			
-			title : "My Cart",
+			title : "Ubille Cart",
 			scope : $scope,
 			template :									
 				"<ion-list id='idx'><ion-item class='item-thumbnail-left item-remove-animate item-icon-right' type='item-text-wrap'>"+			
@@ -119,7 +119,7 @@ $scope.selectedVal = function(itemQnt){
 				"</ion-item></ion-list>"+window.localStorage["keep"],
 				
 			buttons : [
-				{text : 'Keep Shoping',
+				{text : 'Keep Shopping',
 				 onTap : function (e){			 											  				
 				window.localStorage["keep"] += "<ion-item class='item-thumbnail-left item-remove-animate item-icon-right' type='item-text-wrap'>"+			
 				"<img src=http://crm.biztechus.com/"+$scope.item.path+$scope.item.attachmentsid+'_'+$scope.item.name+">"+
