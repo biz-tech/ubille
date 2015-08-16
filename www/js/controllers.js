@@ -91,14 +91,18 @@ angular.module('ubille.controllers', [])
     return $scope.shownGroup === null;
   };  
 $scope.selectedVal = function(itemQnt){
-	return $scope.itemQnt = itemQnt;
+	return $scope.item.itemQnt = itemQnt;
   }; 
   $scope.close = function(){			
-		var click_id = $(this).attr('id');
-		alert(click_id);
+		
   };  
+ $('.button.button-small').click(function(){
+	$('.button.button-small').removeClass('radio-icon ion-checkmark');
+    $(this).addClass('radio-icon ion-checkmark');
+});
   $scope.cart = function(){
-	if($scope.itemQnt == undefined || $scope.itemQnt == "select"){
+  $scope.item.itemQnt = $('.itemQnt').val();  
+	if($scope.item.itemQnt == undefined || $scope.item.itemQnt == "select"){	
 		var popup = $ionicPopup.alert({
 			title : "Alert",
 			template : "Please Check Quantity"
@@ -113,10 +117,10 @@ $scope.selectedVal = function(itemQnt){
 				"<img src=http://crm.biztechus.com/"+$scope.item.path+$scope.item.attachmentsid+'_'+$scope.item.name+">"+
 				"Product Name : "+$scope.item.productname+"<br>"+
 				"Price : $"+$scope.item.unit_price+"<br>"+
-				"Quantity : "+$scope.itemQnt+"<br>"+
-				"SubTotal : $"+$scope.item.unit_price*$scope.itemQnt+"<br>"+
+				"Quantity : "+$scope.item.itemQnt+"<br>"+
+				"SubTotal : $"+$scope.item.unit_price*$scope.item.itemQnt+"<br>"+
 				"<i class='ion-close-round' ng-click='close()'></i>"+
-				"</ion-item></ion-list>"+window.localStorage["keep"],
+				"</ion-item></ion-list><p>"+window.localStorage["keep"]+"</p>",
 				
 			buttons : [
 				{text : 'Keep Shopping',
@@ -125,10 +129,11 @@ $scope.selectedVal = function(itemQnt){
 				"<img src=http://crm.biztechus.com/"+$scope.item.path+$scope.item.attachmentsid+'_'+$scope.item.name+">"+
 				"Product Name : "+$scope.item.productname+"<br>"+
 				"Price : $"+$scope.item.unit_price+"<br>"+
-				"Quantity : "+$scope.itemQnt+"<br>"+
-				"SubTotal : $"+$scope.item.unit_price*$scope.itemQnt+"<br>"+
+				"Quantity : "+$scope.item.itemQnt+"<br>"+
+				"SubTotal : $"+$scope.item.unit_price*$scope.item.itemQnt+"<br>"+
 				"<i class='ion-close-round' ng-click='close()'></i>"+
-				"</ion-item>";								
+				"</ion-item>";
+				$state.go('tabs.product');				
 				}},
 				{text : 'Check Out',
 				 type : 'button-assertive',

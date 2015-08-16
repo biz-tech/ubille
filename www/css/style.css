@@ -48,7 +48,10 @@ display:scroll;}
 }
 .popup{width:400px;max-height:60%;overflow-y:scroll;}
 .ion-close-round{position:absolute;top:10px;right:10px;cursor:pointer;}
-.popup span{display:none;}
+.popup p{display:none;}
+.button.button-small{float:left;margin:5px;}
+.addCart{float:right;}
+.popup-body span{display:block;text-align:center;}
 /*product detail end*/
 
 /*sales order list start*/
