@@ -114,7 +114,7 @@ $scope.selectedVal = function(itemQnt){
 			scope : $scope,
 			template :									
 				"<ion-list id='idx'><ion-item class='item-thumbnail-left item-remove-animate item-icon-right' type='item-text-wrap'>"+			
-				"<img src=http://crm.biztechus.com/"+$scope.item.path+$scope.item.attachmentsid+'_'+$scope.item.name+">"+
+				"<img ng-src=http://crm.biztechus.com/"+$scope.item.path+$scope.item.attachmentsid+'_'+$scope.item.name+">"+
 				"Product Name : "+$scope.item.productname+"<br>"+
 				"Price : $"+$scope.item.unit_price+"<br>"+
 				"Quantity : "+$scope.item.itemQnt+"<br>"+

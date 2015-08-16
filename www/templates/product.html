@@ -5,7 +5,7 @@
 		<div class="productItem">			
 			<a href="#/tab/product/{{item.product_no}}">
 				<!--<img class="image" src="http://http://crm.biztechus.com/vtigercrm/{{item.path+item.attachmentsid+'_'+item.imagename}}">-->
-				<img class="image" ng-src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}"/></a>
+				<div class="item item-image"><img class="image" ng-src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}"/></a></div>
 				
 				<div class="imgBack">
 					<div class="imgDesc" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.productname}}<br>${{item.unit_price}}</div>
