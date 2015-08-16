@@ -3,10 +3,10 @@
 		<ion-list>
 			<ion-item ng-repeat="item in data" class="item-thumbnail-left item-remove-animate item-avatar item-icon-right" type="item-text-wrap"  href="#/tab/salesOrder/{{item.salesorder_no}}">
 				<!-- <img src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_{{item.sostatus}}.png"></img> -->
-				<img ng-if="item.sostatus == 'Created'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_created.png">
-				<img ng-if="item.sostatus == 'Approved'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_approved.png">
-				<img ng-if="item.sostatus == 'Cancelled'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_cancelled.png">
-				<img ng-if="item.sostatus == 'Delivered'" ng-src="http://crm.biztechus.com/ubille_mobile_img/Ubille_Status_Icon_delivered.png">				
+				<img ng-if="item.sostatus == 'Created'" ng-src="img/Ubille_Status_Icon_Create.png">
+				<img ng-if="item.sostatus == 'Approved'" ng-src="img/Ubille_Status_Icon_Approve.png">
+				<img ng-if="item.sostatus == 'Cancelled'" ng-src="img/Ubille_Status_Icon_Cancell.png">
+				<img ng-if="item.sostatus == 'Delivered'" ng-src="img/Ubille_Status_Icon_Delivery.png">				
 				<div class="soNo">Order No : {{item.salesorder_no || '-' }}</div>		
 				<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Company : {{item.accountname}}</div>				
 				<div>Price : ${{item.listprice || '-' }}</div>
