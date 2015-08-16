@@ -25,7 +25,7 @@ display:scroll;}
 .productlist{width:50%;float:left;margin-bottom:-45px;}
 .productItem{padding:5px;position:relative;}
 .image{width:100%;max-height:25%;}
-.imgBack{position:relative;bottom:45px;background:black;height:40px;width:100%;opacity:0.8;}
+.imgBack{position:relative;bottom:40px;background:black;height:40px;width:100%;opacity:0.8;z-index:99;}
 .imgDesc{color:white;position:absolute;width:100%;text-align:center;}
 .title.ng-binding{margin:0 auto;}
 /*product end start*/
