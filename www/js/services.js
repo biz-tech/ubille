@@ -54,7 +54,7 @@ angular.module('ubille.services', [])
         }
       }
       return null;
-    }
+    }	
   };
 })
 .factory('SalesOrder', function($http, $q) {

@@ -5,20 +5,6 @@
 #ionic-header {background:#6c1943;}
 .tab-item .tab-item-active,.tab-item.active,.tab-item.activated{color:#6c1943;}
 
-.add{
-position:fixed; 
-right:50px; 
-bottom:50px;
-border-radius:25px;
--moz-border-radius:25px;
--webkit-border-radius:25px;
-border:1px solid lightgreen;
-width:50px;
-height:50px;
-background:lightgreen;
-text-align:center;
-padding:12px;
-display:scroll;}
 .icon.ion-plus{font-size:30px;position:relative;left:0;top:-2px;}
 /*product list start*/
 .wrap{width:100%; overflow:scroll;}
@@ -48,7 +34,8 @@ display:scroll;}
 }
 .popup{width:400px;max-height:60%;overflow-y:scroll;}
 .ion-close-round{position:absolute;top:10px;right:10px;cursor:pointer;}
-.popup p{display:none;}
+
+/*.popup p{display:block;}*/
 .button.button-small{float:left;margin:5px;}
 .addCart{float:right;}
 .popup-body span{display:block;text-align:center;}
@@ -69,6 +56,11 @@ display:scroll;}
 .orderShipCard div:last-child{color:#6c1943;}
 /*sales order detail end*/
 
+/*add sales order start*/
+.thumbnailImg{width:30%;height:30%;float:left;margin-right:10px;}
+.list li{text-align:right;width:100%;}
+.discount{padding:10px;}
+/*add sales order end*/
 
 .tab-item.tab-item-active{
 	color: #6c1943;

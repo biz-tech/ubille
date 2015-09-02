@@ -1,0 +1,52 @@
+<ion-view title="SalesOrder">
+  <ion-content>  
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<form name="addSalesOrder" action="http://localhost/vtigercrm/testdata.php?oper=addSalesOrder" method="post" accept-charset="utf-8" enctype="multipart/form-data"> 
+	<div ng-controller="CustomersCtrl">
+		<label class="item item-input item-stacked-label">			
+			<div class="input-label">
+				Company *
+			</div><br/>					
+			<select class="selectAccount" id="selectAccount">			
+				<option ng-selected="true"> -- select -- </option>
+				<option>Add Company</option>
+				<option ng-repeat="item in customers" name="accountname">{{item.accountname}}</option>				
+			</select>						
+			<input type="text" class="salesOrderEmail" name="email" style="display:none"></input>	
+		</label>		
+	</div>	
+	
+	<div class="list">
+		<a ng-repeat="item in salesorder.items" ng-hide="item.productname == ''" class="item">
+			<img class="thumbnailImg" ng-src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}">
+			<!--<input name="productNo" style="display:none">{{item.product_no}}</input>
+			<input name="qty" style="display:none">{{item.itemQnt}}</input>-->
+			<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Product Name : {{item.productname}}</div>
+			<div>Price : ${{item.unit_price}}</div>
+			<div>Quantity : {{item.itemQnt}}</div>
+			<div>SubTotal : ${{item.unit_price * item.itemQnt}}</div>								
+			<i class='ion-close-round' ng-click='close()'></i>				
+		</a>	
+		
+		<ul class="list">
+			<li class="item subTotal">
+				SubTotal : ${{total}}
+			</li>	
+			<li class="item discount">
+				Discount : 
+				<input type="radio" name="discount" value="per" checked="true">(%)
+				<input type="radio" name="discount" value="amt">($)
+				<input type="text" name="discountPrice" class="discountPrice" placeholder="input discount price" autofocus ></input>
+			</li>	
+			<li class="item tax">
+				Tax({{tax}}%) : ${{sales}}
+			</li>			
+		</ul>
+	</div>
+	
+	<!--<button class="button button-small button-assertive" ng-click="addProduct()"> add </button>-->
+	<button class="button button-block button-positive" ng-click="addSalesOrderSubmit()">submit</button>
+</form>
+  </ion-content>  
+</ion-view>

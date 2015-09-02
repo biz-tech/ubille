@@ -135,7 +135,17 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 		  controller: 'addCustomerCtrl'
         }
       }
-    });
+    })
+	.state('tabs.salesOrder-add', {
+      url: "/addSalesOrder",
+      views: {
+        'salesOrder-tab': {
+          templateUrl: "templates/addSalesOrder.html",
+		  controller: 'addSalesOrderCtrl'
+        }
+      }
+    })
+	;
    $urlRouterProvider.otherwise("/tab/home");
 
 })
