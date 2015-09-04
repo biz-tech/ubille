@@ -63,6 +63,11 @@
 .discount{float:left;line-height:40px;}
 .discountPrice{width:70px;float:right;}
 .calResult{float:right;}
+.modal{
+width:80%;
+min-height:70%;
+margin:10%;
+}
 /*add sales order end*/
 
 .tab-item.tab-item-active{

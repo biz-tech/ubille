@@ -12,7 +12,7 @@ angular.module('ubille.services', [])
 		var deffered = $q.defer();
 		$http.get(site).success(function(response){			
 			deffered.resolve(response);
-			data = response;
+			data = response;			
 			/* console.log('customers: ' + JSON.stringify(data));			 */
 	});
 	return deffered.promise;

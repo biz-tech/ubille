@@ -2,11 +2,13 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup,$ionicModal) { 	
-	$scope.$root.tabsHidden = "";
+.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup,$ionicModal) { 		
+	$scope.$root.tabsHidden = "";	
 	Customers.all().then(function(data){
-		$scope.customers = data;		
-	});			
+		$scope.customers = data;	
+		console.log($scope.customers);		
+	});				
+	
 	
 	$scope.click = function(item){						
 		$("input:text[name='accountname']").val(item.accountname);
@@ -16,15 +18,6 @@ angular.module('ubille.controllers', [])
 		$(".selectAccount").val(2);						
 		$scope.modal.hide();
 	}
-	
-	/*
-	$(".selectAccount").change(function(){
-		var indexCombo = selectAccount.options[selectAccount.selectedIndex].index;
-		var accEmail = $scope.customers[indexCombo].email1;
-		var accName = $scope.customers[indexCombo].accountname;
-		$("input[name='accountname']").val(accName);			
-		$("input[name='email']").val(accEmail);
-	});*/
 	
 	$scope.remove = function(customer) {
 		Customers.remove(customer);
@@ -36,7 +29,7 @@ angular.module('ubille.controllers', [])
 	$scope.$on('$stateChangeStart', function() {
 		console.log('Customer stateChangeStart left ');
 		$scope.$root.addButton = null;
-	})
+	});	
 })
 .controller('addCustomerCtrl', function($scope, $http, $location, Customers, $state) {	  	
 	$scope.customer = {};
@@ -91,7 +84,7 @@ angular.module('ubille.controllers', [])
 	$scope.$on('$stateChangeStart', function() {
 		console.log('Product stateChangeStart left ');
 		$scope.$root.addButton = null;
-	}) */
+	}) */	
 })
 .controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup) {	
   $scope.$root.tabsHidden = "tabs-item-hide"; 
@@ -186,7 +179,7 @@ $scope.selectedVal = function(itemQnt){
 	$scope.$on('$stateChangeStart', function() {
 	console.log('SalesOrder stateChangeStart left ');
 	$scope.$root.addButton = null;
-	}) 
+	}) 	
 })
 .controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
 	$scope.$root.tabsHidden = "tabs-item-hide"; 
