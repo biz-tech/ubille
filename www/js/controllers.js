@@ -2,18 +2,29 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, $log, Customers, $state) { 	
+.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup,$ionicModal) { 	
 	$scope.$root.tabsHidden = "";
 	Customers.all().then(function(data){
 		$scope.customers = data;		
-	});	
+	});			
 	
+	$scope.click = function(item){						
+		$("input:text[name='accountname']").val(item.accountname);
+		$("input:text[name='email']").val(item.email1);
+		$(".selectAccount").show();
+		$(".atferSelect").text(item.accountname);					
+		$(".selectAccount").val(2);						
+		$scope.modal.hide();
+	}
+	
+	/*
 	$(".selectAccount").change(function(){
 		var indexCombo = selectAccount.options[selectAccount.selectedIndex].index;
 		var accEmail = $scope.customers[indexCombo].email1;
-		$(".salesOrderEmail").val(accEmail);
-		
-	});
+		var accName = $scope.customers[indexCombo].accountname;
+		$("input[name='accountname']").val(accName);			
+		$("input[name='email']").val(accEmail);
+	});*/
 	
 	$scope.remove = function(customer) {
 		Customers.remove(customer);
@@ -182,7 +193,7 @@ $scope.selectedVal = function(itemQnt){
 	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
 
 })
-.controller('addSalesOrderCtrl', function($scope, $http, $location, Customers, $state, Product) {
+.controller('addSalesOrderCtrl', function($scope, $http, $location, Customers, $state, Product, $ionicPopup, $ionicModal) {
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
@@ -190,7 +201,21 @@ $scope.selectedVal = function(itemQnt){
 		if($(".selectAccount option:selected").text() == "Add Company"){
 			$state.go('tabs.customer-add');
 		}
+	}); 
+		
+	$(".selectAccount").click(function(){	
+		$(".selectAccount").hide();
+	});	
+	$ionicModal.fromTemplateUrl('templates/selectCompany.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.modal = modal;
 	});
+  
+	$scope.createContact = function(u) {        
+		$scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
+		$scope.modal.hide();
+	};
 	
 	var total = 0;	
 	var sales = 0;
@@ -202,31 +227,41 @@ $scope.selectedVal = function(itemQnt){
 		sales += sumTaxSales;
 	};	
 	
-	$scope.total = total	
-	$scope.sales = sales;
+	$scope.total = total.toFixed(2);	
+	$scope.sales = sales.toFixed(2);	
 	$scope.tax = tax;
 	
 	$('.discountPrice').bind('blur',function(){		
-			if($("input:radio[name='discount']:checked").val()=="per"){
-				var dcPrice = $('.discountPrice').val();
-				$scope.discount = total * (dcPrice * 0.01);
-			}else{
-				var dcPrice = $('.discountPrice').val();
-				$scope.discount = dcPrice;
-			}
-		
+		if($("input:radio[name='discount']:checked").val()=="per"){
+			var dcPrice = $('.discountPrice').val();
+			$scope.discount = $scope.total - $scope.total * (dcPrice * 0.01);				
+			$('.item.dcPrice>div').text("$"+$scope.discount);
+		}else{
+			var dcPrice = $('.discountPrice').val();
+			$scope.discount = $scope.total - dcPrice;				
+			$('.item.dcPrice>div').text("$"+$scope.discount);
+		}		
 	});
 	
 	$scope.close = function(index){			
 		$scope.salesorder.items.splice(this.$index, 1);		
 		$scope.total -= this.item.unit_price;
+		$scope.total.toFixed(2);
+		$scope.sales -= this.item.itemQnt * this.item.unit_price * this.item.taxSales * 0.01;
+		$scope.sales.toFixed(2);
 	}; 	
 	$scope.addSalesOrderSubmit = function(){
 		if($(".selectAccount option:selected").text() == " -- select -- "){
 			alert("choose company");
-			
+			window.event.returnValue = false;			 
+		}else{		
+			var pdNo = $(".productNo").text();			
+			$("input[name='productNo']").val(pdNo+',');	
+
+			var qty = $(".qty").text();			
+			$("input[name='qty']").val(qty+',');
 		}
-	}
+	}		
 })
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
   /*

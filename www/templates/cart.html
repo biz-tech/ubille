@@ -4,7 +4,7 @@
         <div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Product Name : {{item.productname}}</div>
 		<div>Price : ${{item.unit_price}}</div>
 		<div>Quantity : {{item.itemQnt}}</div>
-		<div>SubTotal : ${{item.unit_price * item.itemQnt}}</div>		
+		<div>SubTotal : {{item.unit_price * item.itemQnt  | currency}}</div>		
 		<i class='ion-close-round' ng-click='close()'></i>
 	</div>		
 </div>

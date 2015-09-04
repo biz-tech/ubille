@@ -1,0 +1,15 @@
+<ion-modal-view>
+	<ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Company</h1>          
+    </ion-header-bar>
+		
+	<ion-content class="padding">
+		<div class="list selectCompany" ng-controller="CustomersCtrl"> 
+			<label class="item item-radio" ng-repeat="item in customers">  
+				<input type="radio" name="group" id="{{item.accountname}}" class="{{item.email1}}" ng-click="click(item)"></input>
+				<div class="item-content" id="accountname">{{item.accountname}}</div>
+				<i class="radio-icon ion-checkmark"></i>
+			</label>
+		</div>
+	</ion-content>
+</ion-modal-view>
