@@ -46,24 +46,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
           controller: 'HomeTabCtrl'
         }
       }
-    })
-    .state('tabs.facts', {
-      url: "/facts",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/facts.html"
-        }
-      }
-    })
-    .state('tabs.facts2', {
-      url: "/facts2",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/facts2.html"
-        }
-      }
-    })
-	// side menu end
+    })    
 	
     .state('tabs.product', {
       url: "/product",

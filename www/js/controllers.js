@@ -3,13 +3,24 @@ angular.module('ubille.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup,$ionicModal) { 		
-	$scope.$root.tabsHidden = "";	
+	$scope.$root.tabsHidden = "";
+		
 	Customers.all().then(function(data){
-		$scope.customers = data;	
-		console.log($scope.customers);		
-	});				
-	
-	
+		$scope.customers = data;		
+	});					
+	/*
+	$scope.noMoreItemsAvailable = false;
+	$scope.loadMore = function() {
+		$scope.customers.push({ id: $scope.customers.length});
+		
+		if ( $scope.customers.length == 24 ) {
+		$scope.noMoreItemsAvailable = true;
+		}
+		
+		$scope.$broadcast('scroll.infiniteScrollComplete');
+	};
+	$scope.customers = [];
+	*/
 	$scope.click = function(item){						
 		$("input:text[name='accountname']").val(item.accountname);
 		$("input:text[name='email']").val(item.email1);
@@ -24,7 +35,7 @@ angular.module('ubille.controllers', [])
 	};  
 
 	$scope.$root.addButton = function(){
-		$state.go('tabs.customer-add');
+		$state.go('tabs.customer-add');		
 	};
 	$scope.$on('$stateChangeStart', function() {
 		console.log('Customer stateChangeStart left ');
@@ -76,7 +87,7 @@ angular.module('ubille.controllers', [])
 	$scope.remove = function(data) {  
 		Product.remove(data);
 	};
-	    
+	  
 /*   	$scope.$root.addButton = function($state){
 		alert("Product ADD");		
 	}
@@ -112,15 +123,7 @@ $scope.selectedVal = function(itemQnt){
 });  
   $scope.cart = function(){
   $scope.item.itemQnt = $('.itemQnt').val();
-  /*
-  var tax1 = $scope.item.taxinfo.split(',')[0]; // VAT : Price
-  var tax2 = $scope.item.taxinfo.split(',')[1]; // Sales : Price
-  var taxVat1 = tax1.split(':')[0]; // VAT
-  var taxVat2 = tax1.split(':')[1]; // Price
-  var taxSales1 = tax2.split(':')[0]; // Sales
-  var taxSales2 = tax2.split(':')[1]; // Prive
-  */
-	
+  	
    $scope.salesorder.items.push({		
 		product_no : $scope.item.product_no,
         itemQnt: $scope.item.itemQnt,
@@ -186,7 +189,7 @@ $scope.selectedVal = function(itemQnt){
 	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
 
 })
-.controller('addSalesOrderCtrl', function($scope, $http, $location, Customers, $state, Product, $ionicPopup, $ionicModal) {
+.controller('addSalesOrderCtrl', function($scope, $http, $location, Customers, $state, Product, $window, $ionicModal) {
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
@@ -238,11 +241,11 @@ $scope.selectedVal = function(itemQnt){
 	
 	$scope.close = function(index){			
 		$scope.salesorder.items.splice(this.$index, 1);		
-		$scope.total -= this.item.unit_price;
-		$scope.total.toFixed(2);
-		$scope.sales -= this.item.itemQnt * this.item.unit_price * this.item.taxSales * 0.01;
-		$scope.sales.toFixed(2);
-	}; 	
+		var totalTmp = $scope.total - this.item.unit_price;
+		$scope.total = totalTmp.toFixed(2);
+		var salesTmp = $scope.sales - this.item.itemQnt * this.item.unit_price * this.item.taxSales * 0.01;
+		$scope.sales = salesTmp.toFixed(2);		
+	}; 		
 	$scope.addSalesOrderSubmit = function(){
 		if($(".selectAccount option:selected").text() == " -- select -- "){
 			alert("choose company");
@@ -254,7 +257,31 @@ $scope.selectedVal = function(itemQnt){
 			var qty = $(".qty").text();			
 			$("input[name='qty']").val(qty+',');
 		}
-	}		
+	}
+	
+	
+	$scope.sendEmail= function() {					
+		/*
+			var doc = new jsPDF();
+
+			doc.text(20, 20, $(".productNo").text());
+			
+			doc.setFont("courier");
+			doc.setFontType("normal");
+			doc.text(20, 30, $(".qty").text());
+			
+			doc.setFont("times");
+			doc.setFontType("italic");
+			doc.text(20, 40, $("input:text[name='accountname']").val());
+			
+			doc.setFont("helvetica");
+			doc.setFontType("bold");
+			doc.text(20, 50, $("input:text[name='email']").val());
+			
+			doc.save('salesorder.pdf');
+		*/
+    }
+	
 })
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
   /*

@@ -1,4 +1,5 @@
 var path = "http://crm.biztechus.com";
+//var path = "http://23.229.229.135/crm";
 //var path = "http://localhost/vtigercrm";
 angular.module('ubille.services', [])
 
@@ -9,7 +10,7 @@ angular.module('ubille.services', [])
 
   return {
     all: function() {
-		var deffered = $q.defer();
+		var deffered = $q.defer();				
 		$http.get(site).success(function(response){			
 			deffered.resolve(response);
 			data = response;			
