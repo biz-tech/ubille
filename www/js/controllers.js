@@ -279,7 +279,7 @@ $scope.selectedVal = function(itemQnt){
 			doc.text(20, 50, $("input:text[name='email']").val());
 			
 			doc.save('salesorder.pdf');
-		*/
+		*/		
     }
 	
 })
