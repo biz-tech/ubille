@@ -259,7 +259,6 @@ $scope.selectedVal = function(itemQnt){
 		}
 	}
 	
-	
 	$scope.sendEmail= function() {					
 		/*
 			var doc = new jsPDF();
@@ -279,10 +278,14 @@ $scope.selectedVal = function(itemQnt){
 			doc.text(20, 50, $("input:text[name='email']").val());
 			
 			doc.save('salesorder.pdf');
-		*/		
-    }
-	
-})
+		*/
+		window.plugin.email.open({
+            to:      [$("input:text[name='email']").val()],                             
+			subject: 'Ubille',
+            body:    'Ubille Sales Order Invoice'
+			});
+		}
+	})
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
   /*
   $scope.showMenu = function () {
