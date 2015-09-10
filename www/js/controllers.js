@@ -260,7 +260,7 @@ $scope.selectedVal = function(itemQnt){
 	}
 	
 	$scope.sendEmail= function() {					
-
+/*
 			var doc = new jsPDF();
 
 			doc.text(20, 20, $(".productNo").text());
@@ -278,7 +278,29 @@ $scope.selectedVal = function(itemQnt){
 			doc.text(20, 50, $("input:text[name='email']").val());
 			
 			var base64pdf = doc.output('datauristring').split(','); 
-		
+		*/
+		    
+                var pdf = new jsPDF('p', 'pt', 'letter');
+                source = $('#htmlexportPDF')[0]; //table Id
+                specialElementHandlers = { 
+                    '#bypassme': function (element, renderer) {
+                        return true
+                    }
+                };
+                margins = { //table margins and width
+                    top: 80,
+                    bottom: 60,
+                    left: 40,
+                    width: 522
+                };
+                pdf.fromHTML(
+                source, 
+                margins.left,
+                margins.top, { 
+                    'width': margins.width, 
+                    'elementHandlers': specialElementHandlers
+                })
+				var base64pdf = pdf.output('datauristring').split(','); 
 			window.plugin.email.open({
 				to:      [$("input:text[name='email']").val()],                             
 				subject: 'subject',
