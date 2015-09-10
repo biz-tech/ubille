@@ -277,8 +277,8 @@ $scope.selectedVal = function(itemQnt){
 			
 			window.plugin.email.open({
 				to:      [$("input:text[name='email']").val()],                             
-				subject: 'subject',
-				body:    'sales order invoice',
+				subject: 'sales order invioce',
+				body:    'Hello, Thank you for sales order invoice. We will contact you soon regarding sales order.',
 				isHTML: false,
 				attachments: ['base64:salesorder.pdf//'+base64pdf[1]],
 				app:'gmail'
