@@ -189,7 +189,7 @@ $scope.selectedVal = function(itemQnt){
 	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
 
 })
-.controller('addSalesOrderCtrl', function($scope, $http, $location, Customers, $state, Product, $window, $ionicModal) {
+.controller('addSalesOrderCtrl', function($scope, $http, $location, Customers, $state, Product, $window, $ionicModal, ReportSvc) {
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
@@ -256,62 +256,60 @@ $scope.selectedVal = function(itemQnt){
 
 			var qty = $(".qty").text();			
 			$("input[name='qty']").val(qty+',');
-			var doc = new jsPDF();
-
-			doc.text(20, 20, $(".productNo").text());
 			
-			doc.setFont("courier");
-			doc.setFontType("normal");
-			doc.text(20, 30, $(".qty").text());
-			
-			doc.setFont("times");
-			doc.setFontType("italic");
-			doc.text(20, 40, $("input:text[name='accountname']").val());
-			
-			doc.setFont("helvetica");
-			doc.setFontType("bold");
-			doc.text(20, 50, $("input:text[name='email']").val());
-			
-			var base64pdf = doc.output('datauristring').split(',');
-		
-			
-			window.plugin.email.open({
-				to:      [$("input:text[name='email']").val()],                             
-				subject: 'sales order invioce',
-				body:    'Hello, Thank you for sales order invoice. We will contact you soon regarding sales order.',
-				isHTML: false,
-				attachments: ['base64:salesorder.pdf//'+base64pdf[1]],
-				app:'gmail'
-			});			
+			//if no cordova, then running in browser and need to use dataURL and iframe
+				if (!window.cordova) {
+				console.log("1");
+					ReportSvc.runReportDataURL( {},{} )
+						.then(function(dataURL) {
+							//set the iframe source to the dataURL created
+							console.log('report run in browser using dataURL and iframe');
+							//document.getElementById('pdfImage').src = dataURL;
+						});
+					return true;
+				}
+				//if codrova, then running in device/emulator and able to save file and open w/ InAppBrowser
+				else {					
+					ReportSvc.runReportAsync( {},{} )
+						.then(function(filePath) {
+							function convertImgToBase64URL(url, callback, outputFormat){
+								var img = new Image();
+								img.crossOrigin = 'Anonymous';
+								img.onload = function(){
+									var canvas = document.createElement('CANVAS'),
+									ctx = canvas.getContext('2d'), dataURL;
+									canvas.height = this.height;
+									canvas.width = this.width;
+									ctx.drawImage(this, 0, 0);
+									dataURL = canvas.toDataURL(outputFormat);
+									callback(dataURL);
+									canvas = null; 
+								};
+								img.src = url;
+							}
+							convertImgToBase64URL('../img/logo.png', function(base64Img){
+								var base64 = base64Img;
+								console.log(base64);
+							});		
+							//log the file location for debugging and oopen with inappbrowser
+							console.log('report run on device using File plugin');
+							console.log('ReportCtrl: Opening PDF File (' + filePath + ')');
+							window.open(filePath, '_blank', 'location=no,closebuttoncaption=Close,enableViewportScale=yes');							
+							window.plugin.email.open({
+								to:      [$("input:text[name='email']").val()],                             
+								subject: 'sales order invioce',
+								body:    'Hello, Thank you for sales order invoice. We will contact you soon regarding sales order.',
+								isHTML: false,
+								attachments: [filePath],
+								app:'gmail'
+							});
+						});
+					return true;
+				}	
+			//var base64pdf = doc.output('datauristring').split(',');					
 		}
 	}
-	})
-	/*$scope.sendEmail= function() {					
-
-				 var pdf = new jsPDF('p', 'pt', 'letter');
-                source = $('#htmlexportPDF')[0]; //table Id
-                specialElementHandlers = { 
-                    '#bypassme': function (element, renderer) {
-                        return true
-                    }
-                };
-                margins = { //table margins and width
-                    top: 80,
-                    bottom: 60,
-                    left: 40,
-                    width: 522
-                };
-                pdf.fromHTML(
-                source, 
-                margins.left,
-                margins.top, { 
-                    'width': margins.width, 
-                    'elementHandlers': specialElementHandlers
-                })
-			    
-               
-		}
-	})*/	
+	})	
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
   /*
   $scope.showMenu = function () {
