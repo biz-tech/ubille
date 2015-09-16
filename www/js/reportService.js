@@ -54,8 +54,7 @@
 //
 // RUN DATAURL: runs the report async mode w/ progress updates and stops w/ pdfDoc -> dataURL string conversion
 //
-		 function _runReportDataURL(player, transcript) {
-		 console.log("2");
+		 function _runReportDataURL(player, transcript) {		 
              var deferred = $q.defer();
 			 
              showLoading('1.Processing Transcript');

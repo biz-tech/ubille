@@ -189,7 +189,7 @@ $scope.selectedVal = function(itemQnt){
 	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
 
 })
-.controller('addSalesOrderCtrl', function($scope, $http, $location, Customers, $state, Product, $window, $ionicModal, ReportSvc) {
+.controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
@@ -257,9 +257,10 @@ $scope.selectedVal = function(itemQnt){
 			var qty = $(".qty").text();			
 			$("input[name='qty']").val(qty+',');
 			
+			$rootScope.items = $scope.salesorder.items;
+			
 			//if no cordova, then running in browser and need to use dataURL and iframe
-				if (!window.cordova) {
-				console.log("1");
+				if (!window.cordova) {				
 					ReportSvc.runReportDataURL( {},{} )
 						.then(function(dataURL) {
 							//set the iframe source to the dataURL created
