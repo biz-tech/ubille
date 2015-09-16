@@ -2,7 +2,7 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup,$ionicModal) { 		
+.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup,$ionicModal, $rootScope) { 		
 	$scope.$root.tabsHidden = "";
 		
 	Customers.all().then(function(data){
@@ -28,6 +28,10 @@ angular.module('ubille.controllers', [])
 		$(".atferSelect").text(item.accountname);					
 		$(".selectAccount").val(2);						
 		$scope.modal.hide();
+		$rootScope.accountName = item.accountname;
+		$rootScope.accountStreet = item.bill_street;
+		$rootScope.accountCity = item.bill_city;
+		$rootScope.accountState = item.bill_state;
 	}
 	
 	$scope.remove = function(customer) {
@@ -132,7 +136,8 @@ $scope.selectedVal = function(itemQnt){
 		path : $scope.item.path,
 		name : $scope.item.name,
 		attachmentsid : $scope.item.attachmentsid,		
-		taxSales : $scope.item.percentage		
+		taxSales : $scope.item.percentage,
+		total : $scope.item.itemQnt * $scope.item.unit_price
   });
   
 	if($scope.item.itemQnt == undefined || $scope.item.itemQnt == "select"){	
@@ -216,7 +221,7 @@ $scope.selectedVal = function(itemQnt){
 	var total = 0;	
 	var sales = 0;
 	for(i=0;i<$scope.salesorder.items.length;i++){
-		var sum = $scope.salesorder.items[i].itemQnt * $scope.salesorder.items[i].unit_price;					
+		var sum = $scope.salesorder.items[i].itemQnt * $scope.salesorder.items[i].unit_price;							
 		var sumTaxSales = $scope.salesorder.items[i].itemQnt * $scope.salesorder.items[i].unit_price * ($scope.salesorder.items[i].taxSales * 0.01);
 		var tax = $scope.salesorder.items[i].taxSales;
 		total += sum;					
@@ -229,14 +234,15 @@ $scope.selectedVal = function(itemQnt){
 	
 	$('.discountPrice').bind('blur',function(){		
 		if($("input:radio[name='discount']:checked").val()=="per"){
-			var dcPrice = $('.discountPrice').val();
-			$scope.discount = $scope.total - $scope.total * (dcPrice * 0.01);				
-			$('.item.dcPrice>div').text("$"+$scope.discount);
+			var dcPricePer = $('.discountPrice').val();
+			$scope.discount = $scope.total - $scope.total * (dcPricePer * 0.01);							
+			$scope.dcKind = "per";
 		}else{
-			var dcPrice = $('.discountPrice').val();
-			$scope.discount = $scope.total - dcPrice;				
-			$('.item.dcPrice>div').text("$"+$scope.discount);
-		}		
+			var dcPriceAmt = $('.discountPrice').val();
+			$scope.discount = $scope.total - dcPriceAmt;							
+			$scope.dcKind = "amt";
+		}	
+		$('.item.dcPrice>div').text("$"+$scope.discount.toFixed(2));		
 	});
 	
 	$scope.close = function(index){			
@@ -257,7 +263,28 @@ $scope.selectedVal = function(itemQnt){
 			var qty = $(".qty").text();			
 			$("input[name='qty']").val(qty+',');
 			
+			/* pdf 내용에 들어가는 정보들 */
+			if($('.discountPrice').text() != '' || $('.discountPrice').val() != 'undefined'){								
+				$scope.dcPrice = $('.discountPrice').val(); 
+			}else{
+				$('.discountPrice').val('0'); 
+				$scope.dcPrice = "0";
+			}
+			
 			$rootScope.items = $scope.salesorder.items;
+			$rootScope.total = $scope.total; // 주문한 물품의 총 가격 (세전)
+			$rootScope.sales = $scope.sales; // 주문가격에 대한 총 세금 
+			$rootScope.tax = $scope.tax; // 물품의 세금			
+			var dcFixed = Number($scope.discount.toFixed(2));			
+			var grandTot = parseFloat(dcFixed) + parseFloat($scope.sales);			
+			$rootScope.grandTotal = grandTot.toFixed(2); // 총 가격 + 세금
+			$rootScope.discount = dcFixed.toFixed(2); // 할인 적용 가격	
+			
+			if($scope.dcKind == "per"){
+				$rootScope.dcPrice = $('.discountPrice').val()+"%";
+			}else{
+				$rootScope.dcPrice = "$"+$('.discountPrice').val();
+			}
 			
 			//if no cordova, then running in browser and need to use dataURL and iframe
 				if (!window.cordova) {				
@@ -289,12 +316,11 @@ $scope.selectedVal = function(itemQnt){
 								img.src = url;
 							}
 							convertImgToBase64URL('../img/logo.png', function(base64Img){
-								var base64 = base64Img;
-								console.log(base64);
+								var base64 = base64Img; //이미지를 base64로 인코딩								
 							});		
 							//log the file location for debugging and oopen with inappbrowser
-							console.log('report run on device using File plugin');
-							console.log('ReportCtrl: Opening PDF File (' + filePath + ')');
+							//console.log('report run on device using File plugin');
+							//console.log('ReportCtrl: Opening PDF File (' + filePath + ')');
 							window.open(filePath, '_blank', 'location=no,closebuttoncaption=Close,enableViewportScale=yes');							
 							window.plugin.email.open({
 								to:      [$("input:text[name='email']").val()],                             
@@ -306,8 +332,7 @@ $scope.selectedVal = function(itemQnt){
 							});
 						});
 					return true;
-				}	
-			//var base64pdf = doc.output('datauristring').split(',');					
+				}								
 		}
 	}
 	})	
@@ -325,7 +350,8 @@ $scope.selectedVal = function(itemQnt){
 		path : '',
 		name : '',
 		attachmentsid : '',		
-		taxSales : ''
+		taxSales : '',
+		total : ''
 	}]
   };
   
