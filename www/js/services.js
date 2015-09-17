@@ -89,4 +89,22 @@ angular.module('ubille.services', [])
       return null;
     }
   };
+})
+.factory('Setting', function($http, $q) {  
+    var data = [];
+  	var site= path+"/ubilledata.php?oper=set";		
+	$http.get(site).success(function(response){	
+		data = response;	
+	});	
+
+  return {
+    all: function() {	
+	var deffered = $q.defer();
+		$http.get(site).success(function(response){			
+			deffered.resolve(response);
+			data = response;
+    });
+	return deffered.promise;
+	}
+  };
 });

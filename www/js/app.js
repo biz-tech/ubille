@@ -28,9 +28,9 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
       url: '/search',
       templateUrl: 'templates/search.html'
     })
-    .state('settings', {
-      url: '/settings',
-      templateUrl: 'templates/settings.html'
+    .state('tabs.setting', {
+      url: '/setting',				  
+	  templateUrl: 'templates/settings.html'
     })
     .state('tabs', {
       url: "/tab",

@@ -38,8 +38,7 @@
 				});			
 				return body;
 			}			
-			function table(data, columns) {		
-			console.log("table: "+data+"//"+columns);			
+			function table(data, columns) {						
 				return {
 					table: {
 						headerRows: 1,
@@ -80,8 +79,7 @@
 					{
 						style: 'tableExample1',
 							table: {
-								widths:[196,47],
-								pageBreak: 'after',
+								widths:[196,47],								
 								body: [
 										[ 'Net Total($)', $rootScope.total],
 										[ 'Discount('+$rootScope.dcPrice+')', $rootScope.discount],
@@ -89,7 +87,8 @@
 										/*[ 'Shipping & Handling Charges', '0.00'],
 										[ 'Shipping & Handling Tax', '0.00'],	*/									
 										[ 'Grand Total($)', $rootScope.grandTotal]
-								]
+								],
+								pageBreak: 'after'
 						}
 				},
 					{

@@ -360,12 +360,36 @@ $scope.selectedVal = function(itemQnt){
   };
 })
 .controller('HomeTabCtrl', function($scope) {
+	$scope.$root.addDetailButton = null;
+	$scope.$root.tabsHidden = "";
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('settingCtrl', function($scope, Setting, $state, $ionicConfigProvider) {
+	$ionicConfigProvider.backButton.icon('ion-arrow-left-c');
+	
+	Setting.all().then(function(data){
+		$scope.data = data;				
+	});	
+	$scope.account = {};
+	$scope.$root.addDetailButton = function(){		
+		$(".accountDetailShow").css("display","none");		
+		$(".accountDetailEdit").css("display","block");		
+	}
+	$scope.submit = function(){
+		$scope.account.accName = $('input[name="accName"]').val();
+		$scope.account.address = $('input[name="address"]').val();
+		$scope.account.city = $('input[name="city"]').val();
+		$scope.account.state = $('input[name="state"]').val();
+		$scope.account.country = $('input[name="country"]').val();
+		$scope.account.code = $('input[name="code"]').val();
+		$scope.account.phone = $('input[name="phone"]').val();
+		$scope.account.fax = $('input[name="fax"]').val();
+		$scope.account.website = $('input[name="website"]').val();		
+		$(".customerDetailShow").css("display","block");		
+		$(".customerDetailEdit").css("display","none");
+		$state.go('tabs.home');
+	}
+	
 });
 
 
