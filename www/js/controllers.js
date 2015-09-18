@@ -274,10 +274,13 @@ $scope.selectedVal = function(itemQnt){
 			$rootScope.items = $scope.salesorder.items;
 			$rootScope.total = $scope.total; // 주문한 물품의 총 가격 (세전)
 			$rootScope.sales = $scope.sales; // 주문가격에 대한 총 세금 
-			$rootScope.tax = $scope.tax; // 물품의 세금			
+			$rootScope.tax = $scope.tax; // 물품의 세금		
+			if($scope.discount == '' || $scope.discount == null){
+				$scope.discount = 0;
+			}
 			var dcFixed = Number($scope.discount.toFixed(2));			
-			var grandTot = parseFloat(dcFixed) + parseFloat($scope.sales);			
-			$rootScope.grandTotal = grandTot.toFixed(2); // 총 가격 + 세금
+			var grandTot = parseFloat(dcFixed) + parseFloat($scope.sales);
+			$rootScope.grandTotal = grandTot.toFixed(2); // 총 가격 + 세금			
 			$rootScope.discount = dcFixed.toFixed(2); // 할인 적용 가격	
 			
 			if($scope.dcKind == "per"){
