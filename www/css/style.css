@@ -7,8 +7,9 @@
 .icon.ion-plus{font-size:30px;position:relative;left:0;top:-2px;}
 .leftMenu>.list>.item-complex>.item-content{font-size:18px;}
 .leftMenu>.list>.item-complex>.item-content>.icon{margin:10px;}
+.graphWrap{margin-top:35%;}
+.graphWrap h2{text-align:center;}
 .slider-pager{position:absolute;bottom:0px;}
-
 /*product list start*/
 .wrap{width:100%; overflow:scroll;}
 .productlist{width:50%;float:left;margin-bottom:-45px;}

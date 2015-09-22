@@ -2,6 +2,21 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
+.controller('loginCtrl', function($scope, LoginService, $ionicPopup, $state) {
+    $scope.data = {};
+ 
+    $scope.login = function() {
+        LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {			
+            $state.go('tabs.home');
+        }).error(function(data) {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Login failed!',
+                template: 'Please check your credentials!'
+            });
+        });
+    }
+})
+
 .controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 		
 	// 하단 tabs menu show
 	$scope.$root.tabsHidden = "";
@@ -405,7 +420,6 @@ angular.module('ubille.controllers', [])
 		$state.go('#/cartList');
 	};
 })
-
 .controller('settingCtrl', function($scope, Setting, $state ) {
 	Setting.all().then(function(data){
 		$scope.data = data;				

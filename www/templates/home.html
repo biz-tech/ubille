@@ -1,25 +1,29 @@
 <ion-view title="Home">
     <ion-content>
         <div class="graphWrap">
-			<ion-slide-box on-slide-changed="slideHasChanged($index)">
+			<ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" slide-interval="3000">
 				<ion-slide>
-					<div ng-controller="BarCtrl">			
+					<div class="chart" ng-controller="BarCtrl">			
 						<h2>Monthly Sales Order</h2>
-						<canvas id="bar" class="chart chart-bar" data="data" labels="labels" series="series" colours="colours"></canvas>			
-					</div>				
-					<div ng-controller="DoughnutCtrl">
+						<canvas id="bar" class="chart chart-bar" data="data" labels="labels" legend="true" series="series" colours="colours"></canvas>			
+					</div>
+				</ion-slide>					
+				<ion-slide>
+					<div class="chart" ng-controller="DoughnutCtrl">
 						<h2>Type of Company</h2>
-						<canvas id="doughnut" class="chart chart-doughnut" data="data" labels="labels" colours="colours"></canvas> 			
+						<canvas id="doughnut" class="chart chart-doughnut" data="data" labels="labels" legend="true" series="series" colours="colours"></canvas> 			
 					</div>
 				</ion-slide>
 				<ion-slide>
-					<div ng-controller="LineCtrl">
+					<div class="chart" ng-controller="LineCtrl">
 						<h2>Line Chart</h2>
-						<canvas id="line" class="chart chart-line" data="data" labels="labels" chart-legend="true" chart-series="series" chart-click="onClick"></canvas> 
+						<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" colours="colours"></canvas> 
 					</div>
-					<div ng-controller="RadarCtrl"> 
+				</ion-slide>
+				<ion-slide>
+					<div class="chart" ng-controller="RadarCtrl"> 
 						<h2>Radar Chart</h2>
-						<canvas id="radar" class="chart chart-radar" data="data" labels="labels"></canvas> 
+						<canvas id="radar" class="chart chart-radar"  data="data" labels="labels" legend="true" series="series" colours="colours"></canvas> 
 					</div>
 				</ion-slide>
 			</ion-slide-box>

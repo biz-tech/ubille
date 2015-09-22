@@ -24,6 +24,11 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 })
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
+	.state('login', {
+		url: '/login',
+		templateUrl: 'templates/login.html',
+		controller: 'loginCtrl'
+	})  
     .state('search', {
       url: '/search',
       templateUrl: 'templates/search.html'
@@ -124,12 +129,12 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
        templateUrl: "templates/addSalesOrder.html" 		 
     })	
 	;
-   $urlRouterProvider.otherwise("/tab/home");
+   $urlRouterProvider.otherwise("/login");
 
 })
  .controller("BarCtrl", function ($scope) {
   $scope.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec'];  
-  $scope.series =['2014','2015'];
+  $scope.series = [ "2014","2015"];
   $scope.data = [[65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56],
 				[75, 39, 79, 85, 47, 59, 44, 66, 0, 0, 0, 0]];
 	$scope.colours = [
@@ -144,7 +149,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 
 .controller("DoughnutCtrl", function ($scope) {
   $scope.labels = ["Men", "Women", "Children", "Sports", "Plus"];
-  $scope.data = [300, 500, 70, 100, 30];
+  $scope.data = [300, 500, 70, 100, 30];   
   $scope.colours = [
     '#97BBCD', // blue    
     '#F7464A', // red
@@ -155,7 +160,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 })
 .controller("LineCtrl", function ($scope) {
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  $scope.series = ['Series A', 'Series B'];
+  
   $scope.data = [
     [65, 59, 80, 81, 56, 55, 40],
     [28, 48, 40, 19, 86, 27, 90]
@@ -166,7 +171,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 })
 .controller("RadarCtrl", function ($scope) {
   $scope.labels =["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"];
-
+ 
   $scope.data = [
     [65, 59, 90, 81, 56, 55, 40],
     [28, 48, 40, 19, 96, 27, 100]
