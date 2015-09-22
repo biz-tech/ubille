@@ -2,9 +2,11 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup,$ionicModal, $rootScope) { 		
+.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 		
+	// 하단 tabs menu show
 	$scope.$root.tabsHidden = "";
-		
+	
+	// customer data load
 	Customers.all().then(function(data){
 		$scope.customers = data;		
 	});					
@@ -21,7 +23,25 @@ angular.module('ubille.controllers', [])
 	};
 	$scope.customers = [];
 	*/
-	$scope.click = function(item){						
+	
+	// company list delete 
+	$scope.remove = function(customer) {
+		Customers.remove(customer);
+	};  
+
+	// company add button 
+	$scope.$root.addButton = function(){
+		$state.go('tabs.customer-add');		
+	};
+	
+	// addbutton을 눌렀을 때 상태 변화
+	$scope.$on('$stateChangeStart', function() {
+		console.log('Customer stateChangeStart left ');
+		$scope.$root.addButton = null;
+	});	
+	
+	// cart list 화면에서 select company 할때 사용.
+	$scope.click = function(item){			
 		$("input:text[name='accountname']").val(item.accountname);
 		$("input:text[name='email']").val(item.email1);
 		$(".selectAccount").show();
@@ -32,21 +52,10 @@ angular.module('ubille.controllers', [])
 		$rootScope.accountStreet = item.bill_street;
 		$rootScope.accountCity = item.bill_city;
 		$rootScope.accountState = item.bill_state;
-	}
-	
-	$scope.remove = function(customer) {
-		Customers.remove(customer);
-	};  
-
-	$scope.$root.addButton = function(){
-		$state.go('tabs.customer-add');		
 	};
-	$scope.$on('$stateChangeStart', function() {
-		console.log('Customer stateChangeStart left ');
-		$scope.$root.addButton = null;
-	});	
 })
 .controller('addCustomerCtrl', function($scope, $http, $location, Customers, $state) {	  	
+	// add company 화면
 	$scope.customer = {};
 	$scope.addCustomerSubmit = function(){
 		$scope.customer.accountname = $("input[name='Name']").val();
@@ -59,14 +68,19 @@ angular.module('ubille.controllers', [])
 	};	
 })
 .controller('CustomerDetailCtrl', function($scope, $stateParams, $log, Customers) {	
+	// company detail 화면 
+	// 하단 tab menu 숨김
 	$scope.$root.tabsHidden = "tabs-item-hide";
+	// customer id와 일치하는 정보 가져옴.
 	$scope.customer = Customers.get($stateParams.customerId);
 	
+	// edit button
 	$scope.$root.addDetailButton = function($state){		
 		$(".customerDetailShow").css("display","none");		
 		$(".customerDetailEdit").css("display","block");		
 	}
 	
+	// submit.
 	$scope.submit = function($state){
 		$scope.customer.email1 = $('input[name="Email"]').val();
 		$scope.customer.phone = $('input[name="Phone"]').val();
@@ -77,22 +91,27 @@ angular.module('ubille.controllers', [])
 		$(".customerDetailEdit").css("display","none");
 	}
 	
+	// edit 클릭 했을 때 상태 변화.
 	$scope.$on('$stateChangeStart', function() {
-	console.log('CustomerDetailCtrl stateChangeStart left ');
-	$scope.$root.addDetailButton = null;
+		console.log('CustomerDetailCtrl stateChangeStart left ');
+		$scope.$root.addDetailButton = null;
 	})
 })
 
 .controller('productCtrl', function($scope, Product) {
+	// product list
+	// tab menu show
 	$scope.$root.tabsHidden = "";
-		Product.all().then(function(data){
-			$scope.data = data;		
-		});     
+	// product data 
+	Product.all().then(function(data){
+		$scope.data = data;		
+	});     
+	/*
 	$scope.remove = function(data) {  
 		Product.remove(data);
 	};
 	  
-/*   	$scope.$root.addButton = function($state){
+   	$scope.$root.addButton = function($state){
 		alert("Product ADD");		
 	}
 
@@ -101,92 +120,106 @@ angular.module('ubille.controllers', [])
 		$scope.$root.addButton = null;
 	}) */	
 })
-.controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup) {	
-  $scope.$root.tabsHidden = "tabs-item-hide"; 
-  $scope.item = Product.get($stateParams.productNo);
- 
-  $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = group;
-    } else {
-      $scope.shownGroup = null;
-    }
-  };  
-  $scope.isGroupShown = function(group) {
-    return $scope.shownGroup === null;
-  };  
-$scope.selectedVal = function(itemQnt){
-	return $scope.item.itemQnt = itemQnt;
-  }; 
-  $scope.close = function(index){			
-		$scope.salesorder.items.splice(this.$index, 1);		
-  };  
- $('.button.button-small').click(function(){
-	$('.button.button-small').removeClass('radio-icon ion-checkmark');
-    $(this).addClass('radio-icon ion-checkmark');
-});  
-  $scope.cart = function(){
-  $scope.item.itemQnt = $('.itemQnt').val();
-  	
-   $scope.salesorder.items.push({		
-		product_no : $scope.item.product_no,
-        itemQnt: $scope.item.itemQnt,
-        productname : $scope.item.productname,
-        unit_price: $scope.item.unit_price,
-		path : $scope.item.path,
-		name : $scope.item.name,
-		attachmentsid : $scope.item.attachmentsid,		
-		taxSales : $scope.item.percentage,
-		total : $scope.item.itemQnt * $scope.item.unit_price
-  });
-  
-	if($scope.item.itemQnt == undefined || $scope.item.itemQnt == "select"){	
-		var popup = $ionicPopup.alert({
-			title : "Alert",
-			template : "Please Check Quantity"
-		});		
-		return false;
-	}else{		
-		var popup = $ionicPopup.alert({			
-			title : "Ubille Cart",
-			scope : $scope,
-			templateUrl :
-				"templates/cart.html"
-				,				
-			buttons : [
-				{text : 'Keep Shopping',
-				 onTap : function (e){									
-						
-				$state.go('tabs.product');				
-				}},
-				{text : 'Check Out',
-				 type : 'button-assertive',
-				 onTap : function(e){	
-					
-					$state.go('tabs.salesOrder-add');
-				 }}				
-			]	
+.controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup, $ionicModal) {	
+
+	$scope.$root.tabsHidden = "tabs-item-hide"; 
+	$scope.item = Product.get($stateParams.productNo);
+	
+	// product detail toggle
+	$scope.toggleGroup = function(group) {
+		if ($scope.isGroupShown(group)) {
+		$scope.shownGroup = group;
+		} else {
+		$scope.shownGroup = null;
+		}
+	};  
+	$scope.isGroupShown = function(group) {
+		return $scope.shownGroup === null;
+	};  
+	
+	//quantity 선택값을 저장.
+	$scope.selectedVal = function(itemQnt){
+		return $scope.item.itemQnt = itemQnt;
+	}; 
+	
+	// cart에 담긴 item을 삭제할때 사용.
+	$scope.close = function(index){			
+			$scope.salesorder.items.splice(this.$index, 1);		
+	};  
+	
+	// 색상 선택 할때 체크 효과.
+	$('.button.button-small').click(function(){
+		$('.button.button-small').removeClass('radio-icon ion-checkmark');
+		$(this).addClass('radio-icon ion-checkmark');
+	});  
+	
+	// add to cart 눌렀을 때.
+	$scope.cart = function(){
+		// 선택한 수량을 저장.
+		$scope.item.itemQnt = $('.itemQnt').val();
+		
+		// add cart 누를 때 마다 $scope.salesorder.item 에 저장.
+		$scope.salesorder.items.push({		
+			product_no : $scope.item.product_no,
+			itemQnt: $scope.item.itemQnt,
+			productname : $scope.item.productname,
+			unit_price: $scope.item.unit_price,
+			path : $scope.item.path,
+			name : $scope.item.name,
+			attachmentsid : $scope.item.attachmentsid,		
+			taxSales : $scope.item.percentage,
+			total : $scope.item.itemQnt * $scope.item.unit_price
 		});
-	}
-  };
+	
+		// add cart 누를 때 수량선택이 안되어 있으면
+		if($scope.item.itemQnt == undefined || $scope.item.itemQnt == "select"){	
+			var popup = $ionicPopup.alert({
+				title : "Alert",
+				template : "Please Check Quantity"
+			});		
+			return false;
+		}else{		
+			// 수량선택이 되어 있고 add cart 누르면 checkout 팝업.
+			var popup = $ionicPopup.alert({			
+				title : "Ubille Cart",
+				scope : $scope,
+				templateUrl :
+					"templates/cart.html"
+					,				
+				buttons : [
+					{text : 'Keep Shopping',
+					onTap : function (e){	
+						$state.go('tabs.product');				
+					}},
+					{text : 'Check Out',
+					type : 'button-assertive',
+					onTap : function(e){												
+						$state.go('#/cartList');
+						$('.cartBadge').addClass('badge badge-assertive');
+						$('.cartBadge').text($scope.salesorder.items.length-1);
+					}}				
+				]	
+			});
+		}
+	};
 
 })
 .controller('salesOrderCtrl', function($scope, SalesOrder, $state) {	
 	$scope.$root.tabsHidden = "";
-		SalesOrder.all().then(function(data){
-			$scope.data = data;		
-			console.log(data);
-		});        
+	SalesOrder.all().then(function(data){
+		$scope.data = data;					
+	});        
 	$scope.remove = function(data) {  
 		SalesOrder.remove(data);
 	};
+	/*
  	$scope.$root.addButton = function(){
 		$state.go('tabs.salesOrder-add');	
-	}
+	}*/
 
 	$scope.$on('$stateChangeStart', function() {
-	console.log('SalesOrder stateChangeStart left ');
-	$scope.$root.addButton = null;
+		console.log('SalesOrder stateChangeStart left ');
+		$scope.$root.addButton = null;
 	}) 	
 })
 .controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
@@ -195,31 +228,28 @@ $scope.selectedVal = function(itemQnt){
 
 })
 .controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {
+	
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
-	$(".selectAccount").change(function(){
-		if($(".selectAccount option:selected").text() == "Add Company"){
-			$state.go('tabs.customer-add');
-		}
-	}); 
-		
+	
+	// select company 누르면 modal 창을 띄우기 위해 combobox 를 숨김.	
 	$(".selectAccount").click(function(){	
 		$(".selectAccount").hide();
 	});	
+	// modal template url
 	$ionicModal.fromTemplateUrl('templates/selectCompany.html', {
-		scope: $scope
-	}).then(function(modal) {
+		scope: $scope		
+	}).then(function(modal) {		
 		$scope.modal = modal;
+		console.log(modal);
 	});
+	// default value of discount price
 	$('.discountPrice').val(0);
-	$scope.createContact = function(u) {        
-		$scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
-		$scope.modal.hide();
-	};
 	
+	// 물품 가격과 세금 그리고 할인 가격을 계산.
 	var total = 0;	
-	var sales = 0;
+	var sales = 0;  
 	for(i=0;i<$scope.salesorder.items.length;i++){
 		var sum = $scope.salesorder.items[i].itemQnt * $scope.salesorder.items[i].unit_price;							
 		var sumTaxSales = $scope.salesorder.items[i].itemQnt * $scope.salesorder.items[i].unit_price * ($scope.salesorder.items[i].taxSales * 0.01);
@@ -227,11 +257,13 @@ $scope.selectedVal = function(itemQnt){
 		total += sum;					
 		sales += sumTaxSales;
 	};		
-	$scope.total = total.toFixed(2);	
-	$scope.sales = sales.toFixed(2);	
-	$scope.tax = tax;
-	$('.item.dcPrice>div').text("$"+$scope.total);
-	$scope.discount = $scope.total;
+	$scope.total = total.toFixed(2);				// 선택된 물품의 급액의 합  (세전)
+	$scope.sales = sales.toFixed(2);				// 선택된 물품의 세금의 합
+	$scope.tax = tax; 								// 세금비율(8%, 12% ... )
+	$('.item.dcPrice>div').text("$"+$scope.total); 	// default pretax value 를 넣어준다.
+	$scope.discount = $scope.total;					// 할인된 가격이 저장 될 곳.
+	
+	// discount 금액을 입력후 focus out 되면 자동 계산.
 	$('.discountPrice').bind('blur',function(){		
 		if($("input:radio[name='discount']:checked").val()=="per"){
 			var dcPricePer = $('.discountPrice').val();
@@ -245,21 +277,28 @@ $scope.selectedVal = function(itemQnt){
 		$('.item.dcPrice>div').text("$"+$scope.discount.toFixed(2));		
 	});
 	
+	// 물품 삭제시 자동 계산.
 	$scope.close = function(index){			
 		$scope.salesorder.items.splice(this.$index, 1);		
 		var totalTmp = $scope.total - this.item.unit_price;
 		$scope.total = totalTmp.toFixed(2);
+		$('.item.dcPrice>div').text("$"+$scope.total);
 		var salesTmp = $scope.sales - this.item.itemQnt * this.item.unit_price * this.item.taxSales * 0.01;
 		$scope.sales = salesTmp.toFixed(2);		
+		$('.cartBadge').text($scope.salesorder.items.length-1); // cart badge count -1 
 	}; 		
+	
+	//submit 눌렀을 때.
 	$scope.addSalesOrderSubmit = function(){
+		// select company 확인.
 		if($(".selectAccount option:selected").text() == " -- select -- "){
 			alert("choose company");
 			window.event.returnValue = false;			 
 		}else{		
+			// 물품 넘버 저장.
 			var pdNo = $(".productNo").text();			
 			$("input[name='productNo']").val(pdNo+',');	
-
+			// 물품 수량 저장.
 			var qty = $(".qty").text();			
 			$("input[name='qty']").val(qty+',');
 			
@@ -335,12 +374,12 @@ $scope.selectedVal = function(itemQnt){
 				}								
 		}
 	}
-	})	
+})	
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
-  /*
+  
   $scope.showMenu = function () {
     $ionicSideMenuDelegate.toggleLeft();
-  };*/
+  };
   $scope.salesorder = {
 	items:[{
 		product_no : '',
@@ -354,19 +393,20 @@ $scope.selectedVal = function(itemQnt){
 		total : ''
 	}]
   };
-  
+  /*
   $scope.showRightMenu = function () {
     $ionicSideMenuDelegate.toggleRight();
-  };
+  };*/
 })
-.controller('HomeTabCtrl', function($scope) {
+.controller('HomeTabCtrl', function($scope, $state) {
 	$scope.$root.addDetailButton = null;
 	$scope.$root.tabsHidden = "";
+	$scope.$root.cartList = function(){
+		$state.go('#/cartList');
+	};
 })
 
-.controller('settingCtrl', function($scope, Setting, $state, $ionicConfigProvider) {
-	$ionicConfigProvider.backButton.icon('ion-arrow-left-c');
-	
+.controller('settingCtrl', function($scope, Setting, $state ) {
 	Setting.all().then(function(data){
 		$scope.data = data;				
 	});	

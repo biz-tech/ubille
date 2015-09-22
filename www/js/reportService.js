@@ -192,7 +192,9 @@
 
 			function gotFS(fileSystem) {
 				console.error('SaveFile: gotFS --> getFile');
-				fileSystem.root.getFile("Ubille_Quote.pdf", {create: true, exclusive: false}, gotFileEntry, fail);
+				var date = new Date();
+				var time = date.getTime();
+				fileSystem.root.getFile(time+"_Ubille_Quote.pdf", {create: true, exclusive: false}, gotFileEntry, fail);
 			}
 
 			function gotFileEntry(fileEntry) {

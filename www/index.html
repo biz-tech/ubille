@@ -43,27 +43,44 @@
 				<ion-nav-back-button class="button-icon ion-arrow-left-c">
 				</ion-nav-back-button>
 			  </ion-nav-bar>
-
+			  <ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-navicon" ng-click="showMenu()"></button>
+			  </ion-nav-buttons>	
+			
+			  
 			  <ion-nav-buttons side="right">
 				<button ng-show="$root.addButton" ng-click="addButton()" class="button button-icon button-clear ion-plus-round"></button>
-				<button ng-show="$root.addDetailButton" ng-click="addDetailButton()" class="button button-icon button-clear ion-edit"></button>				
-				<button class="button button-icon button-clear ion-navicon" ng-click="showRightMenu()"></button>
+				<button ng-show="$root.addDetailButton" ng-click="addDetailButton()" class="button button-icon button-clear ion-edit"></button>	
+				<button class="button button-icon button-clear ion-ios7-cart-outline" ng-click="cartList()"><span class="cartBadge"></span></button>				
 			  </ion-nav-buttons>			  
 			  <ion-nav-view animation="slide-left-right"></ion-nav-view>
+			 
 			</ion-side-menu-content> 
 			
 		  
-			<ion-side-menu side="right">
+			<ion-side-menu side="left">
 			  <ion-header-bar class="bar bar-header ubille-mint">
 				 <img ng-src="img/30_30_logo.png" width="30" /> <h1 class="title">UBille</h1>
 			  </ion-header-bar>
 			  <ion-content>
-				<ion-list>
+				<ion-list class="leftMenu">
 					<ion-item nav-clear menu-close href="#/home">
-						<i class="icon icon-left ion-home"></i> home
+						<i class="icon ion-home"></i> Home
 					</ion-item>
-					<ion-item nav-clear menu-close href="#/settings">
+					<ion-item nav-clear menu-close href="#/tab/customers">
+						<i class="icon ion-person"></i> Customers
+					</ion-item>
+					<ion-item nav-clear menu-close href="#/tab/product">
+						<i class="icon ion-cube"></i> Product
+					</ion-item>
+					<ion-item nav-clear menu-close href="#/tab/salesOrder">
+						<i class="icon ion-document-text"></i> SalesOrder
+					</ion-item>
+					<ion-item nav-clear menu-close href="#/setting">
 						<i class="icon ion-gear-b"></i> Setting
+					</ion-item>
+					<ion-item nav-clear menu-close  href="#/cartList">
+						<i class="icon ion-ios7-cart-outline"></i> Cart List
 					</ion-item>
 				</ion-list>
 			  </ion-content>

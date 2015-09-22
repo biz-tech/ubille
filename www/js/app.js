@@ -28,7 +28,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
       url: '/search',
       templateUrl: 'templates/search.html'
     })
-    .state('tabs.setting', {
+    .state('#/setting', {
       url: '/setting',				  
 	  templateUrl: 'templates/settings.html'
     })
@@ -119,15 +119,10 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
         }
       }
     })
-	.state('tabs.salesOrder-add', {
-      url: "/addSalesOrder",
-      views: {
-        'salesOrder-tab': {
-          templateUrl: "templates/addSalesOrder.html",
-		  controller: 'addSalesOrderCtrl'
-        }
-      }
-    })
+	.state('#/cartList',{
+	   url: "/cartList",     
+       templateUrl: "templates/addSalesOrder.html" 		 
+    })	
 	;
    $urlRouterProvider.otherwise("/tab/home");
 
@@ -156,6 +151,25 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
     '#46BFBD', // green
     '#FDB45C', // yellow
     '#4D5360'  // dark grey
+  ];  
+})
+.controller("LineCtrl", function ($scope) {
+  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+  $scope.series = ['Series A', 'Series B'];
+  $scope.data = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  }; 
+})
+.controller("RadarCtrl", function ($scope) {
+  $scope.labels =["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"];
+
+  $scope.data = [
+    [65, 59, 90, 81, 56, 55, 40],
+    [28, 48, 40, 19, 96, 27, 100]
   ];  
 });
 
