@@ -31,8 +31,7 @@
 	<script src='js/pdfmake.min.js'></script>
  	<script src='js/vfs_fonts.js'></script>
 	<script src="js/reportBuilderSvc.js"></script>
-    <script src="js/reportService.js"></script>
-	
+    <script src="js/reportService.js"></script>	 
   </head>
 
 
@@ -40,7 +39,7 @@
 		<ion-side-menus>        
 			<ion-side-menu-content ng-controller="NavCtrl">
 			  <ion-nav-bar id="ionic-header" class="bar-positive">
-				<ion-nav-back-button class="button-icon ion-arrow-left-c">
+				<ion-nav-back-button class="button-icon ion-ios7-arrow-thin-left">
 				</ion-nav-back-button>
 			  </ion-nav-bar>
 			  <ion-nav-buttons side="left">
@@ -49,8 +48,8 @@
 			
 			  
 			  <ion-nav-buttons side="right">
-				<button ng-show="$root.addButton" ng-click="addButton()" class="button button-icon button-clear ion-plus-round"></button>
-				<button ng-show="$root.addDetailButton" ng-click="addDetailButton()" class="button button-icon button-clear ion-edit"></button>	
+				<button ng-show="$root.addButton" ng-click="addButton()" class="button button-icon button-clear ion-ios7-plus-empty"></button>
+				<button ng-show="$root.addDetailButton" ng-click="addDetailButton()" class="button button-icon button-clear ion-ios7-compose-outline"></button>	
 				<button class="button button-icon button-clear ion-ios7-cart-outline" ng-click="cartList()"><span class="cartBadge"></span></button>				
 			  </ion-nav-buttons>			  
 			  <ion-nav-view animation="slide-left-right"></ion-nav-view>

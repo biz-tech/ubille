@@ -10,8 +10,7 @@ angular.module('ubille.controllers', [])
         $http.post(link, {email : $scope.data.email, password : $scope.data.password }).then(function (res){
             if(res.data != ''){
 				$scope.response = res.data;
-				$window.sessionStorage.user = JSON.stringify(res.data);	
-				console.log($window.sessionStorage.user);				
+				$window.sessionStorage.user = JSON.stringify(res.data);								
 				$state.go('tabs.home');
 			}else{
 				alert("Invalid Information");				
@@ -83,7 +82,7 @@ angular.module('ubille.controllers', [])
 		$scope.customer.City = $("input[name='City']").val();				
 		$scope.customer.State = $('input[name="State"]').val();		
 		$state.go('tabs.customers');
-	};	
+	};		
 })
 .controller('CustomerDetailCtrl', function($scope, $stateParams, $log, Customers) {	
 	// company detail 화면 
@@ -95,7 +94,13 @@ angular.module('ubille.controllers', [])
 	// edit button
 	$scope.$root.addDetailButton = function($state){		
 		$(".customerDetailShow").css("display","none");		
-		$(".customerDetailEdit").css("display","block");		
+		$(".customerDetailEdit").css("display","block");
+
+		$('input[name="Email"]').val($('input[name="Email"]').attr('placeholder'));
+		$('input[name="Phone"]').val($('input[name="Phone"]').attr('placeholder'));
+		$('input[name="Street"]').val($('input[name="Street"]').attr('placeholder'));
+		$('input[name="City"]').val($('input[name="City"]').attr('placeholder'));
+		$('input[name="State"]').val($('input[name="State"]').attr('placeholder'));
 	}
 	
 	// submit.
@@ -245,8 +250,7 @@ angular.module('ubille.controllers', [])
 	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
 
 })
-.controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {	
-	console.log(JSON.parse(sessionStorage.user)[0].user_name);
+.controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {		
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
@@ -259,8 +263,7 @@ angular.module('ubille.controllers', [])
 	$ionicModal.fromTemplateUrl('templates/selectCompany.html', {
 		scope: $scope		
 	}).then(function(modal) {		
-		$scope.modal = modal;
-		console.log(modal);
+		$scope.modal = modal;		
 	});
 	// default value of discount price
 	$('.discountPrice').val(0);
@@ -343,8 +346,7 @@ angular.module('ubille.controllers', [])
 				$rootScope.dcPrice = $('.discountPrice').val()+"%";
 			}else{
 				$rootScope.dcPrice = "$"+$('.discountPrice').val();
-			}
-			
+			}						
 			//if no cordova, then running in browser and need to use dataURL and iframe
 				if (!window.cordova) {				
 					ReportSvc.runReportDataURL( {},{} )
@@ -356,7 +358,7 @@ angular.module('ubille.controllers', [])
 					return true;
 				}
 				//if codrova, then running in device/emulator and able to save file and open w/ InAppBrowser
-				else {					
+				else {									
 					ReportSvc.runReportAsync( {},{} )
 						.then(function(filePath) {
 							function convertImgToBase64URL(url, callback, outputFormat){
@@ -376,23 +378,21 @@ angular.module('ubille.controllers', [])
 							}
 							convertImgToBase64URL('../img/logo.png', function(base64Img){
 								var base64 = base64Img; //이미지를 base64로 인코딩								
-							});		
-							//log the file location for debugging and oopen with inappbrowser
-							//console.log('report run on device using File plugin');
-							//console.log('ReportCtrl: Opening PDF File (' + filePath + ')');
-							window.open(filePath, '_blank', 'location=no,closebuttoncaption=Close,enableViewportScale=yes');							
-							window.plugin.email.open({
+							});									
+							
+							//window.open(filePath, '_blank', 'location=no,closebuttoncaption=Close,enableViewportScale=yes');							
+							cordova.plugins.email.open({
 								to:      [$("input:text[name='email']").val()],                             
 								subject: 'sales order invioce',
 								body:    'Hello, Thank you for sales order invoice. We will contact you soon regarding sales order.',
 								isHTML: false,
 								attachments: [filePath],
 								app:'gmail'
-							});
-						});
-						//$state.go('tabs.home');
+							});																										
+							$state.go('tabs.home');							
+						});												
 					return true;					
-				}						
+				}				
 		}
 	}
 })	
@@ -419,13 +419,13 @@ angular.module('ubille.controllers', [])
     $ionicSideMenuDelegate.toggleRight();
   };*/
 })
-.controller('HomeTabCtrl', function($scope, $state, $window) {
+.controller('HomeTabCtrl', function($scope, $state) {		
 	$scope.$root.addDetailButton = null;
-	$scope.$root.tabsHidden = "";
-	$scope.$root.cartList = function(){
+	$scope.$root.tabsHidden = "";	
+	$scope.$root.cartList = function(){		
 		$state.go('#/cartList');
 	};
-	console.log($window.sessionStorage.user);
+	
 })
 .controller('settingCtrl', function($scope, Setting, $state ) {
 	Setting.all().then(function(data){
