@@ -9,6 +9,7 @@
 .leftMenu>.list>.item-complex>.item-content>.icon{margin:10px;}
 .graphWrap{margin-top:35%;}
 .graphWrap h2{text-align:center;}
+.chart{height:300px;}
 .slider-pager{position:absolute;bottom:0px;}
 /*product list start*/
 .wrap{width:100%; overflow:scroll;}

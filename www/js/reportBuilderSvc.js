@@ -97,7 +97,7 @@
 								widths: ['100%'],
 								body: [
 										[{text:'Description',bold:true}],
-										[ 'asdfasdfasdfasdf']
+										[ '']
 								]
 						}
 				},
@@ -107,7 +107,7 @@
 								widths: ['100%'],
 								body: [
 										[{text:'Terms & Conditions',bold:true}],
-										[ 'asdfasdfasdfasdf']
+										[ '']
 								]
 						}
 				}

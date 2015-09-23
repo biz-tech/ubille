@@ -2,9 +2,10 @@ var path = "http://crm.biztechus.com";
 //var path = "http://23.229.229.135/crm";
 //var path = "http://localhost/vtigercrm";
 angular.module('ubille.services', [])
+/*
 .service('LoginService', function($q, $http) {
     return {
-        loginUser: function(name, pw) {
+        loginUser: function(email, pw) {
 		var site = path+"/ubilledata.php?oper=login";	
 		
 		var request = $http({
@@ -12,25 +13,31 @@ angular.module('ubille.services', [])
             url: site,
             crossDomain : true,
             data: {                
-                password: pw,
-                username: name
+                email: email,
+                password: pw
             },
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
-			
+			var data = [];
             var deferred = $q.defer();
             var promise = deferred.promise;	
 			
-            if (name == 'user' && pw == 'secret') {					
+			
+            if (name == 'user' && pw == 'secret') {	
+				
                 deferred.resolve('Welcome ' + name + '!');				
             } else {
                 deferred.reject('Wrong credentials.');
             }
 			
-            promise.success = function(fn) {
-                promise.then(fn);				
+            promise.success = function(fn) {				
+                promise.then(fn);
+				deferred.resolve(fn);
+				data = fn;				
                 return promise;				
             }
+			
+			
             promise.error = function(fn) {
                 promise.then(null, fn);
                 return promise;
@@ -39,7 +46,7 @@ angular.module('ubille.services', [])
 			
         }
     }
-})
+})*/
 .factory('Customers', function($http,$q) {
   // Might use a resource here that returns a JSON array
     var data = [];

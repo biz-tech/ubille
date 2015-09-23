@@ -1,20 +1,23 @@
 angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
-
-.controller('loginCtrl', function($scope, LoginService, $ionicPopup, $state) {
+ 
+.controller('loginCtrl', function($scope, $http, $state, $window) {
     $scope.data = {};
  
-    $scope.login = function() {
-        LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {			
-            $state.go('tabs.home');
-        }).error(function(data) {
-            var alertPopup = $ionicPopup.alert({
-                title: 'Login failed!',
-                template: 'Please check your credentials!'
-            });
+    $scope.login = function(){	
+        var link = 'http://crm.biztechus.com/ubilledata.php?oper=login';
+        $http.post(link, {email : $scope.data.email, password : $scope.data.password }).then(function (res){
+            if(res.data != ''){
+				$scope.response = res.data;
+				$window.sessionStorage.user = JSON.stringify(res.data);	
+				console.log($window.sessionStorage.user);				
+				$state.go('tabs.home');
+			}else{
+				alert("Invalid Information");				
+			}			
         });
-    }
+    };
 })
 
 .controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 		
@@ -242,8 +245,8 @@ angular.module('ubille.controllers', [])
 	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
 
 })
-.controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {
-	
+.controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {	
+	console.log(JSON.parse(sessionStorage.user)[0].user_name);
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
@@ -305,6 +308,8 @@ angular.module('ubille.controllers', [])
 	
 	//submit 눌렀을 때.
 	$scope.addSalesOrderSubmit = function(){
+		//카트 badge count 삭제
+		$('.cartBadge').text('');
 		// select company 확인.
 		if($(".selectAccount option:selected").text() == " -- select -- "){
 			alert("choose company");
@@ -385,8 +390,9 @@ angular.module('ubille.controllers', [])
 								app:'gmail'
 							});
 						});
-					return true;
-				}								
+						//$state.go('tabs.home');
+					return true;					
+				}						
 		}
 	}
 })	
@@ -413,12 +419,13 @@ angular.module('ubille.controllers', [])
     $ionicSideMenuDelegate.toggleRight();
   };*/
 })
-.controller('HomeTabCtrl', function($scope, $state) {
+.controller('HomeTabCtrl', function($scope, $state, $window) {
 	$scope.$root.addDetailButton = null;
 	$scope.$root.tabsHidden = "";
 	$scope.$root.cartList = function(){
 		$state.go('#/cartList');
 	};
+	console.log($window.sessionStorage.user);
 })
 .controller('settingCtrl', function($scope, Setting, $state ) {
 	Setting.all().then(function(data){

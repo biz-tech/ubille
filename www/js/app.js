@@ -138,10 +138,12 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
   $scope.data = [[65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56],
 				[75, 39, 79, 85, 47, 59, 44, 66, 0, 0, 0, 0]];
 	$scope.colours = [
-    '#97BBCD', // blue
+    '#97BBCD', // blue    
+    '#F7464A', // red
     '#46BFBD', // green
-    '#FDB45C' // yellow
-  ];
+    '#FDB45C', // yellow
+    '#4D5360'  // dark grey
+  ];  
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
@@ -160,7 +162,14 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 })
 .controller("LineCtrl", function ($scope) {
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  
+  $scope.series = [ "2014","2015"];
+  $scope.colours = [
+    '#97BBCD', // blue    
+    '#F7464A', // red
+    '#46BFBD', // green
+    '#FDB45C', // yellow
+    '#4D5360'  // dark grey
+  ];  
   $scope.data = [
     [65, 59, 80, 81, 56, 55, 40],
     [28, 48, 40, 19, 86, 27, 90]
@@ -170,11 +179,18 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
   }; 
 })
 .controller("RadarCtrl", function ($scope) {
-  $scope.labels =["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"];
- 
+  $scope.labels =["California", "New York", "Texas", "Michigan", "Maine", "Florida", "Missouri"];
+  $scope.series = [ "2014","2015"];
+ $scope.colours = [
+    '#97BBCD', // blue    
+    '#F7464A', // red
+    '#46BFBD', // green
+    '#FDB45C', // yellow
+    '#4D5360'  // dark grey
+  ];  
   $scope.data = [
     [65, 59, 90, 81, 56, 55, 40],
-    [28, 48, 40, 19, 96, 27, 100]
+    [78, 88, 75, 75, 96, 50, 66]
   ];  
 });
 
