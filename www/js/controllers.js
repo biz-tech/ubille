@@ -434,7 +434,17 @@ angular.module('ubille.controllers', [])
 	$scope.account = {};
 	$scope.$root.addDetailButton = function(){		
 		$(".accountDetailShow").css("display","none");		
-		$(".accountDetailEdit").css("display","block");		
+		$(".accountDetailEdit").css("display","block");	
+		
+		$('input[name="accName"]').val($('input[name="accName"]').attr('placeholder'));
+		$('input[name="address"]').val($('input[name="address"]').attr('placeholder'));
+		$('input[name="city"]').val($('input[name="city"]').attr('placeholder'));
+		$('input[name="state"]').val($('input[name="state"]').attr('placeholder'));
+		$('input[name="country"]').val($('input[name="country"]').attr('placeholder'));
+		$('input[name="code"]').val($('input[name="code"]').attr('placeholder'));
+		$('input[name="phone"]').val($('input[name="phone"]').attr('placeholder'));
+		$('input[name="fax"]').val($('input[name="fax"]').attr('placeholder'));
+		$('input[name="website"]').val($('input[name="website"]').attr('placeholder'));
 	}
 	$scope.submit = function(){
 		$scope.account.accName = $('input[name="accName"]').val();
