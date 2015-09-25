@@ -51,7 +51,7 @@
 			  <ion-nav-buttons side="right">
 				<button ng-show="$root.addButton" ng-click="addButton()" class="button button-icon button-clear ion-ios7-plus-empty"></button>
 				<button ng-show="$root.addDetailButton" ng-click="addDetailButton()" class="button button-icon button-clear ion-ios7-compose-outline"></button>	
-				<button class="button button-icon button-clear ion-ios7-cart-outline" ng-click="cartList()"><span class="cartBadge"></span></button>				
+				<button ng-show="$root.cartList" ng-click="cartList()" class="button button-icon button-clear ion-ios7-cart-outline" ><span class="cartBadge"></span></button>				
 			  </ion-nav-buttons>			  
 			  <ion-nav-view animation="slide-left-right"></ion-nav-view>
 			 

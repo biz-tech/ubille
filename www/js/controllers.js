@@ -3,6 +3,7 @@ angular.module('ubille.controllers', [])
 .controller('DashCtrl', function($scope) {})
  
 .controller('loginCtrl', function($scope, $http, $state, $window) {		
+	console.log(window.sessionStorage);
 	$('.logout').click(function(){
 		window.sessionStorage.clear();		
 	});
@@ -30,12 +31,14 @@ angular.module('ubille.controllers', [])
 			});
 			
 		};
+		// 비로그인 상태일때 메뉴 비활성화.
 		if(window.sessionStorage.user == undefined){	
-			$('.logoutDisabled a').css('background','lightgray');
+			$scope.$root.cartList = null;
+			$('.logoutDisabled a').css('background','lightgray');			
 			$('.logoutDisabled a').click(function(){
 				alert("You Should Login");
 				return false;
-			});	
+			});				
 		}	
 	}	
 })
@@ -381,6 +384,10 @@ angular.module('ubille.controllers', [])
 	
 	//submit 눌렀을 때.
 	$scope.addSalesOrderSubmit = function(){
+		if($scope.salesorder.items.length == 1){
+			alert("No Product");
+			return false;
+		}
 		//카트 badge count 삭제
 		$('.cartBadge').text('');
 		// select company 확인.
