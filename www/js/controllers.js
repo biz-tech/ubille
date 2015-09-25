@@ -21,22 +21,22 @@ angular.module('ubille.controllers', [])
 					var setupTime = sessionStorage.getItem('setupTime');
 					if (setupTime == null) {
 						sessionStorage.setItem('setupTime', now);						
-					} 
-					window.location.reload();
-					$state.go('tabs.home');	
+					} 															
+
+					$state.go('tabs.home');					
 				}else{
 					alert("Invalid Information");				
 				}			
 			});
 			
 		};
-	}	
-	if(window.sessionStorage.user == undefined){	
-		$('.logoutDisabled a').css('background','lightgray');
-		$('.logoutDisabled a').click(function(){
-			alert("You Should Login");
-			return false;
-		});	
+		if(window.sessionStorage.user == undefined){	
+			$('.logoutDisabled a').css('background','lightgray');
+			$('.logoutDisabled a').click(function(){
+				alert("You Should Login");
+				return false;
+			});	
+		}	
 	}	
 })
 .controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 
@@ -489,7 +489,10 @@ angular.module('ubille.controllers', [])
     $ionicSideMenuDelegate.toggleRight();
   };*/
 })
-.controller('HomeTabCtrl', function($scope, $state) {			
+.controller('HomeTabCtrl', function($scope, $state) {		
+	$('.logoutDisabled a').css('background','');
+	$('.logoutDisabled a').unbind('click');
+	
 	$scope.$root.addDetailButton = null;
 	$scope.$root.tabsHidden = "";	
 	$scope.$root.cartList = function(){		
