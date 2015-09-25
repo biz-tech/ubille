@@ -380,6 +380,9 @@ angular.module('ubille.controllers', [])
 		var salesTmp = $scope.sales - this.item.itemQnt * this.item.unit_price * this.item.taxSales * 0.01;
 		$scope.sales = salesTmp.toFixed(2);		
 		$('.cartBadge').text($scope.salesorder.items.length-1); // cart badge count -1 
+		if($('.cartBadge').text() == 0){
+			$('.cartBadge').text('');
+		}
 	}; 		
 	
 	//submit 눌렀을 때.
