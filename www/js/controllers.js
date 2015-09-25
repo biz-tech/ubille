@@ -2,24 +2,52 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
  
-.controller('loginCtrl', function($scope, $http, $state, $window) {
-    $scope.data = {};
- 
-    $scope.login = function(){	
-        var link = 'http://crm.biztechus.com/ubilledata.php?oper=login';
-        $http.post(link, {email : $scope.data.email, password : $scope.data.password }).then(function (res){
-            if(res.data != ''){
-				$scope.response = res.data;
-				$window.sessionStorage.user = JSON.stringify(res.data);								
-				$state.go('tabs.home');
-			}else{
-				alert("Invalid Information");				
-			}			
-        });
-    };
+.controller('loginCtrl', function($scope, $http, $state, $window) {		
+	$('.logout').click(function(){
+		window.sessionStorage.clear();		
+	});
+	var session = window.sessionStorage.user;	
+	if(session != null && session != 'empty' && session != 'undefined'){		
+		$state.go('tabs.home');
+	}else{	
+		$scope.data = {}; 
+		$scope.login = function(){						
+			var link = 'http://crm.biztechus.com/ubilledata.php?oper=login';
+			$http.post(link, {email : $scope.data.email, password : $scope.data.password }).then(function (res){			
+				if(res.data != ''){
+					$scope.response = res.data;
+					window.sessionStorage.user = JSON.stringify(res.data);													
+					var now = new Date().getTime();
+					var setupTime = sessionStorage.getItem('setupTime');
+					if (setupTime == null) {
+						sessionStorage.setItem('setupTime', now);						
+					} 
+					window.location.reload();
+					$state.go('tabs.home');	
+				}else{
+					alert("Invalid Information");				
+				}			
+			});
+			
+		};
+	}	
+	if(window.sessionStorage.user == undefined){	
+		$('.logoutDisabled a').css('background','lightgray');
+		$('.logoutDisabled a').click(function(){
+			alert("You Should Login");
+			return false;
+		});	
+	}	
 })
-
-.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 		
+.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 
+	
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}						
+		
 	// 하단 tabs menu show
 	$scope.$root.tabsHidden = "";
 	
@@ -71,7 +99,13 @@ angular.module('ubille.controllers', [])
 		$rootScope.accountState = item.bill_state;
 	};
 })
-.controller('addCustomerCtrl', function($scope, $http, $location, Customers, $state) {	  	
+.controller('addCustomerCtrl', function($scope, $http, $location, Customers, $state) {
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}	
 	// add company 화면
 	$scope.customer = {};
 	$scope.addCustomerSubmit = function(){
@@ -84,7 +118,13 @@ angular.module('ubille.controllers', [])
 		$state.go('tabs.customers');
 	};		
 })
-.controller('CustomerDetailCtrl', function($scope, $stateParams, $log, Customers) {	
+.controller('CustomerDetailCtrl', function($scope, $stateParams, $log, Customers) {
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}	
 	// company detail 화면 
 	// 하단 tab menu 숨김
 	$scope.$root.tabsHidden = "tabs-item-hide";
@@ -122,6 +162,12 @@ angular.module('ubille.controllers', [])
 })
 
 .controller('productCtrl', function($scope, Product) {
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}
 	// product list
 	// tab menu show
 	$scope.$root.tabsHidden = "";
@@ -144,7 +190,12 @@ angular.module('ubille.controllers', [])
 	}) */	
 })
 .controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup, $ionicModal) {	
-
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}
 	$scope.$root.tabsHidden = "tabs-item-hide"; 
 	$scope.item = Product.get($stateParams.productNo);
 	
@@ -228,6 +279,12 @@ angular.module('ubille.controllers', [])
 
 })
 .controller('salesOrderCtrl', function($scope, SalesOrder, $state) {	
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}
 	$scope.$root.tabsHidden = "";
 	SalesOrder.all().then(function(data){
 		$scope.data = data;					
@@ -246,11 +303,24 @@ angular.module('ubille.controllers', [])
 	}) 	
 })
 .controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}	
 	$scope.$root.tabsHidden = "tabs-item-hide"; 
 	$scope.item = SalesOrder.get($stateParams.salesorderNo);      
 
 })
 .controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {		
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}
+	
 	Product.all().then(function(data){
 		$scope.data = data;				
 	});	
@@ -419,13 +489,17 @@ angular.module('ubille.controllers', [])
     $ionicSideMenuDelegate.toggleRight();
   };*/
 })
-.controller('HomeTabCtrl', function($scope, $state) {		
+.controller('HomeTabCtrl', function($scope, $state) {			
 	$scope.$root.addDetailButton = null;
 	$scope.$root.tabsHidden = "";	
 	$scope.$root.cartList = function(){		
 		$state.go('#/cartList');
 	};
-	
+	var now = new Date().getTime();
+	if(now-sessionStorage.getItem('setupTime') > 60*1000*30) {
+        window.sessionStorage.clear();  
+		$state.go('login');
+    }		
 })
 .controller('settingCtrl', function($scope, Setting, $state ) {
 	Setting.all().then(function(data){

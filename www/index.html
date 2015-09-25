@@ -32,6 +32,7 @@
  	<script src='js/vfs_fonts.js'></script>
 	<script src="js/reportBuilderSvc.js"></script>
     <script src="js/reportService.js"></script>	 
+	
   </head>
 
 
@@ -66,23 +67,26 @@
 					<ion-item nav-clear menu-close href="#/tab/home">
 						<i class="icon ion-home"></i> Home
 					</ion-item>
-					<ion-item nav-clear menu-close href="#/tab/customers">
+					<ion-item nav-clear menu-close href="#/tab/customers" class="logoutDisabled">
 						<i class="icon ion-person"></i> Customers
 					</ion-item>
-					<ion-item nav-clear menu-close href="#/tab/product">
+					<ion-item nav-clear menu-close href="#/tab/product" class="logoutDisabled">
 						<i class="icon ion-cube"></i> Product
 					</ion-item>
-					<ion-item nav-clear menu-close href="#/tab/salesOrder">
+					<ion-item nav-clear menu-close href="#/tab/salesOrder" class="logoutDisabled">
 						<i class="icon ion-document-text"></i> SalesOrder
 					</ion-item>
-					<ion-item nav-clear menu-close href="#/setting">
+					<ion-item nav-clear menu-close href="#/setting" class="logoutDisabled">
 						<i class="icon ion-gear-b"></i> Setting
 					</ion-item>
-					<ion-item nav-clear menu-close  href="#/cartList">
+					<ion-item nav-clear menu-close  href="#/cartList" class="logoutDisabled">
 						<i class="icon ion-ios7-cart-outline"></i> Cart List
 					</ion-item>
 					<ion-item nav-clear menu-close  href="#/login">
-						<i class="icon ion-locked"></i> login
+						<i class="icon ion-unlocked"></i> login
+					</ion-item>
+					<ion-item nav-clear menu-close href="#/logout" class="logout">
+						<i class="icon ion-locked"></i> logout
 					</ion-item>
 				</ion-list>
 			  </ion-content>

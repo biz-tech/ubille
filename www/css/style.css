@@ -11,6 +11,10 @@
 .graphWrap h2{text-align:center;}
 .chart{height:300px;}
 .slider-pager{position:absolute;bottom:0px;}
+/* login */
+.login{position:absolute;top:20%;}
+.login p{text-align:center;font-weight:bold;}
+
 /*product list start*/
 .wrap{width:100%; overflow:scroll;}
 .productlist{width:50%;float:left;margin-bottom:-45px;}

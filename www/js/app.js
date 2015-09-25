@@ -6,15 +6,14 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'chart.js'])
-
 .run(function($ionicPlatform) {
+ 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -28,7 +27,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
 		url: '/login',
 		templateUrl: 'templates/login.html',
 		controller: 'loginCtrl'
-	})  
+	})	
     .state('search', {
       url: '/search',
       templateUrl: 'templates/search.html'
@@ -51,8 +50,7 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
           controller: 'HomeTabCtrl'
         }
       }
-    })    
-	
+    })
     .state('tabs.product', {
       url: "/product",
       views: {
@@ -130,7 +128,6 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
     })	
 	;
    $urlRouterProvider.otherwise("/login");
-
 })
  .controller("BarCtrl", function ($scope) {
   $scope.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec'];  
