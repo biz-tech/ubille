@@ -7,6 +7,7 @@ angular.module('ubille.services', [])
   // Might use a resource here that returns a JSON array
     var data = [];
 	var site= path+"/ubilledata.php?oper=account";
+	//var site= path+"/ubilleNewData.php?oper=account";
 
   return {
     all: function() {

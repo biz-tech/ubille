@@ -14,6 +14,7 @@ angular.module('ubille.controllers', [])
 		$scope.data = {}; 
 		$scope.login = function(){						
 			var link = 'http://crm.biztechus.com/ubilledata.php?oper=login';
+			//var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=login';
 			$http.post(link, {email : $scope.data.email, password : $scope.data.password }).then(function (res){			
 				if(res.data != ''){
 					$scope.response = res.data;
@@ -22,8 +23,7 @@ angular.module('ubille.controllers', [])
 					var setupTime = sessionStorage.getItem('setupTime');
 					if (setupTime == null) {
 						sessionStorage.setItem('setupTime', now);						
-					} 															
-
+					} 																				
 					$state.go('tabs.home');					
 				}else{
 					alert("Invalid Information");				
@@ -42,8 +42,7 @@ angular.module('ubille.controllers', [])
 		}	
 	}	
 })
-.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 
-	
+.controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope) { 	
 	var now = new Date().getTime();
 	if(sessionStorage != null){
 		sessionStorage.setItem('setupTime', now);	
@@ -56,7 +55,7 @@ angular.module('ubille.controllers', [])
 	
 	// customer data load
 	Customers.all().then(function(data){
-		$scope.customers = data;		
+		$scope.customers = data;			
 	});					
 	/*
 	$scope.noMoreItemsAvailable = false;
@@ -102,7 +101,7 @@ angular.module('ubille.controllers', [])
 		$rootScope.accountState = item.bill_state;
 	};
 })
-.controller('addCustomerCtrl', function($scope, $http, $location, Customers, $state) {
+.controller('addCustomerCtrl', function($scope, $state) {
 	var now = new Date().getTime();
 	if(sessionStorage != null){
 		sessionStorage.setItem('setupTime', now);	
@@ -110,15 +109,18 @@ angular.module('ubille.controllers', [])
 		$state.go('login');
 	}	
 	// add company 화면
+	$("input[name='user_id']").val(JSON.parse(sessionStorage.user)[0].id);	
+	$("input[name='curl']").val(document.URL);
+	
 	$scope.customer = {};
-	$scope.addCustomerSubmit = function(){
-		$scope.customer.accountname = $("input[name='Name']").val();
-		$scope.customer.phone = $("input[name='phone']").val();
-		$scope.customer.email1 = $("input[name='email1']").val();
-		$scope.customer.Street = $("input[name='Street']").val();
-		$scope.customer.City = $("input[name='City']").val();				
-		$scope.customer.State = $('input[name="State"]').val();		
-		$state.go('tabs.customers');
+	$scope.addCustomerSubmit = function(){		
+		//$scope.customer.accountname = $("input[name='Name']").val();
+		//$scope.customer.phone = $("input[name='phone']").val();
+		//$scope.customer.email1 = $("input[name='email1']").val();
+		//$scope.customer.Street = $("input[name='Street']").val();
+		//$scope.customer.City = $("input[name='City']").val();				
+		//$scope.customer.State = $('input[name="State"]').val();		
+		$state.go('tabs.home');
 	};		
 })
 .controller('CustomerDetailCtrl', function($scope, $stateParams, $log, Customers) {
@@ -133,7 +135,8 @@ angular.module('ubille.controllers', [])
 	$scope.$root.tabsHidden = "tabs-item-hide";
 	// customer id와 일치하는 정보 가져옴.
 	$scope.customer = Customers.get($stateParams.customerId);
-	
+	$('input[name="acc_id"]').val($stateParams.customerId);
+	$("input[name='curl']").val(document.URL);
 	// edit button
 	$scope.$root.addDetailButton = function($state){		
 		$(".customerDetailShow").css("display","none");		
@@ -147,7 +150,7 @@ angular.module('ubille.controllers', [])
 	}
 	
 	// submit.
-	$scope.submit = function($state){
+	$scope.submit = function($state){		
 		$scope.customer.email1 = $('input[name="Email"]').val();
 		$scope.customer.phone = $('input[name="Phone"]').val();
 		$scope.customer.bill_street = $('input[name="Street"]').val();
@@ -155,13 +158,13 @@ angular.module('ubille.controllers', [])
 		$scope.customer.bill_state = $('input[name="State"]').val();
 		$(".customerDetailShow").css("display","block");		
 		$(".customerDetailEdit").css("display","none");
-	}
-	
+		$state.go('tabs.home');
 	// edit 클릭 했을 때 상태 변화.
 	$scope.$on('$stateChangeStart', function() {
 		console.log('CustomerDetailCtrl stateChangeStart left ');
 		$scope.$root.addDetailButton = null;
 	})
+}
 })
 
 .controller('productCtrl', function($scope, Product) {
@@ -274,6 +277,7 @@ angular.module('ubille.controllers', [])
 						$state.go('#/cartList');
 						$('.cartBadge').addClass('badge badge-assertive');
 						$('.cartBadge').text($scope.salesorder.items.length-1);
+						
 					}}				
 				]	
 			});
@@ -412,7 +416,7 @@ angular.module('ubille.controllers', [])
 				$('.discountPrice').val('0'); 
 				$scope.dcPrice = "0";				
 			}
-			
+
 			$rootScope.items = $scope.salesorder.items;
 			$rootScope.total = $scope.total; // 주문한 물품의 총 가격 (세전)
 			$rootScope.sales = $scope.sales; // 주문가격에 대한 총 세금 
@@ -426,7 +430,8 @@ angular.module('ubille.controllers', [])
 				$rootScope.dcPrice = $('.discountPrice').val()+"%";
 			}else{
 				$rootScope.dcPrice = "$"+$('.discountPrice').val();
-			}						
+			}
+					
 			//if no cordova, then running in browser and need to use dataURL and iframe
 				if (!window.cordova) {				
 					ReportSvc.runReportDataURL( {},{} )
@@ -468,8 +473,9 @@ angular.module('ubille.controllers', [])
 								isHTML: false,
 								attachments: [filePath],
 								app:'gmail'
-							});																										
-							$state.go('tabs.home');							
+							});
+							$scope.salesorder.items.splice(0);																
+							$state.go('tabs.home');								
 						});												
 					return true;					
 				}				
