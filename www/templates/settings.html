@@ -1,5 +1,6 @@
 <ion-view title="Settings">
   <ion-content class="padding has-header" ng-controller="settingCtrl">
+<form name="setting" action="http://crm.biztechus.com/ubilleNewData.php?oper=addSetting" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 <div class="list" ng-repeat="item in data">
   <label class="item item-input item-stacked-label">
     <span class="input-label">Company Name</span><br/>   
@@ -21,11 +22,11 @@
 	<span class="accountDetailShow">{{item.state|| 'Empty' }}</span>   
 	<input class="accountDetailEdit" type="text" placeholder="{{item.state}}" name="state" style="display:none"></input>
   </label>
-  <label class="item item-input item-stacked-label">
+  <!--<label class="item item-input item-stacked-label">
     <span class="input-label">Country</span><br/>    
 	<span class="accountDetailShow">{{item.country|| 'Empty' }}</span>   
 	<input class="accountDetailEdit" type="text" placeholder="{{item.country}}" name="country" style="display:none"></input>
-  </label>
+  </label>-->
   <label class="item item-input item-stacked-label">
     <span class="input-label">Postal Code</span><br/>    
 	<span class="accountDetailShow">{{item.code|| 'Empty' }}</span>   
@@ -46,8 +47,21 @@
 	<span class="accountDetailShow">{{item.website|| 'Empty' }}</span>   
 	<input class="accountDetailEdit" type="text" placeholder="{{item.website}}" name="website" style="display:none"></input>
   </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Tax</span><br/>    
+	<span class="accountDetailShow">{{item.tax|| 'Empty' }} %</span>
+	<select class="accountDetailEdit" ng-model="tax" ng-change="selectedVal(tax)" name="tax" style="display:none;">
+      <option ng-selected="true" selected value="1">8.00%</option>
+      <option value="2">10.00%</option>
+      <option value="3">12.00%</option>	  
+    </select>	
+	<!--<input class="accountDetailEdit" type="text" placeholder="{{item.tax}}" name="tax" style="display:none"></input>-->
+  </label>
+  <input type="text" name="user_id" style="display:none;"></input>
+  
   <button class="button button-block ubille-mint accountDetailEdit" ng-click="submit()" style="display:none">submit</button>
   
 </div>
+</form>
   </ion-content>
 </ion-view>

@@ -6,8 +6,8 @@ angular.module('ubille.services', [])
 .factory('Customers', function($http,$q) {
   // Might use a resource here that returns a JSON array
     var data = [];
-	var site= path+"/ubilledata.php?oper=account";
-	//var site= path+"/ubilleNewData.php?oper=account";
+	//var site= path+"/ubilledata.php?oper=account";
+	var site= path+"/ubilleNewData.php?oper=account";
 
   return {
     all: function() {
@@ -37,7 +37,8 @@ angular.module('ubille.services', [])
 .factory('Product', function($http, $q) {
   // Might use a resource here that returns a JSON array
     var data = [];	
-  	var site= path+"/ubilledata.php?oper=product";	
+  	//var site= path+"/ubilledata.php?oper=product";
+	var site= path+"/ubilleNewData.php?oper=product";		
 
   return {  
     all: function() {	
@@ -62,9 +63,10 @@ angular.module('ubille.services', [])
 .factory('SalesOrder', function($http, $q) {
   // Might use a resource here that returns a JSON array
     var data = [];
-  	var site= path+"/ubilledata.php?oper=order";		
+  	//var site= path+"/ubilledata.php?oper=order";
+	var site= path+"/ubilleNewData.php?oper=order";		
 	$http.get(site).success(function(response){	
-		data = response;
+		data = response;		
 	/* console.log('salesOrder: ' + JSON.stringify(data));		 */
 	});	
 
@@ -73,7 +75,7 @@ angular.module('ubille.services', [])
 	var deffered = $q.defer();
 		$http.get(site).success(function(response){			
 			deffered.resolve(response);
-			data = response;
+			data = response;			
     });
 	return deffered.promise;
 	},   
@@ -82,8 +84,7 @@ angular.module('ubille.services', [])
     },
     get: function(salesorderNo) {
       for (var i = 0; i < data.length; i++) {
-        if (data[i].salesorder_no == salesorderNo) {
-							
+        if (data[i].salesorder_no == salesorderNo) {						
 				return data[i];
 			}
 		}
@@ -93,9 +94,9 @@ angular.module('ubille.services', [])
 })
 .factory('Setting', function($http, $q) {  
     var data = [];
-  	var site= path+"/ubilledata.php?oper=set";		
+  	var site= path+"/ubilleNewData.php?oper=set";		
 	$http.get(site).success(function(response){	
-		data = response;	
+		data = response;			
 	});	
 
   return {
@@ -103,7 +104,7 @@ angular.module('ubille.services', [])
 	var deffered = $q.defer();
 		$http.get(site).success(function(response){			
 			deffered.resolve(response);
-			data = response;
+			data = response;			
     });
 	return deffered.promise;
 	}

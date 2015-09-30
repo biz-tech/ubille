@@ -42,7 +42,7 @@
 				return {
 					table: {
 						headerRows: 1,
-						widths:['15%','35%','10%','20%','20%'],
+						widths:['15%','35%','10%','15%','15%','10%'],
 						body: buildTableBody(data, columns)
 					}
 				};
@@ -75,7 +75,7 @@
 								]
 						}
 				}]},		
-				table(externalDataRetrievedFromServer, ['product_no','productname','itemQnt','unit_price','total']),
+				table(externalDataRetrievedFromServer, ['product_no','productname','itemQnt','unit_price','colorName','total']),
 					{
 						style: 'tableExample1',
 							table: {

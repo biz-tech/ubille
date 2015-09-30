@@ -43,7 +43,7 @@
 }
 .popup{width:400px;max-height:70%;overflow-y:scroll;}
 .ion-close-round{position:absolute;top:10px;right:10px;cursor:pointer;}
-
+.itemColorSelect{width:70%;float:left;}
 /*.popup p{display:block;}*/
 .button.button-small{float:left;margin:5px;}
 .addCart{float:right;}
@@ -87,7 +87,7 @@ min-height:70%;
 margin:10%;
 }
 .productList{
-line-height:30px;
+line-height:25px;
 }
 .productName{
 overflow: hidden;

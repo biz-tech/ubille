@@ -1,9 +1,11 @@
 <div class="list">
     <div ng-repeat="item in salesorder.items" ng-hide="item.productname == ''" class="item item-thumbnail-left">
-        <img ng-src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}">
-        <div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Product Name : {{item.productname}}</div>
-		<div>Price : ${{item.unit_price}}</div>
+        <!--<img ng-src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}">-->
+		<img ng-src="http://crm.biztechus.com/{{item.path}}/{{item.name}}"/>
+        <div class="productName">{{item.productname}}</div>
+		<div>Price : ${{item.unit_price}}</div>		
 		<div>Quantity : {{item.itemQnt}}</div>
+		<div>Color : {{item.colorName}}</div>
 		<div>SubTotal : {{item.unit_price * item.itemQnt  | currency}}</div>		
 		<i class='ion-close-round' ng-click='close()'></i>
 	</div>		
