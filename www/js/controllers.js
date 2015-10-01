@@ -350,7 +350,7 @@ angular.module('ubille.controllers', [])
 	$scope.$root.tabsHidden = "tabs-item-hide"; 	
 	$scope.item = SalesOrder.get($stateParams.salesorderNo); 
 })
-.controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {		
+.controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope, $http) {		
 	var now = new Date().getTime();
 	if(sessionStorage != null){
 		sessionStorage.setItem('setupTime', now);	
@@ -434,29 +434,33 @@ angular.module('ubille.controllers', [])
 		}else{		
 			// 물품 넘버 저장.
 			var pdNo = $(".productNo").text();			
-			$("input[name='productNo']").val(pdNo+',');	
+			$("input[name='item[productNo]']").val(pdNo+',');	
 			// 물품 수량 저장.
 			var qty = $(".qty").text();			
-			$("input[name='qty']").val(qty+',');
+			$("input[name='item[qty]']").val(qty+',');
 			
 			var base = $(".unit_price").text();			
-			$("input[name='base']").val(base.split('$')[1]);
-			
+			$("input[name='item[base]']").val(base.split('$')[2]);
+						
 			var tax = $(".taxsales").text();			
 			$("input[name='tax']").val(tax.split('$')[1]);
+			
+			var dc = $(".afterDc").text();			
+			$("input[name='afterDc']").val(dc.split('$')[1]);
 			
 			var subtotal = $(".subtotalprice").text();			
 			$("input[name='subtotal']").val(subtotal.split('$')[1]);
 			
 			$("input[name='user_id']").val(JSON.parse(sessionStorage.user)[0].id);	
 			$("input[name='curl']").val(document.URL);
+			
 			/* pdf 내용에 들어가는 정보들 */
 			if($('.discountPrice').text() != '' || $('.discountPrice').val() != 'undefined'){								
 				$scope.dcPrice = $('.discountPrice').val(); 
 			}else{
 				$('.discountPrice').val('0'); 
 				$scope.dcPrice = "0";				
-			}
+			}					
 
 			$rootScope.items = $scope.salesorder.items;
 			$rootScope.total = $scope.total; // 주문한 물품의 총 가격 (세전)
@@ -472,7 +476,7 @@ angular.module('ubille.controllers', [])
 			}else{
 				$rootScope.dcPrice = "$"+$('.discountPrice').val();
 			}
-			
+				
 			//if no cordova, then running in browser and need to use dataURL and iframe
 				if (!window.cordova) {				
 					ReportSvc.runReportDataURL( {},{} )
