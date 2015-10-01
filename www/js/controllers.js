@@ -323,8 +323,8 @@ angular.module('ubille.controllers', [])
 		template: 'Loading...'
 	});
 	
-	SalesOrder.all().then(function(data){
-		$scope.data = data;					
+	SalesOrder.all().then(function(dataList){		
+		$scope.data = dataList;					
 		$ionicLoading.hide();
 	});        
 	$scope.remove = function(data) {  
@@ -347,10 +347,8 @@ angular.module('ubille.controllers', [])
 	}else{
 		$state.go('login');
 	}	
-	$scope.$root.tabsHidden = "tabs-item-hide"; 
-	$scope.item = SalesOrder.get($stateParams.salesorderNo);   
-	console.log($scope.item);
-
+	$scope.$root.tabsHidden = "tabs-item-hide"; 	
+	$scope.item = SalesOrder.get($stateParams.salesorderNo); 
 })
 .controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope) {		
 	var now = new Date().getTime();
@@ -441,6 +439,17 @@ angular.module('ubille.controllers', [])
 			var qty = $(".qty").text();			
 			$("input[name='qty']").val(qty+',');
 			
+			var base = $(".unit_price").text();			
+			$("input[name='base']").val(base.split('$')[1]);
+			
+			var tax = $(".taxsales").text();			
+			$("input[name='tax']").val(tax.split('$')[1]);
+			
+			var subtotal = $(".subtotalprice").text();			
+			$("input[name='subtotal']").val(subtotal.split('$')[1]);
+			
+			$("input[name='user_id']").val(JSON.parse(sessionStorage.user)[0].id);	
+			$("input[name='curl']").val(document.URL);
 			/* pdf 내용에 들어가는 정보들 */
 			if($('.discountPrice').text() != '' || $('.discountPrice').val() != 'undefined'){								
 				$scope.dcPrice = $('.discountPrice').val(); 
@@ -463,7 +472,7 @@ angular.module('ubille.controllers', [])
 			}else{
 				$rootScope.dcPrice = "$"+$('.discountPrice').val();
 			}
-					
+			
 			//if no cordova, then running in browser and need to use dataURL and iframe
 				if (!window.cordova) {				
 					ReportSvc.runReportDataURL( {},{} )
@@ -475,7 +484,7 @@ angular.module('ubille.controllers', [])
 					return true;
 				}
 				//if codrova, then running in device/emulator and able to save file and open w/ InAppBrowser
-				else {									
+				else {
 					ReportSvc.runReportAsync( {},{} )
 						.then(function(filePath) {
 							function convertImgToBase64URL(url, callback, outputFormat){

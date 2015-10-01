@@ -1,6 +1,6 @@
 <ion-view title="SalesOrder">
 <ion-content class="padding has-header">	
-<div class="orderDetailList">
+<div class="orderDetailList" ng-repeat="item in item">
 	<div class="item item-body">
 		<div class="item-title"> 
 			{{item.productname|| '-' }}
@@ -16,18 +16,18 @@
 			<div>Qty : {{item.quantity|| '-' }}</div>							
 		</div> 
 
-<div class="orderShipCard">
-  <div class="item item-divider">
-    Subtotal : ${{item.subtotal|| '-' }}
-  </div>  
-  <div class="item">
-    Estimated tax
-  </div>  
-  <div class="item item-divider">
-    Order Total : ${{item.total}}
-  </div>
-</div>		
-</div>
+		<div class="orderShipCard">
+		<div class="item item-divider">
+			Subtotal : ${{item.subtotal|| '-' }}
+		</div>  
+		<div class="item">
+			Estimated tax
+		</div>  
+		<div class="item item-divider">
+			Order Total : ${{item.total}}
+		</div>
+		</div>		
+	</div>
 	
 	</div>
 </ion-content>

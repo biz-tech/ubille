@@ -1,7 +1,7 @@
 <ion-view title="Cart List">
   <ion-content ng-controller="addSalesOrderCtrl">  
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<!--<form name="addSalesOrder" action="http://localhost/vtigercrm/testdata.php?oper=addSalesOrder" method="post" accept-charset="utf-8" enctype="multipart/form-data"> -->
+<form name="addSalesOrder" action="http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrder" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 	<div ng-controller="CustomersCtrl">
 		<label class="item item-input item-stacked-label item-select">			
 			<div class="input-label" autofocus >
@@ -21,7 +21,7 @@
 			<div class="productNo" style="display:none">{{item.product_no}}</div>
 			<div class="qty" style="display:none">{{item.itemQnt}}</div>
 			<div class="productName">{{item.productname}}</div>
-			<div class="pdInfo">Price :</div><div> ${{item.unit_price}}</div>
+			<div class="pdInfo">Price :</div><div class="unit_price"> ${{item.unit_price}}</div>
 			<div class="pdInfo">Quantity :</div><div> {{item.itemQnt}}</div>
 			<div class="pdInfo">Color :</div><div> {{item.colorName}}</div>
 			<div class="pdInfo">SubTotal :</div><div> ${{item.unit_price * item.itemQnt}}</div>								
@@ -30,7 +30,7 @@
 		
 		<ul class="list total">
 			<li class="item subTotal">
-				SubTotal : <div class="calResult">${{total}}</div>
+				SubTotal : <div class="calResult subtotalprice">${{total}}</div>
 			</li>	
 			<li class="item discount">
 				Discount : 
@@ -42,14 +42,19 @@
 				PreTax SubTotal : <div class="calResult"></div>
 			</li>
 			<li class="item tax">
-				Tax({{tax}}%) : <div class="calResult">${{sales}}</div>
+				Tax({{tax}}%) : <div class="calResult taxsales">${{sales}}</div>
 			</li>			
 		</ul>
 	</div>
 	<input type="text" name="accountname" style="display:none"></input>	
 	<input type="text" name="email" style="display:none"></input>
 	<input type="text" name="productNo" style="display:none"></input>	
-	<input type="text" name="qty" style="display:none"></input>
+	<input type="text" name="base" style="display:none"></input>
+	<input type="text" name="qty[]" style="display:none"></input>
+	<input type="text" name="tax" style="display:none"></input>
+	<input type="text" name="subtotal" style="display:none"></input>
+	<input type="text" name="user_id" style="display:none;"></input>
+	<input type="text" name="curl" style="display:none;"></input>
 	<!--<div class="email" ng-click="sendEmail()">Send Email</div>-->
 	
 	<button class="button button-block button-calm" ng-click="addSalesOrderSubmit()">submit</button>
