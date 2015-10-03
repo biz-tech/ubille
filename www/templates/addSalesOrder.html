@@ -1,7 +1,7 @@
 <ion-view title="Cart List">
   <ion-content ng-controller="addSalesOrderCtrl">  
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<form name="addSalesOrder" action="http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrder" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<!--<form name="addSalesOrder" action="http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrder" method="post" accept-charset="utf-8" enctype="multipart/form-data">-->
 	<div ng-controller="CustomersCtrl">
 		<label class="item item-input item-stacked-label item-select">			
 			<div class="input-label" autofocus >
@@ -18,10 +18,10 @@
 		<a ng-repeat="item in salesorder.items" ng-hide="item.productname == ''" class="item">
 			<!--<img class="thumbnailImg" ng-src="http://crm.biztechus.com/{{item.path+item.attachmentsid+'_'+item.name}}">-->
 			<img class="thumbnailImg" ng-src="http://crm.biztechus.com/{{item.path}}/{{item.name}}"/>
-			<div class="productNo" style="display:none"><input type="text" name="item[productNo]" style="display:none">{{item.product_no}}</input></div>
-			<div class="qty" style="display:none"><input type="text" name="item[qty]" style="display:none">{{item.itemQnt}}</input></div>
+			<div class="productNo" style="display:none"><input type="text" name="productNo">{{item.product_no}}</input></div>
+			<div class="qty" style="display:none"><input type="text" name="qty">{{item.itemQnt}}</input></div>
 			<div class="productName">{{item.productname}}</div>
-			<div class="pdInfo">Price :</div><div class="unit_price"><input type="text" name="item[base]" style="display:none"> ${{item.unit_price}}</input></div>
+			<div class="pdInfo">Price :</div><div class="unit_price">${{item.unit_price}}</div>
 			<div class="pdInfo">Quantity :</div><div> {{item.itemQnt}}</div>
 			<div class="pdInfo">Color :</div><div> {{item.colorName}}</div>
 			<div class="pdInfo">SubTotal :</div><div> ${{item.unit_price * item.itemQnt}}</div>								
@@ -47,16 +47,16 @@
 		</ul>
 	</div>
 	<input type="text" name="accountname" style="display:none"></input>	
+	<input type="text" name="accountid" style="display:none"></input>	
 	<input type="text" name="email" style="display:none"></input>	
 	<input type="text" name="tax" style="display:none"></input>
 	<input type="text" name="afterDc" style="display:none"></input>
 	<input type="text" name="subtotal" style="display:none"></input>
 	<input type="text" name="user_id" style="display:none;"></input>
 	<input type="text" name="curl" style="display:none;"></input>
-	<!--<div class="email" ng-click="sendEmail()">Send Email</div>-->
 	
 	<button class="button button-block button-calm" ng-click="addSalesOrderSubmit()">submit</button>
-</form>
+<!--</form>-->
   </ion-content>  
 </ion-view>
  

@@ -99,6 +99,7 @@ angular.module('ubille.controllers', [])
 	// cart list 화면에서 select company 할때 사용.
 	$scope.click = function(item){			
 		$("input:text[name='accountname']").val(item.accountname);
+		$("input:text[name='accountid']").val(item.accountid);
 		$("input:text[name='email']").val(item.email1);
 		$(".selectAccount").show();
 		$(".atferSelect").text(item.accountname);					
@@ -122,13 +123,7 @@ angular.module('ubille.controllers', [])
 	$("input[name='curl']").val(document.URL);
 	
 	$scope.customer = {};
-	$scope.addCustomerSubmit = function(){		
-		//$scope.customer.accountname = $("input[name='Name']").val();
-		//$scope.customer.phone = $("input[name='phone']").val();
-		//$scope.customer.email1 = $("input[name='email1']").val();
-		//$scope.customer.Street = $("input[name='Street']").val();
-		//$scope.customer.City = $("input[name='City']").val();				
-		//$scope.customer.State = $('input[name="State"]').val();		
+	$scope.addCustomerSubmit = function(){				
 		$state.go('tabs.home');
 	};		
 })
@@ -266,12 +261,9 @@ angular.module('ubille.controllers', [])
 			path : $scope.item.pic1,
 			name : $scope.item.pic2,
 			color : $scope.item.color,
-			colorName : $scope.item.colorName,
-			/*path : $scope.item.path,
-			name : $scope.item.name,*/
-			/*attachmentsid : $scope.item.attachmentsid,		
-			taxSales : $scope.item.percentage,*/
-			taxSales : JSON.parse(sessionStorage.user)[0].usertax,
+			colorName : $scope.item.colorName,			 
+			user_id : JSON.parse(sessionStorage.user)[0].id,
+			taxSales : JSON.parse(sessionStorage.user)[0].usertax,			
 			total : $scope.item.itemQnt * $scope.item.unit_price
 		});		
 		
@@ -324,8 +316,8 @@ angular.module('ubille.controllers', [])
 	});
 	
 	SalesOrder.all().then(function(dataList){		
-		$scope.data = dataList;					
-		$ionicLoading.hide();
+		$scope.data = dataList;			
+		$ionicLoading.hide();				
 	});        
 	$scope.remove = function(data) {  
 		SalesOrder.remove(data);
@@ -348,7 +340,8 @@ angular.module('ubille.controllers', [])
 		$state.go('login');
 	}	
 	$scope.$root.tabsHidden = "tabs-item-hide"; 	
-	$scope.item = SalesOrder.get($stateParams.salesorderNo); 
+	$scope.item = SalesOrder.get($stateParams.salesorderNo); 	
+	console.log($scope.item);
 })
 .controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope, $http) {		
 	var now = new Date().getTime();
@@ -368,7 +361,7 @@ angular.module('ubille.controllers', [])
 	});	
 	// modal template url
 	$ionicModal.fromTemplateUrl('templates/selectCompany.html', {
-		scope: $scope		
+		scope: $scope				
 	}).then(function(modal) {		
 		$scope.modal = modal;		
 	});
@@ -421,7 +414,7 @@ angular.module('ubille.controllers', [])
 	
 	//submit 눌렀을 때.
 	$scope.addSalesOrderSubmit = function(){
-		if($scope.salesorder.items.length == 1){
+		if($scope.salesorder.items.length == 0){
 			alert("No Product");
 			return false;
 		}
@@ -434,13 +427,16 @@ angular.module('ubille.controllers', [])
 		}else{		
 			// 물품 넘버 저장.
 			var pdNo = $(".productNo").text();			
-			$("input[name='item[productNo]']").val(pdNo+',');	
+			$("input[name='productNo']").val(pdNo);	
 			// 물품 수량 저장.
 			var qty = $(".qty").text();			
-			$("input[name='item[qty]']").val(qty+',');
-			
+			$("input[name='qty']").val(qty);
+						
 			var base = $(".unit_price").text();			
 			$("input[name='item[base]']").val(base.split('$')[2]);
+			
+			var productName = $(".productName").text();					
+			$("input[name='item[productname]']").val(productName);
 						
 			var tax = $(".taxsales").text();			
 			$("input[name='tax']").val(tax.split('$')[1]);
@@ -451,7 +447,7 @@ angular.module('ubille.controllers', [])
 			var subtotal = $(".subtotalprice").text();			
 			$("input[name='subtotal']").val(subtotal.split('$')[1]);
 			
-			$("input[name='user_id']").val(JSON.parse(sessionStorage.user)[0].id);	
+			$("input[name='user_id']").val(JSON.parse(sessionStorage.user)[0].id);
 			$("input[name='curl']").val(document.URL);
 			
 			/* pdf 내용에 들어가는 정보들 */
@@ -460,7 +456,16 @@ angular.module('ubille.controllers', [])
 			}else{
 				$('.discountPrice').val('0'); 
 				$scope.dcPrice = "0";				
-			}					
+			}		
+			var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrderHead';
+				$http.post(link, {accountid : $("input[name='accountid']").val(), afterDc : dc.split('$')[1], discountPrice :  $("input[name='discountPrice']").val(),tax : tax.split('$')[1], discount : dc.split('$')[1], subtotal : subtotal.split('$')[1], user_id : JSON.parse(sessionStorage.user)[0].id }).then(function (res){					
+					console.log(res);
+			});	
+			
+			var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrder';
+				$http.post(link, $scope.salesorder.items).then(function (res){					
+					console.log(res);
+			});				
 
 			$rootScope.items = $scope.salesorder.items;
 			$rootScope.total = $scope.total; // 주문한 물품의 총 가격 (세전)
@@ -476,7 +481,7 @@ angular.module('ubille.controllers', [])
 			}else{
 				$rootScope.dcPrice = "$"+$('.discountPrice').val();
 			}
-				
+			
 			//if no cordova, then running in browser and need to use dataURL and iframe
 				if (!window.cordova) {				
 					ReportSvc.runReportDataURL( {},{} )
@@ -488,7 +493,7 @@ angular.module('ubille.controllers', [])
 					return true;
 				}
 				//if codrova, then running in device/emulator and able to save file and open w/ InAppBrowser
-				else {
+				else {				
 					ReportSvc.runReportAsync( {},{} )
 						.then(function(filePath) {
 							function convertImgToBase64URL(url, callback, outputFormat){
@@ -508,9 +513,8 @@ angular.module('ubille.controllers', [])
 							}
 							convertImgToBase64URL('../img/logo.png', function(base64Img){
 								var base64 = base64Img; //이미지를 base64로 인코딩								
-							});									
-							
-							//window.open(filePath, '_blank', 'location=no,closebuttoncaption=Close,enableViewportScale=yes');							
+							});															
+													
 							cordova.plugins.email.open({
 								to:      [$("input:text[name='email']").val()],                             
 								subject: 'sales order invioce',
@@ -542,9 +546,13 @@ angular.module('ubille.controllers', [])
 		name : '',
 		color : '',
 		colorName : '',
-		attachmentsid : '',		
+		taxTotal : '',		
 		taxSales : '',
-		total : ''
+		total : '',
+		user_id : '',
+		discount : '',
+		afterDc : '',
+		subTotal : ''
 	}]
   };
   /*
