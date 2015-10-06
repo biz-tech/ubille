@@ -341,7 +341,8 @@ angular.module('ubille.controllers', [])
 	}	
 	$scope.$root.tabsHidden = "tabs-item-hide"; 	
 	$scope.item = SalesOrder.get($stateParams.salesorderNo); 	
-	console.log($scope.item);
+	$scope.subtotal = $scope.item[0].subtotal;
+	$scope.total = $scope.item[0].total;
 })
 .controller('addSalesOrderCtrl', function($scope, Customers, $state, Product, $window, $ionicModal, ReportSvc, $rootScope, $http) {		
 	var now = new Date().getTime();
@@ -446,7 +447,7 @@ angular.module('ubille.controllers', [])
 			
 			var subtotal = $(".subtotalprice").text();			
 			$("input[name='subtotal']").val(subtotal.split('$')[1]);
-			
+								
 			$("input[name='user_id']").val(JSON.parse(sessionStorage.user)[0].id);
 			$("input[name='curl']").val(document.URL);
 			
@@ -458,14 +459,13 @@ angular.module('ubille.controllers', [])
 				$scope.dcPrice = "0";				
 			}		
 			var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrderHead';
-				$http.post(link, {accountid : $("input[name='accountid']").val(), afterDc : dc.split('$')[1], discountPrice :  $("input[name='discountPrice']").val(),tax : tax.split('$')[1], discount : dc.split('$')[1], subtotal : subtotal.split('$')[1], user_id : JSON.parse(sessionStorage.user)[0].id }).then(function (res){					
-					console.log(res);
+				$http.post(link, {accountid : $("input[name='accountid']").val(), afterDc : dc.split('$')[1], discountPrice :  $("input[name='discountPrice']").val(),tax : tax.split('$')[1], discount : dc.split('$')[1], subtotal : subtotal.split('$')[1], user_id : JSON.parse(sessionStorage.user)[0].id, color : $scope.salesorder.items[1].color}).then(function (res){					
+					var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrder';
+					$http.post(link, $scope.salesorder.items).then(function (res){										
+				});		
 			});	
 			
-			var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=addSalesOrder';
-				$http.post(link, $scope.salesorder.items).then(function (res){					
-					console.log(res);
-			});				
+					
 
 			$rootScope.items = $scope.salesorder.items;
 			$rootScope.total = $scope.total; // 주문한 물품의 총 가격 (세전)
@@ -538,21 +538,20 @@ angular.module('ubille.controllers', [])
   };
   $scope.salesorder = {
 	items:[{
-		product_no : '',
-		itemQnt : '',
-        productname : '',
-        unit_price : '',
-		path : '',
-		name : '',
-		color : '',
-		colorName : '',
-		taxTotal : '',		
-		taxSales : '',
-		total : '',
-		user_id : '',
-		discount : '',
-		afterDc : '',
-		subTotal : ''
+		product_no : '', 	//제품번호
+		itemQnt : '',  		//주문수량
+        productname : '',	//제품명
+        unit_price : '',	//제품단가
+		path : '',			//이미지폴더경로
+		name : '',			//이미지이름
+		color : '',			//제품색상번호
+		colorName : '',		//색상이름		
+		taxSales : '',		//세금
+		total : '',			//주문금액+세금
+		user_id : '',		//유저(세일즈맨) 번호
+		discount : '',		//할인 금액
+		afterDc : '',		//할인 적용 후 금액
+		subTotal : ''		//할인 전 금액
 	}]
   };
   /*
