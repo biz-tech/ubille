@@ -2,8 +2,7 @@ angular.module('ubille.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
  
-.controller('loginCtrl', function($scope, $http, $state, $window) {		
-	
+.controller('loginCtrl', function($scope, $http, $state, $window, User) {			
 	$('.logout').click(function(){
 		window.sessionStorage.clear();		
 	});
@@ -11,13 +10,12 @@ angular.module('ubille.controllers', [])
 	if(session != null && session != 'empty' && session != 'undefined'){			
 		$state.go('tabs.home');
 	}else{	
-
-		$scope.data = {}; 
+		$scope.data = {}; 			
 		$scope.login = function(){	
 			if($scope.data.email == undefined){
 				alert("please input login information");
 				return false;
-			}else{
+			}else{			
 				//var link = 'http://crm.biztechus.com/ubilledata.php?oper=login';
 				var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=login';
 				$http.post(link, {email : $scope.data.email, password : $scope.data.password }).then(function (res){			
@@ -44,12 +42,15 @@ angular.module('ubille.controllers', [])
 				alert("You Should Login");
 				return false;
 			});				
-		}	
+		}			
 	}	
+	//이메일 자동완성을 위해서 가져온 정보. 미구현.
+	User.all().then(function(data){
+		$scope.users = data;		
+	});
 })
 .controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope, $ionicLoading) { 	
-	var now = new Date().getTime();
-	console.log(sessionStorage);
+	var now = new Date().getTime();	
 	if(sessionStorage != null){
 		sessionStorage.setItem('setupTime', now);	
 	}else{
@@ -230,9 +231,16 @@ angular.module('ubille.controllers', [])
 		return $scope.item.itemQnt = itemQnt;
 	}; 
 	
+	$('.color').click(function(){						
+		$(this).toggleClass('lightgray');
+		$(this).siblings().removeClass('lightgray');		
+		$scope.item.color = $(this).children().attr("class");	
+		console.log($scope.item.color);
+	});
+	/*
 	$scope.selectedColor = function(color){
 		return $scope.item.color = color;
-	}; 
+	}; */
 	
 	// cart에 담긴 item을 삭제할때 사용.
 	$scope.close = function(index){			
@@ -371,16 +379,16 @@ angular.module('ubille.controllers', [])
 	
 	// 물품 가격과 세금 그리고 할인 가격을 계산.
 	var total = 0;	
-	var sales = 0;  
+	var sales = 0;  	
 	for(i=0;i<$scope.salesorder.items.length;i++){
 		var sum = $scope.salesorder.items[i].itemQnt * $scope.salesorder.items[i].unit_price;							
 		var sumTaxSales = $scope.salesorder.items[i].itemQnt * $scope.salesorder.items[i].unit_price * ($scope.salesorder.items[i].taxSales * 0.01);		
 		var tax = $scope.salesorder.items[i].taxSales;
 		total += sum;					
-		sales += sumTaxSales;
+		sales += sumTaxSales;		
 	};		
 	$scope.total = total.toFixed(2);				// 선택된 물품의 급액의 합  (세전)
-	$scope.sales = sales.toFixed(2);				// 선택된 물품의 세금의 합
+	$scope.sales = sales.toFixed(2);				// 선택된 물품의 세금의 합	
 	$scope.tax = tax; 								// 세금비율(8%, 12% ... )
 	$('.item.dcPrice>div').text("$"+$scope.total); 	// default pretax value 를 넣어준다.
 	$scope.discount = $scope.total;					// 할인된 가격이 저장 될 곳.
