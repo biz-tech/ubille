@@ -50,7 +50,7 @@
 .addCart{float:right;}
 .popup-body span{display:block;text-align:center;}
 .color{float:left;padding-left:55px;}
-.lightgray{background:lightgray;}
+.lightgray{background:lightgray};
 /*product detail end*/
 
 /*sales order list start*/

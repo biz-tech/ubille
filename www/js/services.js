@@ -72,6 +72,33 @@ angular.module('ubille.services', [])
     }	
   };
 })
+.factory('ProductColor', function($http, $q) {
+  // Might use a resource here that returns a JSON array
+    var data = [];	
+  	//var site= path+"/ubilledata.php?oper=product";
+	var site= path+"/ubilleNewData.php?oper=productColor";		
+
+  return {  
+    all: function() {	
+		var deffered = $q.defer();
+		$http.get(site).success(function(response){			
+			deffered.resolve(response);
+			data = response;
+			/* console.log('product: ' + JSON.stringify(data)); */
+    });
+	return deffered.promise;
+	},   
+    get: function(productNo) {
+	var dataArr = [];
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].product_id == productNo) {					
+         	dataArr.push(data[i]);	
+        }
+      }
+      return dataArr;
+    }	
+  };
+})
 .factory('SalesOrder', function($http, $q) {
   // Might use a resource here that returns a JSON array
     var data = [];

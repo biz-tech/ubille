@@ -172,7 +172,7 @@ angular.module('ubille.controllers', [])
 }
 })
 
-.controller('productCtrl', function($scope, Product, $ionicLoading) {
+.controller('productCtrl', function($scope, Product, $ionicLoading, ProductColor) {
 	var now = new Date().getTime();
 	if(sessionStorage != null){
 		sessionStorage.setItem('setupTime', now);	
@@ -189,7 +189,8 @@ angular.module('ubille.controllers', [])
 	Product.all().then(function(data){
 		$scope.data = data;		
 		$ionicLoading.hide();
-	});     
+	});
+	ProductColor.all();	
 	/*
 	$scope.remove = function(data) {  
 		Product.remove(data);
@@ -204,7 +205,7 @@ angular.module('ubille.controllers', [])
 		$scope.$root.addButton = null;
 	}) */	
 })
-.controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup, $ionicModal) {	
+.controller('productDetailCtrl', function($scope, $stateParams, Product, $state, $ionicPopup, $ionicModal, ProductColor) {	
 	var now = new Date().getTime();
 	if(sessionStorage != null){
 		sessionStorage.setItem('setupTime', now);	
@@ -212,7 +213,8 @@ angular.module('ubille.controllers', [])
 		$state.go('login');
 	}
 	$scope.$root.tabsHidden = "tabs-item-hide"; 
-	$scope.item = Product.get($stateParams.productNo);
+	$scope.item = Product.get($stateParams.productNo);	
+	$scope.color = ProductColor.get($stateParams.productNo);
 	
 	// product detail toggle
 	$scope.toggleGroup = function(group) {
@@ -229,36 +231,31 @@ angular.module('ubille.controllers', [])
 	//quantity 선택값을 저장.
 	$scope.selectedVal = function(itemQnt){
 		return $scope.item.itemQnt = itemQnt;
-	}; 
-	
-	$('.color').click(function(){						
-		$(this).toggleClass('lightgray');
-		$(this).siblings().removeClass('lightgray');		
-		$scope.item.color = $(this).children().attr("class");	
-		console.log($scope.item.color);
-	});
-	/*
-	$scope.selectedColor = function(color){
-		return $scope.item.color = color;
-	}; */
+	}; 	
 	
 	// cart에 담긴 item을 삭제할때 사용.
 	$scope.close = function(index){			
 			$scope.salesorder.items.splice(this.$index, 1);		
-	};  
+	};
 	
-	// 색상 선택 할때 체크 효과.
-	$('.button.button-small').click(function(){
-		$('.button.button-small').removeClass('radio-icon ion-checkmark');
-		$(this).addClass('radio-icon ion-checkmark');
-	});  
+	// select color pattern 
+	$scope.selectPattern = function(a){			
+	$('.color').removeClass('lightgray');
+	$('.'+a).parent('.color').toggleClass('lightgray');	
+		for(i=0;i<$scope.color.length;i++){
+			if($scope.color[i].color_id == a){
+				var pattern = "";
+				pattern = $scope.color[i];				
+				$scope.item.color = pattern.color_id;
+				$scope.item.colorName = pattern.color_name;				
+			}
+		}
+	}
 	
 	// add to cart 눌렀을 때.
 	$scope.cart = function(){
 		// 선택한 수량을 저장.
-		$scope.item.itemQnt = $('.itemQnt').val();
-		$scope.item.color = $('.itemColor').val();
-		$scope.item.colorName = $('.itemColor option:selected').text();
+		$scope.item.itemQnt = $('.itemQnt').val();		
 		
 		// add cart 누를 때 마다 $scope.salesorder.item 에 저장.
 		$scope.salesorder.items.push({		
