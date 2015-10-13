@@ -48,6 +48,9 @@ angular.module('ubille.controllers', [])
 	User.all().then(function(data){
 		$scope.users = data;		
 	});
+	
+	
+	
 })
 .controller('CustomersCtrl', function($scope, $log, Customers, $state, $ionicPopup, $rootScope, $ionicLoading) { 	
 	var now = new Date().getTime();	
@@ -346,6 +349,48 @@ angular.module('ubille.controllers', [])
 	}	
 	$scope.$root.tabsHidden = "tabs-item-hide"; 	
 	$scope.item = SalesOrder.get($stateParams.salesorderNo); 	
+	$scope.subtotal = $scope.item[0].subtotal;
+	$scope.total = $scope.item[0].total;
+})
+.controller('invoiceCtrl', function($scope, invoice, $state, $ionicLoading) {	
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}
+	$scope.$root.tabsHidden = "";
+	
+	$ionicLoading.show({
+		template: 'Loading...'
+	});
+	
+	invoice.all().then(function(dataList){		
+		$scope.data = dataList;			
+		$ionicLoading.hide();				
+	});        
+	$scope.remove = function(data) {  
+		SalesOrder.remove(data);
+	};
+	/*
+ 	$scope.$root.addButton = function(){
+		$state.go('tabs.salesOrder-add');	
+	}*/
+
+	$scope.$on('$stateChangeStart', function() {
+		console.log('SalesOrder stateChangeStart left ');
+		$scope.$root.addButton = null;
+	}) 	
+})
+.controller('invoiceDetailCtrl', function($scope, $stateParams, invoice) { 
+	var now = new Date().getTime();
+	if(sessionStorage != null){
+		sessionStorage.setItem('setupTime', now);	
+	}else{
+		$state.go('login');
+	}	
+	$scope.$root.tabsHidden = "tabs-item-hide"; 	
+	$scope.item = invoice.get($stateParams.salesorderNo); 	
 	$scope.subtotal = $scope.item[0].subtotal;
 	$scope.total = $scope.item[0].total;
 })

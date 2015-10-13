@@ -86,6 +86,24 @@ angular.module('ubille', ['ionic', 'ubille.controllers', 'ubille.services', 'cha
         }
       }
     })
+	.state('tabs.invoice', {
+      url: "/invoice",
+      views: {
+        'invoice-tab': {
+          templateUrl: "templates/invoice.html",
+		  controller: 'invoiceCtrl'		  
+        }
+      }
+    })
+	.state('tabs.invoiceDetail', {
+      url: "/invoice/:salesorderNo",
+      views: {
+        'invoice-tab': {
+          templateUrl: "templates/invoiceDetail.html",
+		  controller: 'invoiceDetailCtrl'		  
+        }
+      }
+    })
 	.state('tabs.product-detail', {
       url: "/product/:productNo",	
       views: {

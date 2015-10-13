@@ -137,6 +137,44 @@ angular.module('ubille.services', [])
     }
   };
 })
+.factory('invoice', function($http, $q) {
+  // Might use a resource here that returns a JSON array
+    var data = [];
+  	//var site= path+"/ubilledata.php?oper=order";
+	var site= path+"/ubilleNewData.php?oper=invoiceDetail";		
+	$http.get(site).success(function(response){	
+		data = response;
+		console.log(data);
+	/* console.log('salesOrder: ' + JSON.stringify(data));		 */
+	});	
+
+  return {
+    all: function() {	
+	var deffered = $q.defer();
+		var site= path+"/ubilleNewData.php?oper=invoiceList";
+		$http.get(site).success(function(response){			
+			deffered.resolve(response);
+			dataList = response;				
+    });
+	return deffered.promise;
+	},   
+    remove: function(salesorder) {
+      data.splice(data.indexOf(salesorder), 1);
+    },
+    get: function(salesorderNo) {	
+		console.log(salesorderNo);
+	var dataArr = [];
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].salesorder_no == salesorderNo) {
+			
+			dataArr.push(data[i]);	
+			console.log(dataArr);
+			}				
+		}		
+      return dataArr;
+    }
+  };
+})
 .factory('Setting', function($http, $q) {  
     var data = [];
   	var site= path+"/ubilleNewData.php?oper=set";		
