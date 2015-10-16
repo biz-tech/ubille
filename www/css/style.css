@@ -66,6 +66,7 @@
 .item-title{font-size:25px; font-weight:bold;margin-bottom:10px;}
 .orderShipCard{width:100%;margin:0 auto;float:left;margin-top:10px;}
 .orderShipCard div:last-child{color:#6c1943;}
+.createInvoiceBtn{position:relative;top:10px;}
 /*sales order detail end*/
 
 /*add sales order start*/

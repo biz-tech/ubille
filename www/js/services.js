@@ -123,8 +123,7 @@ angular.module('ubille.services', [])
     remove: function(salesorder) {
       data.splice(data.indexOf(salesorder), 1);
     },
-    get: function(salesorderNo) {	
-		console.log(salesorderNo);
+    get: function(salesorderNo) {				
 	var dataArr = [];
       for (var i = 0; i < data.length; i++) {
         if (data[i].salesorder_no == salesorderNo) {

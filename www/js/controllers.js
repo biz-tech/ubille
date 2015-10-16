@@ -340,7 +340,7 @@ angular.module('ubille.controllers', [])
 		$scope.$root.addButton = null;
 	}) 	
 })
-.controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder) { 
+.controller('salesDetailCtrl', function($scope, $stateParams, SalesOrder, $http) { 
 	var now = new Date().getTime();
 	if(sessionStorage != null){
 		sessionStorage.setItem('setupTime', now);	
@@ -348,9 +348,30 @@ angular.module('ubille.controllers', [])
 		$state.go('login');
 	}	
 	$scope.$root.tabsHidden = "tabs-item-hide"; 	
-	$scope.item = SalesOrder.get($stateParams.salesorderNo); 	
+	$scope.item = SalesOrder.get($stateParams.salesorderNo); 
+	console.log($scope.item);
 	$scope.subtotal = $scope.item[0].subtotal;
 	$scope.total = $scope.item[0].total;
+	
+	$('.createInvoiceBtn').click(function(){
+	console.log($scope.item);
+		var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=createInvoiceHead';
+				$http.post(link, {
+						accountid : $scope.item[0].customer_id, 
+						afterDc : $scope.item.subtotal, 
+						discountPrice : $scope.item[0].subtotal,
+						tax : $scope.item[0].tax, 
+						discount : $scope.item[0].discount, 
+						subtotal : $scope.item[0].listprice,
+						total : $scope.item[0].total,
+						user_id : $scope.item[0].user_id, 
+						color : $scope.item.color}
+					).then(function (res){					
+					var link = 'http://crm.biztechus.com/ubilleNewData.php?oper=createInvoiceDetail';
+					$http.post(link, $scope.item).then(function (res){										
+			});		
+		});					
+	});
 })
 .controller('invoiceCtrl', function($scope, invoice, $state, $ionicLoading) {	
 	var now = new Date().getTime();
@@ -366,7 +387,8 @@ angular.module('ubille.controllers', [])
 	});
 	
 	invoice.all().then(function(dataList){		
-		$scope.data = dataList;			
+		$scope.data = dataList;		
+		console.log($scope.data);
 		$ionicLoading.hide();				
 	});        
 	$scope.remove = function(data) {  
@@ -390,7 +412,7 @@ angular.module('ubille.controllers', [])
 		$state.go('login');
 	}	
 	$scope.$root.tabsHidden = "tabs-item-hide"; 	
-	$scope.item = invoice.get($stateParams.salesorderNo); 	
+	$scope.item = invoice.get($stateParams.salesorderNo); 		
 	$scope.subtotal = $scope.item[0].subtotal;
 	$scope.total = $scope.item[0].total;
 })
